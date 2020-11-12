@@ -2,12 +2,19 @@ import locale
 import requests
 
 from .dto import ActDto
+from .dto import AccountDto
 from .dto import ContentItemDto
+from .dto import PlatformDataDto
 
+from .errors import APIError
 from .errors import InvalidKeyError
 
 LOCALE = locale.getlocale()[0].replace("_", "-")
 CONTENT_URL = "https://na.api.riotgames.com/val/content/v1/contents"
+STATUS_URL = "https://na.api.riotgames.com/val/status/v1/platform-data"
+ACCOUNT_URL = (
+    "https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/{0}/{1}"
+)
 headerMixin = {"Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8"}
 
 
@@ -51,6 +58,27 @@ class Client(object):
             return False
         else:
             return True
+
+    def get_user(self, fullname):
+        name = fullname.split("#")[0]
+        tag = fullname.split("#")[-1]
+
+        headers = update_dict(headerMixin, {"X-Riot-Token": self.key})
+        r = requests.get(ACCOUNT_URL.format(name, tag), headers=headers)
+
+        if str(r.status_code)[0] == "2":
+            return AccountDto(r.json())
+        else:
+            raise APIError(r.text)
+
+    def get_platform_data(self):
+        headers = update_dict(headerMixin, {"X-Riot-Token": self.key})
+        r = requests.get(STATUS_URL, headers=headers)
+
+        if str(r.status_code)[0] == "2":
+            return PlatformDataDto(r.json())
+        else:
+            raise APIError(r.text)
 
     def get_acts(self):
         acts = []

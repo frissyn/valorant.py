@@ -6,9 +6,12 @@ class Dto(object):
     def __str__(self):
         return str(self.json)
 
-    def set_attributes(self, attrs):
+    def set_attributes(self, attrs, sub=False):
         for attr, value in attrs.items():
-            self.__setattr__(attr, value)
+            if sub and isinstance(value, dict):
+                self.__setattr__(attr, Dto(value))
+            else:
+                self.__setattr__(attr, value)
 
 
 class ActDto(Dto):
@@ -16,6 +19,16 @@ class ActDto(Dto):
         return super(ActDto, self).__getattribute__(name)
 
 
+class AccountDto(Dto):
+    def __getattribute__(self, name):
+        return super(AccountDto, self).__getattribute__(name)
+
+
 class ContentItemDto(Dto):
     def __getattribute__(self, name):
         return super(ContentItemDto, self).__getattribute__(name)
+
+
+class PlatformDataDto(Dto):
+    def __getattribute__(self, name):
+        return super(PlatformDataDto, self).__getattribute__(name)
