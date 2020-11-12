@@ -33,3 +33,7 @@ for agent in agents:
 ### Documentation
 
 [**valorant.py Documentation**](https://github.com/IreTheKID/valorant.py/blob/master/DOCUMENTATION.md)
+
+### Contributing
+
+Contributions are always welcome! There currently isn't a contribution guide, but bug reports, additional endopint coverage, and other fun stuff is always welcome in [issues](https://github.com/IreTheKID/valorant.py/issues)!
