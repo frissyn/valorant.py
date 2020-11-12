@@ -13,12 +13,13 @@ A synchronous client package for interacting with Riot Games' Valorant API endpo
 Quickstart Guide:
 ```python
 import os
-import json
 import valorant
 
-API_KEY = os.environ["API_KEY"]
+API_KEY = os.getenv("API_KEY")
+client = valorant.Client(KEY)
 
-client = valorant.Client(API_KEY)
+agents = client.get_characters()
 
-print(json.dumps(client.characters, indent=2))
+for agent in agents.all:
+	print(agent['name'])
 ```
