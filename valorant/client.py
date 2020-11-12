@@ -1,10 +1,9 @@
-import json
 import locale
 import requests
 
-from .item import Item
+from .dto import ActDto
+from .dto import ContentItemDto
 
-from .errors import APIError
 from .errors import InvalidKeyError
 
 LOCALE = locale.getlocale()[0].replace("_", "-")
@@ -53,44 +52,86 @@ class Client(object):
         else:
             return True
 
+    def get_acts(self):
+        acts = []
+        for a in self.acts:
+            acts.append(ActDto(a))
+        return acts
+
     def get_characters(self):
-        return Item(self.characters)
-
-    def get_chromas(self):
-        return Item(self.chromas)
-
-    def get_maps(self):
-        return Item(self.maps)
-
-    def get_skins(self):
-        return Item(self.skins)
-
-    def get_skin_levels(self):
-        return Item(self.skinLevels)
-
-    def get_equips(self):
-        return Item(self.equips)
-
-    def get_game_modes(self):
-        return Item(self.gameModes)
-
-    def get_sprays(self):
-        return Item(self.sprays)
-
-    def get_spray_levels(self):
-        return Item(self.sprayLevels)
+        characters = []
+        for c in self.characters:
+            characters.append(ContentItemDto(c))
+        return characters
 
     def get_charms(self):
-        return Item(self.charms)
+        charms = []
+        for c in self.charms:
+            charms.append(ContentItemDto(c))
+        return charms
 
     def get_charm_levels(self):
-        return Item(self.charmLevels)
+        charmLevels = []
+        for c in self.charmLevels:
+            charmLevels.append(ContentItemDto(c))
+        return charmLevels
+
+    def get_chromas(self):
+        chromas = []
+        for c in self.chromas:
+            chromas.append(ContentItemDto(c))
+        return chromas
+
+    def get_equips(self):
+        equips = []
+        for e in self.equips:
+            equips.append(ContentItemDto(e))
+        return equips
+
+    def get_maps(self):
+        maps = []
+        for m in self.maps:
+            maps.append(ContentItemDto(m))
+        return maps
+
+    def get_skins(self):
+        skins = []
+        for s in self.skins:
+            skins.append(ContentItemDto(s))
+        return skins
+
+    def get_skin_levels(self):
+        skinLevels = []
+        for s in self.skinLevels:
+            skinLevels.append(ContentItemDto(s))
+        return skinLevels
+
+    def get_game_modes(self):
+        gameModes = []
+        for g in self.gameModes:
+            gameModes.append(ContentItemDto(g))
+        return gameModes
+
+    def get_sprays(self):
+        sprays = []
+        for s in self.sprays:
+            sprays.append(ContentItemDto(s))
+        return sprays
+
+    def get_spray_levels(self):
+        sprayLevels = []
+        for s in self.sprayLevels:
+            sprayLevels.append(ContentItemDto(s))
+        return sprayLevels
 
     def get_player_cards(self):
-        return Item(self.playerCards)
+        playerCards = []
+        for p in self.playerCards:
+            playerCards.append(ContentItemDto(p))
+        return playerCards
 
     def get_player_titles(self):
-        return Item(self.playerTitles)
-
-    def get_acts(self):
-        return Item(self.acts)
+        playerTitles = []
+        for p in self.playerTitles:
+            playerTitles.append(ContentItemDto(p))
+        return playerTitles

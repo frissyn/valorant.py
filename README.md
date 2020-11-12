@@ -16,10 +16,14 @@ import os
 import valorant
 
 API_KEY = os.getenv("API_KEY")
-client = valorant.Client(API_KEY)
+client = valorant.Client(KEY)
 
 agents = client.get_characters()
 
-for agent in agents.all:
-	print(agent['name'])
+for agent in agents:
+	print(agent.name)
 ```
+
+### Documentation
+
+[**valorant.py Documentation**](https://github.com/IreTheKID/valorant.py/blob/master/DOCUMENTATION.md)
