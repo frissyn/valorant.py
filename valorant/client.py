@@ -46,8 +46,7 @@ class Client(object):
 	
 	def verify_key(self, key):
 		headers = update_dict(headerMixin, {"X-Riot-Token" : key})
-		params = { "locale" : self.locale }
-		r = requests.get(CONTENT_URL, params=params, headers=headers).json()
+		r = requests.get(CONTENT_URL, headers=headers).json()
 
 		if str(r.status_code)[0] != "2": return False
 		else: return True
