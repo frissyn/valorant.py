@@ -30,8 +30,9 @@ for agent in agents:
 ### Functions
 
 | Functions                    | Description                         |
-|:-----------------------------|:------------------------------------|                  
-| `client.get_acts()`          | Returns a list of `ActDto`s     |
+|:-----------------------------|:------------------------------------|  
+| `client.reload()`            | Refreshes client content.           |
+| `client.get_acts()`          | Returns a list of `ActDto`s         |
 | `client.get_characters()`    | Returns a list of `ContentItemDto`s |
 | `client.get_maps()`          | Returns a list of `ContentItemDto`s |
 | `client.get_chromas()`       | Returns a list of `ContentItemDto`s |
