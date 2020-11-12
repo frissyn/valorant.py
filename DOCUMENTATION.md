@@ -1,6 +1,6 @@
 # Documentation
 
-This documentation closely mimics what you would find in Riot Games' Official Docs for the Valorant API. This is on purpose, to make it easier to integrate valorant.py into you application; you won't have to constantly look between two different docs. (*Currently, there is only functionality for the **VAL-CONTENT-V1** endpoint.*)
+This documentation closely mimics what you would find in Riot Games' Official Docs for the Valorant API. This is on purpose, to make it easier to integrate valorant.py into your application; you won't have to constantly look between two different docs. (*Currently, there is only functionality for the **VAL-CONTENT-V1** endpoint.*)
 
 ### Quickstart 
 
