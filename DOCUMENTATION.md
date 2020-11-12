@@ -59,10 +59,10 @@ for agent in agents:
 
 `valorant.dto.ContentItemDto`
 
-| Attribute      | Type | Description                                        |
-|:---------------|:-----|:---------------------------------------------------|
-| name           | str  |                                                    |
-| localizedNames | dict | This attribute is omitted if a locale is provided. |
-| id             | str  |                                                    |
-| assetName      | str  |                                                    |
-| assetPath      | str  |                                                    |
+| Attribute      | Type | Description                                          |
+|:---------------|:-----|:-----------------------------------------------------|
+| name           | str  |                                                      |
+| localizedNames | dict | This attribute is omitted if a locale is provided.   |
+| id             | str  |                                                      |
+| assetName      | str  |                                                      |
+| assetPath      | str  | This attribute only appears for maps and game modes. |
