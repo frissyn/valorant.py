@@ -2,8 +2,10 @@ import os
 import json
 import valorant
 
-KEY = os.environ["KEY"]
+API_KEY = os.environ["API_KEY"]
+client = valorant.Client(API_KEY)
 
-game = valorant.Client(KEY)
+agents = client.get_characters()
 
-print(json.dumps(game.maps, indent=2))
+for agent in agents.all:
+	print(json.dumps(agent, ident=2))
