@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Docs - valorant.py</title>
+	<link href="/style.css" rel="stylesheet">
+	<link href="/gfm.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1 id="documentation">Documentation</h1>
+<article class="markdown-body">
+<p>This documentation closely mimics what you would find in Riot Games&#39; Official Docs for the Valorant API. This is on purpose, to make it easier to integrate valorant.py into your application; you won&#39;t have to constantly look between two different docs. (<em>Currently, there is only functionality for the <strong>VAL-CONTENT-V1</strong> endpoint.</em>)</p>
+<h3 id="quickstart">Quickstart</h3>
+<pre><code class="lang-python"><span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> json
+<span class="hljs-keyword">import</span> valorant
+
+<span class="hljs-type">API_KEY</span> = os.getenv(<span class="hljs-string">"API_KEY"</span>)
+client = valorant.<span class="hljs-type">Client</span>(<span class="hljs-type">API_KEY</span>)
+
+agents = client.get_characters()
+
+<span class="hljs-keyword">for</span> agent <span class="hljs-keyword">in</span> agents:
+    <span class="hljs-built_in">print</span>(agent.name, agent.id)
+</code></pre>
+<h3 id="classes">Classes</h3>
+<p><code>valorant.Client(apiKey, locale)</code></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>apiKey</td>
+<td>string</td>
+<td>Your API Key provided by Riot Games. All keys work regardless of access type.</td>
+</tr>
+<tr>
+<td>locale</td>
+<td>string</td>
+<td>A standard locale string containing language and region (i.e &quot;en-US&quot;). Defaults to your region&#39;s default locale. Can also be <code>None</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="functions">Functions</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Functions</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>client.reload()</code></td>
+<td style="text-align:left">Refreshes client content.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>client.get_acts()</code></td>
+<td style="text-align:left">Returns a list of <code>ActDto</code>s</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>client.get_characters()</code></td>
+<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>client.get_maps()</code></td>
+<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>client.get_chromas()</code></td>
+<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>client.gets_skins()</code></td>
+<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>client.get_skin_levels()</code></td>
+<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>client.get_equips()</code></td>
+<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>client.get_game_modes()</code></td>
+<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>client.get_sprays()</code></td>
+<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>client.get_spray_levels()</code></td>
+<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>client.get_charms()</code></td>
+<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>client.get_charm_levels()</code></td>
+<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>client.get_player_cards()</code></td>
+<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>client.get_player_titles()</code></td>
+<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+</tr>
+</tbody>
+</table>
+<h3 id="objects">Objects</h3>
+<p><code>valorant.dto.ActDto</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Attribute</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">name</td>
+<td style="text-align:left">str</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">localizedNames</td>
+<td style="text-align:left">dict</td>
+<td style="text-align:left">This attribute is omitted if a locale is provided.</td>
+</tr>
+<tr>
+<td style="text-align:left">id</td>
+<td style="text-align:left">str</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">isActive</td>
+<td style="text-align:left">bool</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<p><code>valorant.dto.ContentItemDto</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Attribute</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">name</td>
+<td style="text-align:left">str</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">localizedNames</td>
+<td style="text-align:left">dict</td>
+<td style="text-align:left">This attribute is omitted if a locale is provided.</td>
+</tr>
+<tr>
+<td style="text-align:left">id</td>
+<td style="text-align:left">str</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">assetName</td>
+<td style="text-align:left">str</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">assetPath</td>
+<td style="text-align:left">str</td>
+<td style="text-align:left">This attribute only appears for maps and game modes.</td>
+</tr>
+</tbody>
+</table>
+</article>
+
+</body>
+
+</html>
