@@ -33,7 +33,7 @@ for agent in agents:
 
 ### Documentation
 
-[**valorant.py Documentation**](https://github.com/IreTheKID/valorant.py/blob/master/DOCUMENTATION.md)
+[**valorant.py Documentation**](https://valorantpy.repl.co/docs.html)
 
 ### Contributing
 
