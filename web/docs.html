@@ -2,17 +2,17 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-	<title>Docs - valorant.py</title>
-	<link href="/style.css" rel="stylesheet">
-	<link href="/gfm.css" rel="stylesheet">
-	<link href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css" rel="stylesheet" type="text/css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Docs - valorant.py</title>
+<link href="/style.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 <h1 id="documentation">Documentation</h1>
-<article class="markdown-body">
+<button id="switch" onclick="toggleTheme()">Switch Theme</button>
+
 <p>This documentation closely mimics what you would find in Riot Games&#39; Official Docs for the Valorant API. This is on purpose, to make it easier to integrate valorant.py into your application; you won&#39;t have to constantly look between two different docs. (<em>Currently, there is only functionality for the <strong>VAL-CONTENT-V1</strong> endpoint.</em>)</p>
 <h3 id="quickstart">Quickstart</h3>
 <pre><code class="lang-python"><span class="hljs-keyword">import</span> os
@@ -191,8 +191,8 @@ agents = client.get_characters()
 </tr>
 </tbody>
 </table>
-</article>
 
+<script src="script.js"></script>
 </body>
 
 </html>

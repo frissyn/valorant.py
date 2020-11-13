@@ -2,15 +2,16 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
-	<title>Home - valorant.py</title>
-	<link href="/style.css" rel="stylesheet">
-	<link href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css" rel="stylesheet" type="text/css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Home - valorant.py</title>
+<link href="/style.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/light.min.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 <h1 id="valorant-py">valorant.py</h1>
+<button id="switch" onclick="toggleTheme()">Switch Theme</button>
 <p><a href="https://github.com/IreTheKID/valorant.py/actions"><img class="inline" src="https://camo.githubusercontent.com/0fc9226929794d4d4dfb9ac05a1786942f8e4b4300207224277ac49e22e9fdb6/68747470733a2f2f7472617669732d63692e636f6d2f7073662f626c61636b2e7376673f6272616e63683d6d6173746572" alt="GitHub Actions"></a>
 <a href="https://pypi.python.org/pypi/valorant"><img class="inline" src="https://img.shields.io/pypi/v/valorant.svg" alt="valorant on PyPI"></a>
 <a href="https://pepy.tech/project/valorant"><img class="inline" src="https://pepy.tech/badge/valorant" alt="Downloads"></a>
@@ -18,7 +19,6 @@
 <a href="https://github.com/psf/black"><img class="inline" src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code style: black"></a>
 <a href="https://github.com/IreTheKID/valorant.py/issues"><img class="inline" src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat" alt="Contribute"></a></p>
 
-<article class="markdown-body">
 <p>An unofficial synchronous client package for interacting with Riot Games&#39; Valorant API endpoints.</p>
 <h3 id="installation">Installation</h3>
 <p><strong>pip</strong>: <code>pip install valorant</code></p>
@@ -40,8 +40,7 @@ agents = client.get_characters()
 <p><a href="/docs.html"><strong>valorant.py Documentation</strong></a></p>
 <h3 id="contributing">Contributing</h3>
 <p>Contributions are always welcome! There currently isn&#39;t a contribution guide, but bug reports, additional endopint coverage, and other fun stuff is always welcome in <a href="https://github.com/IreTheKID/valorant.py/issues">issues</a>!</p>
-</article>
-
+<script src="script.js"></script>
 </body>
 
 </html>
