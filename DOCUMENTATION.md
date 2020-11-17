@@ -32,25 +32,25 @@ for agent in agents:
 | Functions                      | Description                         |
 |:-------------------------------|:------------------------------------|  
 | `client.reload()`              | Refreshes client content.           |
-| `client.get_acts()`            | Returns a list of `ActDto`s         |
-| `client.get_characters()`      | Returns a list of `ContentItemDto`s |
-| `client.get_maps()`            | Returns a list of `ContentItemDto`s |
-| `client.get_chromas()`         | Returns a list of `ContentItemDto`s |
-| `client.gets_skins()`          | Returns a list of `ContentItemDto`s |
-| `client.get_skin_levels()`     | Returns a list of `ContentItemDto`s |
-| `client.get_equips()`          | Returns a list of `ContentItemDto`s |
-| `client.get_game_modes()`      | Returns a list of `ContentItemDto`s |
-| `client.get_sprays()`          | Returns a list of `ContentItemDto`s |
-| `client.get_spray_levels()`    | Returns a list of `ContentItemDto`s |
-| `client.get_charms()`          | Returns a list of `ContentItemDto`s |
-| `client.get_charm_levels()`    | Returns a list of `ContentItemDto`s |
-| `client.get_player_cards()`    | Returns a list of `ContentItemDto`s |
-| `client.get_player_titles()`   | Returns a list of `ContentItemDto`s |
-| `client.get_platform_status()` | Returns a `PlatformDataDto`         |
+| `client.get_acts()`            | Returns a list of `ActDTO`s         |
+| `client.get_characters()`      | Returns a list of `ContentItemDTO`s |
+| `client.get_maps()`            | Returns a list of `ContentItemDTO`s |
+| `client.get_chromas()`         | Returns a list of `ContentItemDTO`s |
+| `client.gets_skins()`          | Returns a list of `ContentItemDTO`s |
+| `client.get_skin_levels()`     | Returns a list of `ContentItemDTO`s |
+| `client.get_equips()`          | Returns a list of `ContentItemDTO`s |
+| `client.get_game_modes()`      | Returns a list of `ContentItemDTO`s |
+| `client.get_sprays()`          | Returns a list of `ContentItemDTO`s |
+| `client.get_spray_levels()`    | Returns a list of `ContentItemDTO`s |
+| `client.get_charms()`          | Returns a list of `ContentItemDTO`s |
+| `client.get_charm_levels()`    | Returns a list of `ContentItemDTO`s |
+| `client.get_player_cards()`    | Returns a list of `ContentItemDTO`s |
+| `client.get_player_titles()`   | Returns a list of `ContentItemDTO`s |
+| `client.get_platform_status()` | Returns a `PlatformDataDTO`         |
 
 ### Objects
 
-`valorant.dto.ActDto`
+`valorant.dto.ActDTO`
 
 | Attribute      | Type | Description                                        |
 |:---------------|:-----|:---------------------------------------------------|
@@ -59,7 +59,7 @@ for agent in agents:
 | id             | str  |                                                    |
 | isActive       | bool |                                                    |
 
-`valorant.dto.ContentItemDto`
+`valorant.dto.ContentItemDTO`
 
 | Attribute      | Type | Description                                          |
 |:---------------|:-----|:-----------------------------------------------------|
@@ -69,7 +69,7 @@ for agent in agents:
 | assetName      | str  |                                                      |
 | assetPath      | str  | This attribute only appears for maps and game modes. |
 
-`valorant.dto.PlatformDataDto`
+`valorant.dto.PlatformDataDTO`
 
 | Attribute      | Type              | Description   |
 |:---------------|:------------------|:--------------|
