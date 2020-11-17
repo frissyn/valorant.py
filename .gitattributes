@@ -1,0 +1,4 @@
+# lang detection stuff
+
+*.py linguist-detectable=true
+*.html linguist-detectable=false
