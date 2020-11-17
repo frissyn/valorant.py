@@ -11,9 +11,7 @@
 
 <body>
 <h1 id="documentation">Documentation</h1>
-<button id="switch" onclick="toggleTheme()">Switch Theme</button>
-
-<p>This documentation closely mimics what you would find in Riot Games&#39; Official Docs for the Valorant API. This is on purpose, to make it easier to integrate valorant.py into your application; you won&#39;t have to constantly look between two different docs. (<em>Currently, there is only functionality for the <strong>VAL-CONTENT-V1</strong> endpoint.</em>)</p>
+<p>This documentation closely mimics what you would find in Riot Games&#39; Official Docs for the Valorant API. This is on purpose, to make it easier to integrate valorant.py into your application; you won&#39;t have to constantly look between two different docs. (<em>Currently, there is only functionality for the <strong>VAL-CONTENT-V1</strong> and <strong>VAL-STATUS-V1</strong> endpoint.</em>)</p>
 <h3 id="quickstart">Quickstart</h3>
 <pre><code class="lang-python"><span class="hljs-keyword">import</span> os
 <span class="hljs-keyword">import</span> json
@@ -119,6 +117,10 @@ agents = client.get_characters()
 <td style="text-align:left"><code>client.get_player_titles()</code></td>
 <td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>client.get_platform_status()</code></td>
+<td style="text-align:left">Returns a <code>PlatformDataDto</code></td>
+</tr>
 </tbody>
 </table>
 <h3 id="objects">Objects</h3>
@@ -150,7 +152,6 @@ agents = client.get_characters()
 <tr>
 <td style="text-align:left">isActive</td>
 <td style="text-align:left">bool</td>
-<td style="text-align:left"></td>
 </tr>
 </tbody>
 </table>
@@ -188,6 +189,42 @@ agents = client.get_characters()
 <td style="text-align:left">assetPath</td>
 <td style="text-align:left">str</td>
 <td style="text-align:left">This attribute only appears for maps and game modes.</td>
+</tr>
+</tbody>
+</table>
+<p><code>valorant.dto.PlatformDataDto</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Attribute</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">id</td>
+<td style="text-align:left">str</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">name</td>
+<td style="text-align:left">str</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">locales</td>
+<td style="text-align:left">list[str]</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">maintenances</td>
+<td style="text-align:left">list[dict]</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">incidents</td>
+<td style="text-align:left">list[dict]</td>
 </tr>
 </tbody>
 </table>

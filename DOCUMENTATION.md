@@ -1,6 +1,6 @@
 # Documentation
 
-This documentation closely mimics what you would find in Riot Games' Official Docs for the Valorant API. This is on purpose, to make it easier to integrate valorant.py into your application; you won't have to constantly look between two different docs. (*Currently, there is only functionality for the **VAL-CONTENT-V1** endpoint.*)
+This documentation closely mimics what you would find in Riot Games' Official Docs for the Valorant API. This is on purpose, to make it easier to integrate valorant.py into your application; you won't have to constantly look between two different docs. (*Currently, there is only functionality for the **VAL-CONTENT-V1** and **VAL-STATUS-V1** endpoint.*)
 
 ### Quickstart 
 
@@ -29,23 +29,24 @@ for agent in agents:
 
 ### Functions
 
-| Functions                    | Description                         |
-|:-----------------------------|:------------------------------------|  
-| `client.reload()`            | Refreshes client content.           |
-| `client.get_acts()`          | Returns a list of `ActDto`s         |
-| `client.get_characters()`    | Returns a list of `ContentItemDto`s |
-| `client.get_maps()`          | Returns a list of `ContentItemDto`s |
-| `client.get_chromas()`       | Returns a list of `ContentItemDto`s |
-| `client.gets_skins()`        | Returns a list of `ContentItemDto`s |
-| `client.get_skin_levels()`   | Returns a list of `ContentItemDto`s |
-| `client.get_equips()`        | Returns a list of `ContentItemDto`s |
-| `client.get_game_modes()`    | Returns a list of `ContentItemDto`s |
-| `client.get_sprays()`        | Returns a list of `ContentItemDto`s |
-| `client.get_spray_levels()`  | Returns a list of `ContentItemDto`s |
-| `client.get_charms()`        | Returns a list of `ContentItemDto`s |
-| `client.get_charm_levels()`  | Returns a list of `ContentItemDto`s |
-| `client.get_player_cards()`  | Returns a list of `ContentItemDto`s |
-| `client.get_player_titles()` | Returns a list of `ContentItemDto`s |
+| Functions                      | Description                         |
+|:-------------------------------|:------------------------------------|  
+| `client.reload()`              | Refreshes client content.           |
+| `client.get_acts()`            | Returns a list of `ActDto`s         |
+| `client.get_characters()`      | Returns a list of `ContentItemDto`s |
+| `client.get_maps()`            | Returns a list of `ContentItemDto`s |
+| `client.get_chromas()`         | Returns a list of `ContentItemDto`s |
+| `client.gets_skins()`          | Returns a list of `ContentItemDto`s |
+| `client.get_skin_levels()`     | Returns a list of `ContentItemDto`s |
+| `client.get_equips()`          | Returns a list of `ContentItemDto`s |
+| `client.get_game_modes()`      | Returns a list of `ContentItemDto`s |
+| `client.get_sprays()`          | Returns a list of `ContentItemDto`s |
+| `client.get_spray_levels()`    | Returns a list of `ContentItemDto`s |
+| `client.get_charms()`          | Returns a list of `ContentItemDto`s |
+| `client.get_charm_levels()`    | Returns a list of `ContentItemDto`s |
+| `client.get_player_cards()`    | Returns a list of `ContentItemDto`s |
+| `client.get_player_titles()`   | Returns a list of `ContentItemDto`s |
+| `client.get_platform_status()` | Returns a `PlatformDataDto`         |
 
 ### Objects
 
@@ -67,3 +68,13 @@ for agent in agents:
 | id             | str  |                                                      |
 | assetName      | str  |                                                      |
 | assetPath      | str  | This attribute only appears for maps and game modes. |
+
+`valorant.dto.PlatformDataDto`
+
+| Attribute      | Type              | Description   |
+|:---------------|:------------------|:--------------|
+| id             | str               |               |
+| name           | str               |               |
+| locales        | list[str]         |               |
+| maintenances   | list[dict]        |               |
+| incidents      | list[dict]        |               |

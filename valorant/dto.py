@@ -1,4 +1,4 @@
-class Dto(object):
+class DTO(object):
     def __init__(self, obj):
         self.json = obj
         self.set_attributes(obj)
@@ -9,26 +9,30 @@ class Dto(object):
     def set_attributes(self, attrs, sub=False):
         for attr, value in attrs.items():
             if sub and isinstance(value, dict):
-                self.__setattr__(attr, Dto(value))
+                self.__setattr__(attr, DTO(value))
             else:
                 self.__setattr__(attr, value)
 
 
-class ActDto(Dto):
+class ActDTO(DTO):
     def __getattribute__(self, name):
-        return super(ActDto, self).__getattribute__(name)
+        return super(ActDTO, self).__getattribute__(name)
 
 
-class AccountDto(Dto):
+class AccountDTO(DTO):
     def __getattribute__(self, name):
-        return super(AccountDto, self).__getattribute__(name)
+        return super(AccountDTO, self).__getattribute__(name)
 
 
-class ContentItemDto(Dto):
+class ContentItemDTO(DTO):
     def __getattribute__(self, name):
-        return super(ContentItemDto, self).__getattribute__(name)
+        return super(ContentItemDTO, self).__getattribute__(name)
 
 
-class PlatformDataDto(Dto):
+class PlatformDataDTO(DTO):
+    def __init__(self, obj):
+        self.json = obj
+        self.set_attributes(obj, sub=True)
+
     def __getattribute__(self, name):
-        return super(PlatformDataDto, self).__getattribute__(name)
+        return super(PlatformDataDTO, self).__getattribute__(name)

@@ -1,10 +1,10 @@
 import locale
 import requests
 
-from .dto import ActDto
-from .dto import AccountDto
-from .dto import ContentItemDto
-from .dto import PlatformDataDto
+from .dto import ActDTO
+from .dto import AccountDTO
+from .dto import ContentItemDTO
+from .dto import PlatformDataDTO
 
 from .errors import APIError
 from .errors import InvalidKeyError
@@ -67,99 +67,99 @@ class Client(object):
         r = requests.get(ACCOUNT_URL.format(name, tag), headers=headers)
 
         if str(r.status_code)[0] == "2":
-            return AccountDto(r.json())
+            return AccountDTO(r.json())
         else:
             raise APIError(r.text)
 
-    def get_platform_data(self):
+    def get_platform_status(self):
         headers = update_dict(headerMixin, {"X-Riot-Token": self.key})
         r = requests.get(STATUS_URL, headers=headers)
 
         if str(r.status_code)[0] == "2":
-            return PlatformDataDto(r.json())
+            return PlatformDataDTO(r.json())
         else:
             raise APIError(r.text)
 
     def get_acts(self):
         acts = []
         for a in self.acts:
-            acts.append(ActDto(a))
+            acts.append(ActDTO(a))
         return acts
 
     def get_characters(self):
         characters = []
         for c in self.characters:
-            characters.append(ContentItemDto(c))
+            characters.append(ContentItemDTO(c))
         return characters
 
     def get_charms(self):
         charms = []
         for c in self.charms:
-            charms.append(ContentItemDto(c))
+            charms.append(ContentItemDTO(c))
         return charms
 
     def get_charm_levels(self):
         charmLevels = []
         for c in self.charmLevels:
-            charmLevels.append(ContentItemDto(c))
+            charmLevels.append(ContentItemDTO(c))
         return charmLevels
 
     def get_chromas(self):
         chromas = []
         for c in self.chromas:
-            chromas.append(ContentItemDto(c))
+            chromas.append(ContentItemDTO(c))
         return chromas
 
     def get_equips(self):
         equips = []
         for e in self.equips:
-            equips.append(ContentItemDto(e))
+            equips.append(ContentItemDTO(e))
         return equips
 
     def get_maps(self):
         maps = []
         for m in self.maps:
-            maps.append(ContentItemDto(m))
+            maps.append(ContentItemDTO(m))
         return maps
 
     def get_skins(self):
         skins = []
         for s in self.skins:
-            skins.append(ContentItemDto(s))
+            skins.append(ContentItemDTO(s))
         return skins
 
     def get_skin_levels(self):
         skinLevels = []
         for s in self.skinLevels:
-            skinLevels.append(ContentItemDto(s))
+            skinLevels.append(ContentItemDTO(s))
         return skinLevels
 
     def get_game_modes(self):
         gameModes = []
         for g in self.gameModes:
-            gameModes.append(ContentItemDto(g))
+            gameModes.append(ContentItemDTO(g))
         return gameModes
 
     def get_sprays(self):
         sprays = []
         for s in self.sprays:
-            sprays.append(ContentItemDto(s))
+            sprays.append(ContentItemDTO(s))
         return sprays
 
     def get_spray_levels(self):
         sprayLevels = []
         for s in self.sprayLevels:
-            sprayLevels.append(ContentItemDto(s))
+            sprayLevels.append(ContentItemDTO(s))
         return sprayLevels
 
     def get_player_cards(self):
         playerCards = []
         for p in self.playerCards:
-            playerCards.append(ContentItemDto(p))
+            playerCards.append(ContentItemDTO(p))
         return playerCards
 
     def get_player_titles(self):
         playerTitles = []
         for p in self.playerTitles:
-            playerTitles.append(ContentItemDto(p))
+            playerTitles.append(ContentItemDTO(p))
         return playerTitles
