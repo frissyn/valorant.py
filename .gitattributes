@@ -1,5 +1,5 @@
 # lang detection stuff
 
 *.py linguist-detectable=true
-*.css linguist-detectable=true
+*.css linguist-detectable=false
 *.html linguist-detectable=false
