@@ -7,13 +7,15 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Contribute](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/IreTheKID/valorant.py/issues)
 
-An unofficial synchronous client package for interacting with Riot Games' Valorant API endpoints.
+An unofficial synchronous client package for interacting with Riot Games' Valorant API endpoints. 
 
 ### Installation
 
 **pip**: `pip install valorant`
 
-**poetry**: `python3 -m poetry add valorant`
+**easy_install**: `easy_install valorant`
+
+**poetry**: `python -m poetry add valorant`
 
 ### Usage
 
