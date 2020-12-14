@@ -6,6 +6,9 @@ class DTO(object):
     def __str__(self):
         return str(self.json)
 
+    def __repr__(self):
+        return str(self.json)
+
     def set_attributes(self, attrs, sub=False):
         for attr, value in attrs.items():
             if sub and isinstance(value, dict):
@@ -15,6 +18,12 @@ class DTO(object):
 
 
 class ActDTO(DTO):
+    def __init__(self, obj):
+        self.json = obj
+        self.tagLine = None
+        self.gameName = None
+        self.set_attributes(obj)
+
     def __getattribute__(self, name):
         return super(ActDTO, self).__getattribute__(name)
 

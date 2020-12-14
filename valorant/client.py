@@ -6,15 +6,11 @@ from .dto import AccountDTO
 from .dto import ContentItemDTO
 from .dto import PlatformDataDTO
 
-from .errors import APIError
-from .errors import InvalidKeyError
-
 LOCALE = locale.getlocale()[0].replace("_", "-")
 CONTENT_URL = "https://na.api.riotgames.com/val/content/v1/contents"
 STATUS_URL = "https://na.api.riotgames.com/val/status/v1/platform-data"
-ACCOUNT_URL = (
-    "https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/{0}/{1}"
-)
+PUUID_URL = "https://americas.api.riotgames.com/riot/account/v1/accounts/by-puuid/{puuid}"
+GAMENAME_URL = "https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/{name}/{tag}"
 headerMixin = {"Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8"}
 
 
@@ -27,14 +23,10 @@ def update_dict(stale, latest):
 
 class Client(object):
     def __init__(self, key, locale=LOCALE):
-        if not self.verify_key(key):
-            raise InvalidKeyError(
-                f"Your provided API Key: {key} is invalid or expired."
-            )
-        else:
-            self.key = key
-            self.locale = locale
-            self.reload()
+        self.key = key
+        self.locale = locale
+        self.fetch = requests.get
+        self.reload()
 
     def __getattribute__(self, name):
         return super(Client, self).__getattribute__(name)
@@ -46,120 +38,102 @@ class Client(object):
     def reload(self):
         headers = update_dict(headerMixin, {"X-Riot-Token": self.key})
         params = {"locale": self.locale}
-        r = requests.get(CONTENT_URL, params=params, headers=headers).json()
+        r = self.fetch(CONTENT_URL, params=params, headers=headers)
+        r.raise_for_status()
 
-        self.set_attributes(r)
+        self.set_attributes(r.json())
 
-    def verify_key(self, key):
-        headers = update_dict(headerMixin, {"X-Riot-Token": key})
-        r = requests.get(CONTENT_URL, headers=headers)
-
-        if str(r.status_code)[0] != "2":
-            return False
-        else:
-            return True
-
-    def get_user(self, fullname):
-        name = fullname.split("#")[0]
-        tag = fullname.split("#")[-1]
-
+    def get_user(self, value, via="puuid"):
         headers = update_dict(headerMixin, {"X-Riot-Token": self.key})
-        r = requests.get(ACCOUNT_URL.format(name, tag), headers=headers)
 
-        if str(r.status_code)[0] == "2":
-            return AccountDTO(r.json())
-        else:
-            raise APIError(r.text)
+        if via == "puuid":
+            target = PUUID_URL.format(puuid=value)
+        elif via == "name":
+            name = value.split("#")[0]
+            tag = value.split("#")[-1]
+
+            target = GAMENAME_URL.format(name=name, tag=tag)
+
+            r = self.fetch(target, headers=headers)
+
+        r.raise_for_status()
+
+        return AccountDTO(r.json())
 
     def get_platform_status(self):
         headers = update_dict(headerMixin, {"X-Riot-Token": self.key})
-        r = requests.get(STATUS_URL, headers=headers)
+        r = self.fetch(STATUS_URL, headers=headers)
+        r.raise_for_status()
 
-        if str(r.status_code)[0] == "2":
-            return PlatformDataDTO(r.json())
-        else:
-            raise APIError(r.text)
+        return PlatformDataDTO(r.json())
 
     def get_acts(self):
-        acts = []
-        for a in self.acts:
-            acts.append(ActDTO(a))
+        acts = [ActDTO(a) for a in self.acts]
+
         return acts
 
     def get_characters(self):
-        characters = []
-        for c in self.characters:
-            characters.append(ContentItemDTO(c))
+        characters = [ContentItemDTO(c) for c in self.characters]
+
         return characters
 
     def get_charms(self):
-        charms = []
-        for c in self.charms:
-            charms.append(ContentItemDTO(c))
+        charms = [ContentItemDTO(c) for c in self.charms]
+
         return charms
 
     def get_charm_levels(self):
-        charmLevels = []
-        for c in self.charmLevels:
-            charmLevels.append(ContentItemDTO(c))
+        charmLevels = [ContentItemDTO(c) for c in self.charmLevels]
+
         return charmLevels
 
     def get_chromas(self):
-        chromas = []
-        for c in self.chromas:
-            chromas.append(ContentItemDTO(c))
+        chromas = [ContentItemDTO(c) for c in self.chromas]
+
         return chromas
 
     def get_equips(self):
-        equips = []
-        for e in self.equips:
-            equips.append(ContentItemDTO(e))
+        equips = [ContentItemDTO(e) for e in self.equips]
+
         return equips
 
     def get_maps(self):
-        maps = []
-        for m in self.maps:
-            maps.append(ContentItemDTO(m))
+        maps = [ContentItemDTO(m) for m in self.maps]
+
         return maps
 
     def get_skins(self):
-        skins = []
-        for s in self.skins:
-            skins.append(ContentItemDTO(s))
+        skins = [ContentItemDTO(s) for s in self.skins]
+
         return skins
 
     def get_skin_levels(self):
-        skinLevels = []
-        for s in self.skinLevels:
-            skinLevels.append(ContentItemDTO(s))
+        skinLevels = [ContentItemDTO(s) for s in self.skinLevels]
+
         return skinLevels
 
     def get_game_modes(self):
-        gameModes = []
-        for g in self.gameModes:
-            gameModes.append(ContentItemDTO(g))
+        gameModes = [ContentItemDTO(g) for g in self.gameModes]
+
         return gameModes
 
     def get_sprays(self):
-        sprays = []
-        for s in self.sprays:
-            sprays.append(ContentItemDTO(s))
+        sprays = [ContentItemDTO(s) for s in self.sprays]
+
         return sprays
 
     def get_spray_levels(self):
-        sprayLevels = []
-        for s in self.sprayLevels:
-            sprayLevels.append(ContentItemDTO(s))
+        sprayLevels = [ContentItemDTO(s) for s in self.sprayLevels]
+
         return sprayLevels
 
     def get_player_cards(self):
-        playerCards = []
-        for p in self.playerCards:
-            playerCards.append(ContentItemDTO(p))
+        playerCards = [ContentItemDTO(p) for p in self.playerCards]
+
         return playerCards
 
     def get_player_titles(self):
-        playerTitles = []
-        for p in self.playerTitles:
-            playerTitles.append(ContentItemDTO(p))
+        playerTitles = [ContentItemDTO(p) for p in self.playerTitles]
+
         return playerTitles
+

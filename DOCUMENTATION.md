@@ -6,7 +6,6 @@ This documentation closely mimics what you would find in Riot Games' Official Do
 
 ```python
 import os
-import json
 import valorant
 
 API_KEY = os.getenv("API_KEY")
@@ -25,7 +24,7 @@ for agent in agents:
 | Parameter | Type   | Description                                                                                                    |
 |-----------|--------|----------------------------------------------------------------------------------------------------------------|
 | apiKey    | string | Your API Key provided by Riot Games. All keys work regardless of access type.                                  |
-| locale    | string | A standard locale string containing language and region (i.e "en-US"). Defaults to your region's default locale. Can also be `None`. |
+| locale    | string | A standard locale string containing language and region (i.e "en-US"). Defaults to [`locale.get_locale()[0]`](https://docs.python.org/3/library/locale.html#locale.getlocale) |
 
 ### Functions
 
@@ -47,6 +46,12 @@ for agent in agents:
 | `client.get_player_cards()`    | Returns a list of `ContentItemDTO`s |
 | `client.get_player_titles()`   | Returns a list of `ContentItemDTO`s |
 | `client.get_platform_status()` | Returns a `PlatformDataDTO`         |
+| `client.get_user(value, via="puuid")` | Returns an `AccountDTO`      |
+
+`client.get_user(value, via="puuid")`:
+
+Returns a user via a given method. Valid `via` values are `puuid` and `name`. If `via` equals `puuid`, the client will get the Account DTO by puuid. If `via` equals `name`, the client will get the Account DTO by gameName and tagLine split by a delimiter (e.g `IreTheKID#0000`).
+
 
 ### Objects
 
@@ -78,3 +83,12 @@ for agent in agents:
 | locales        | list[str]         |               |
 | maintenances   | list[dict]        |               |
 | incidents      | list[dict]        |               |
+
+
+`valorant.dto.AccountDTO`
+
+| Attribute      | Type | Description                                        |
+|:---------------|:-----|:---------------------------------------------------|
+| puuid          | str  |                                                    |
+| gameName       | str  | This attribute may be `None`.                      |
+| tagLine        | str  | This attribute may be `None`.                      |
