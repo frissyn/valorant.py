@@ -18,6 +18,12 @@ class DTO(object):
 
 
 class ActDTO(DTO):
+    def __init__(self, obj):
+        self.json = obj
+        self.tagLine = None
+        self.gameName = None
+        self.set_attributes(obj)
+
     def __getattribute__(self, name):
         return super(ActDTO, self).__getattribute__(name)
 

@@ -48,15 +48,11 @@ class Client(object):
 
         if via == "puuid":
             target = PUUID_URL.format(puuid=value)
-            r = self.fetch(target, headers=headers)
         elif via == "name":
-            if "#" in value:
-                name = value.split("#")[0]
-                tag = value.split("#")[-1]
+            name = value.split("#")[0]
+            tag = value.split("#")[-1]
 
-                target = GAMENAME_URL.format(name=name, tag=tag)
-            else:
-                target = GAMENAME_URL.format(name=value, tag="")
+            target = GAMENAME_URL.format(name=name, tag=tag)
 
             r = self.fetch(target, headers=headers)
 
