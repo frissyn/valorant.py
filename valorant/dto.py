@@ -6,6 +6,9 @@ class DTO(object):
     def __str__(self):
         return str(self.json)
 
+    def __repr__(self):
+        return str(self.json)
+
     def set_attributes(self, attrs, sub=False):
         for attr, value in attrs.items():
             if sub and isinstance(value, dict):
