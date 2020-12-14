@@ -13,17 +13,16 @@
 <h1 id="documentation">Documentation</h1>
 <p>This documentation closely mimics what you would find in Riot Games&#39; Official Docs for the Valorant API. This is on purpose, to make it easier to integrate valorant.py into your application; you won&#39;t have to constantly look between two different docs. (<em>Currently, there is only functionality for the <strong>VAL-CONTENT-V1</strong> and <strong>VAL-STATUS-V1</strong> endpoint.</em>)</p>
 <h3 id="quickstart">Quickstart</h3>
-<pre><code class="lang-python"><span class="hljs-keyword">import</span> os
-<span class="hljs-keyword">import</span> json
-<span class="hljs-keyword">import</span> valorant
+<pre><code class="lang-python">import os
+import valorant
 
-<span class="hljs-type">API_KEY</span> = os.getenv(<span class="hljs-string">"API_KEY"</span>)
-client = valorant.<span class="hljs-type">Client</span>(<span class="hljs-type">API_KEY</span>)
+API_KEY = os.getenv(<span class="hljs-string">"API_KEY"</span>)
+client = valorant.Client(API_KEY)
 
-agents = client.get_characters()
+<span class="hljs-built_in">agents</span> = client.get_characters()
 
-<span class="hljs-keyword">for</span> agent <span class="hljs-keyword">in</span> agents:
-    <span class="hljs-built_in">print</span>(agent.name, agent.id)
+<span class="hljs-keyword">for</span> <span class="hljs-built_in">agent</span> <span class="hljs-built_in">in</span> <span class="hljs-built_in">agents</span>:
+    print(<span class="hljs-built_in">agent</span>.<span class="hljs-built_in">name</span>, <span class="hljs-built_in">agent</span>.id)
 </code></pre>
 <h3 id="classes">Classes</h3>
 <p><code>valorant.Client(apiKey, locale)</code></p>
@@ -44,7 +43,7 @@ agents = client.get_characters()
 <tr>
 <td>locale</td>
 <td>string</td>
-<td>A standard locale string containing language and region (i.e &quot;en-US&quot;). Defaults to your region&#39;s default locale. Can also be <code>None</code>.</td>
+<td>A standard locale string containing language and region (i.e &quot;en-US&quot;). Defaults to <a href="https://docs.python.org/3/library/locale.html#locale.getlocale"><code>locale.get_locale()[0]</code></a></td>
 </tr>
 </tbody>
 </table>
@@ -63,68 +62,74 @@ agents = client.get_characters()
 </tr>
 <tr>
 <td style="text-align:left"><code>client.get_acts()</code></td>
-<td style="text-align:left">Returns a list of <code>ActDto</code>s</td>
+<td style="text-align:left">Returns a list of <code>ActDTO</code>s</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>client.get_characters()</code></td>
-<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+<td style="text-align:left">Returns a list of <code>ContentItemDTO</code>s</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>client.get_maps()</code></td>
-<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+<td style="text-align:left">Returns a list of <code>ContentItemDTO</code>s</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>client.get_chromas()</code></td>
-<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+<td style="text-align:left">Returns a list of <code>ContentItemDTO</code>s</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>client.gets_skins()</code></td>
-<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+<td style="text-align:left">Returns a list of <code>ContentItemDTO</code>s</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>client.get_skin_levels()</code></td>
-<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+<td style="text-align:left">Returns a list of <code>ContentItemDTO</code>s</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>client.get_equips()</code></td>
-<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+<td style="text-align:left">Returns a list of <code>ContentItemDTO</code>s</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>client.get_game_modes()</code></td>
-<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+<td style="text-align:left">Returns a list of <code>ContentItemDTO</code>s</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>client.get_sprays()</code></td>
-<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+<td style="text-align:left">Returns a list of <code>ContentItemDTO</code>s</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>client.get_spray_levels()</code></td>
-<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+<td style="text-align:left">Returns a list of <code>ContentItemDTO</code>s</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>client.get_charms()</code></td>
-<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+<td style="text-align:left">Returns a list of <code>ContentItemDTO</code>s</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>client.get_charm_levels()</code></td>
-<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+<td style="text-align:left">Returns a list of <code>ContentItemDTO</code>s</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>client.get_player_cards()</code></td>
-<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+<td style="text-align:left">Returns a list of <code>ContentItemDTO</code>s</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>client.get_player_titles()</code></td>
-<td style="text-align:left">Returns a list of <code>ContentItemDto</code>s</td>
+<td style="text-align:left">Returns a list of <code>ContentItemDTO</code>s</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>client.get_platform_status()</code></td>
-<td style="text-align:left">Returns a <code>PlatformDataDto</code></td>
+<td style="text-align:left">Returns a <code>PlatformDataDTO</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>client.get_user(value, via=&quot;puuid&quot;)</code></td>
+<td style="text-align:left">Returns an <code>AccountDTO</code></td>
 </tr>
 </tbody>
 </table>
+<p><code>client.get_user(value, via=&quot;puuid&quot;)</code>:</p>
+<p>Returns a user via a given method. Valid <code>via</code> values are <code>puuid</code> and <code>name</code>. If <code>via</code> equals <code>puuid</code>, the client will get the Account DTO by puuid. If <code>via</code> equals <code>name</code>, the client will get the Account DTO by gameName and tagLine split by a delimiter (e.g <code>IreTheKID#0000</code>).</p>
 <h3 id="objects">Objects</h3>
-<p><code>valorant.dto.ActDto</code></p>
+<p><code>valorant.dto.ActDTO</code></p>
 <table>
 <thead>
 <tr>
@@ -155,7 +160,7 @@ agents = client.get_characters()
 </tr>
 </tbody>
 </table>
-<p><code>valorant.dto.ContentItemDto</code></p>
+<p><code>valorant.dto.ContentItemDTO</code></p>
 <table>
 <thead>
 <tr>
@@ -192,7 +197,7 @@ agents = client.get_characters()
 </tr>
 </tbody>
 </table>
-<p><code>valorant.dto.PlatformDataDto</code></p>
+<p><code>valorant.dto.PlatformDataDTO</code></p>
 <table>
 <thead>
 <tr>
@@ -225,6 +230,33 @@ agents = client.get_characters()
 <tr>
 <td style="text-align:left">incidents</td>
 <td style="text-align:left">list[dict]</td>
+</tr>
+</tbody>
+</table>
+<p><code>valorant.dto.AccountDTO</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Attribute</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">puuid</td>
+<td style="text-align:left">str</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">gameName</td>
+<td style="text-align:left">str</td>
+<td style="text-align:left">This attribute may be <code>None</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left">tagLine</td>
+<td style="text-align:left">str</td>
+<td style="text-align:left">This attribute may be <code>None</code>.</td>
 </tr>
 </tbody>
 </table>
