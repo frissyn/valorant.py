@@ -45,5 +45,6 @@ Contributions are always welcome! There currently isn't a contribution guide, bu
 
 + [WIP]   Add coverage for **VAL-MATCH** endpoint
 + [WIP]   Allow selecting client reigon (**NA, EU, BR, etc.**)
++ [LATER] Add more verbosive documentation (the docs rn are pretty convoluted lol)
 + [LATER] Add recursive attributes for DTO `dto.attr['value']['value2']` -> `dto.attr.value.value2`
 + [LATER] Fully cover **VAL_STATUS** endpoint
