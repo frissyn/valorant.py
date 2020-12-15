@@ -35,7 +35,7 @@ for agent in agents:
 | `client.get_characters()`      | Returns a list of `ContentItemDTO`s |
 | `client.get_maps()`            | Returns a list of `ContentItemDTO`s |
 | `client.get_chromas()`         | Returns a list of `ContentItemDTO`s |
-| `client.gets_skins()`          | Returns a list of `ContentItemDTO`s |
+| `client.get_skins()`          | Returns a list of `ContentItemDTO`s |
 | `client.get_skin_levels()`     | Returns a list of `ContentItemDTO`s |
 | `client.get_equips()`          | Returns a list of `ContentItemDTO`s |
 | `client.get_game_modes()`      | Returns a list of `ContentItemDTO`s |
