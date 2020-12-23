@@ -19,6 +19,6 @@ echo "Removing PKG files/folders..."
 
 rm -r "build"
 rm -r "dist"
-rm -r "reflux.egg-info"
+rm -r "valorant.egg-info"
 
 echo "Done!"
