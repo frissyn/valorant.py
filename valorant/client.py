@@ -1,4 +1,3 @@
-import locale
 import requests
 
 from .dto import ActDTO
@@ -6,15 +5,12 @@ from .dto import AccountDTO
 from .dto import ContentItemDTO
 from .dto import PlatformDataDTO
 
-LOCALE = locale.getlocale()[0].replace("_", "-")
-CONTENT_URL = "https://na.api.riotgames.com/val/content/v1/contents"
-STATUS_URL = "https://na.api.riotgames.com/val/status/v1/platform-data"
-PUUID_URL = "https://americas.api.riotgames.com/riot/account/v1/accounts/by-puuid/{puuid}"
-GAMENAME_URL = "https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/{name}/{tag}"
-headerMixin = {"Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8"}
+from .values import LOCALE
+from .values import _build_url
+from .values import _build_header
 
 
-def update_dict(stale, latest):
+def update(stale, latest):
     for key, items in latest.items():
         stale[key] = latest[key]
 
@@ -22,10 +18,13 @@ def update_dict(stale, latest):
 
 
 class Client(object):
-    def __init__(self, key, locale=LOCALE):
+    def __init__(self, key, locale=LOCALE, reigon="na", route="americas"):
         self.key = key
+        self.route = route
         self.locale = locale
+        self.reigon = reigon
         self.fetch = requests.get
+
         self.reload()
 
     def __getattribute__(self, name):
@@ -36,33 +35,39 @@ class Client(object):
             self.__setattr__(attr, value)
 
     def reload(self):
-        headers = update_dict(headerMixin, {"X-Riot-Token": self.key})
+        url = _build_url(code=self.reigon, endpoint="content")
+        heads = _build_header({"X-Riot-Token": self.key})
         params = {"locale": self.locale}
-        r = self.fetch(CONTENT_URL, params=params, headers=headers)
+
+        r = self.fetch(url, params=params, headers=heads)
         r.raise_for_status()
 
         self.set_attributes(r.json())
 
     def get_user(self, value, via="puuid"):
-        headers = update_dict(headerMixin, {"X-Riot-Token": self.key})
+        heads = _build_header({"X-Riot-Token": self.key})
 
         if via == "puuid":
-            target = PUUID_URL.format(puuid=value)
+            url = _build_url(code=self.route, endpoint="puuid")
+            url = url.format(puuid=value)
         elif via == "name":
             name = value.split("#")[0]
             tag = value.split("#")[-1]
 
-            target = GAMENAME_URL.format(name=name, tag=tag)
-
-            r = self.fetch(target, headers=headers)
-
+            url = _build_url(code=self.route, endpoint="gamename")
+            url = url.format(name=name, tag=tag)
+        
+        r = self.fetch(url, headers=heads)
         r.raise_for_status()
 
         return AccountDTO(r.json())
 
     def get_platform_status(self):
-        headers = update_dict(headerMixin, {"X-Riot-Token": self.key})
-        r = self.fetch(STATUS_URL, headers=headers)
+        url = _build_url(reigon=self.reigon, endpoint="status")
+        heads = _build_header({"X-Riot-Token": self.key})
+        params = {"locale": self.locale}
+
+        r = self.fetch(url, headers=heads, params=params)
         r.raise_for_status()
 
         return PlatformDataDTO(r.json())
@@ -137,3 +142,10 @@ class Client(object):
 
         return playerTitles
 
+
+class Account(object):
+    def __init__(self):
+        pass
+    
+    def get_match_history(self):
+        pass
