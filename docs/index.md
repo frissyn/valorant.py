@@ -25,6 +25,8 @@ for agent in agents:
 |-----------|--------|----------------------------------------------------------------------------------------------------------------|
 | apiKey    | string | Your API Key provided by Riot Games. All keys work regardless of access type.                                  |
 | locale    | string | A standard locale string containing language and region (i.e "en-US"). Defaults to [`locale.get_locale()[0]`](https://docs.python.org/3/library/locale.html#locale.getlocale) |
+| reigon    | string | 2 character string specifying the reigon, defaults to `na`|
+| route     | string | String specifying reigon route, defaults to `americas`| 
 
 ### Functions
 
@@ -35,7 +37,7 @@ for agent in agents:
 | `client.get_characters()`      | Returns a list of `ContentItemDTO`s |
 | `client.get_maps()`            | Returns a list of `ContentItemDTO`s |
 | `client.get_chromas()`         | Returns a list of `ContentItemDTO`s |
-| `client.get_skins()`          | Returns a list of `ContentItemDTO`s |
+| `client.get_skins()`           | Returns a list of `ContentItemDTO`s |
 | `client.get_skin_levels()`     | Returns a list of `ContentItemDTO`s |
 | `client.get_equips()`          | Returns a list of `ContentItemDTO`s |
 | `client.get_game_modes()`      | Returns a list of `ContentItemDTO`s |
