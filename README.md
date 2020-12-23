@@ -49,7 +49,3 @@ Contributions are always welcome! There currently isn't a contribution guide, bu
 + [LATER] Fully cover **VAL-STATUS** endpoint
 + [LATER] Add an Asynchronous Client (thread support maybe? :P)
 + [LATER] Add customizable rate-limits
-
-
-
-+ [DONE] ~~Allow selecting client reigon (**NA, EU, BR, etc.**)~~
