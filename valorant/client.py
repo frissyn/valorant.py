@@ -5,6 +5,8 @@ from .dto import AccountDTO
 from .dto import ContentItemDTO
 from .dto import PlatformDataDTO
 
+from .dto import ContentList
+
 from .values import LOCALE
 from .values import _build_url
 from .values import _build_header
@@ -18,14 +20,17 @@ def update(stale, latest):
 
 
 class Client(object):
-    def __init__(self, key, locale=LOCALE, reigon="na", route="americas"):
+    def __init__(self, key, locale=LOCALE, reigon="na", route="americas", reload=True):
         self.key = key
         self.route = route
         self.locale = locale
         self.reigon = reigon
         self.fetch = requests.get
 
-        self.reload()
+        if reload:
+            self.reload()
+        else:
+            pass
 
     def __getattribute__(self, name):
         return super(Client, self).__getattribute__(name)
@@ -75,72 +80,72 @@ class Client(object):
     def get_acts(self):
         acts = [ActDTO(a) for a in self.acts]
 
-        return acts
+        return ContentList(acts)
 
     def get_characters(self):
         characters = [ContentItemDTO(c) for c in self.characters]
 
-        return characters
+        return ContentList(characters)
 
     def get_charms(self):
         charms = [ContentItemDTO(c) for c in self.charms]
 
-        return charms
+        return ContentList(charms)
 
     def get_charm_levels(self):
         charmLevels = [ContentItemDTO(c) for c in self.charmLevels]
 
-        return charmLevels
+        return ContentList(charmLevels)
 
     def get_chromas(self):
         chromas = [ContentItemDTO(c) for c in self.chromas]
 
-        return chromas
+        return ContentList(chromas)
 
     def get_equips(self):
         equips = [ContentItemDTO(e) for e in self.equips]
 
-        return equips
+        return ContentList(equips)
 
     def get_maps(self):
         maps = [ContentItemDTO(m) for m in self.maps]
 
-        return maps
+        return ContentList(maps)
 
     def get_skins(self):
         skins = [ContentItemDTO(s) for s in self.skins]
 
-        return skins
+        return ContentList(skins)
 
     def get_skin_levels(self):
         skinLevels = [ContentItemDTO(s) for s in self.skinLevels]
 
-        return skinLevels
+        return ContentList(skinLevels)
 
     def get_game_modes(self):
         gameModes = [ContentItemDTO(g) for g in self.gameModes]
 
-        return gameModes
+        return ContentList(gameModes)
 
     def get_sprays(self):
         sprays = [ContentItemDTO(s) for s in self.sprays]
 
-        return sprays
+        return ContentList(sprays)
 
     def get_spray_levels(self):
         sprayLevels = [ContentItemDTO(s) for s in self.sprayLevels]
 
-        return sprayLevels
+        return ContentList(sprayLevels)
 
     def get_player_cards(self):
         playerCards = [ContentItemDTO(p) for p in self.playerCards]
 
-        return playerCards
+        return ContentList(playerCards)
 
     def get_player_titles(self):
         playerTitles = [ContentItemDTO(p) for p in self.playerTitles]
 
-        return playerTitles
+        return ContentList(playerTitles)
 
 
 class Account(object):
