@@ -53,13 +53,9 @@ class ContentList(list, object):
             try:
                 if item.name == name:
                     return item
-                else: continue
-            except AttributeError:
-                if item == name:
-                    return item
-                else:
+                else: 
                     continue
+            except AttributeError:
+                pass
 
         return default
-    
-    
