@@ -24,13 +24,14 @@ Quickstart Guide:
 import os
 import valorant
 
-API_KEY = os.getenv("API_KEY")
-client = valorant.Client(API_KEY)
+KEY = os.environ["KEY"]
+client = valorant.Client(KEY, locale=None)
 
+maps = client.get_maps()
 agents = client.get_characters()
 
-for agent in agents:
-	print(agent.name)
+print(agents.get("Viper"))
+print(maps.get("Ascent"))
 ```
 
 ### Documentation
