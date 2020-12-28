@@ -44,9 +44,10 @@ Contributions are always welcome! There currently isn't a contribution guide, bu
 
 ### TO-DO
 
-+ [WIP]   Add coverage for **VAL-MATCH** endpoint
-+ [LATER] Add more verbosive documentation (the docs rn are pretty convoluted lol)
-+ [LATER] Add recursive attributes for DTO `dto.attr['value']['value2']` -> `dto.attr.value.value2`
-+ [LATER] Fully cover **VAL-STATUS** endpoint
-+ [LATER] Add an Asynchronous Client (thread support maybe? :P)
-+ [LATER] Add customizable rate-limits
+**Work in Progress:**
++ Add an Asynchronous Client
++ Add coverage for **VAL-MATCH** endpoint
+
+**To be Worked On:**
++ Fully cover **VAL-STATUS** endpoint
++ Add customizable rate-limits
