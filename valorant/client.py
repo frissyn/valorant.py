@@ -68,7 +68,7 @@ class Client(object):
         return AccountDTO(r.json())
 
     def get_platform_status(self):
-        url = _build_url(reigon=self.reigon, endpoint="status")
+        url = _build_url(code=self.reigon, endpoint="status")
         heads = _build_header({"X-Riot-Token": self.key})
         params = {"locale": self.locale}
 
