@@ -45,3 +45,21 @@ class PlatformDataDTO(DTO):
 
     def __getattribute__(self, name):
         return super(PlatformDataDTO, self).__getattribute__(name)
+
+
+class ContentList(list, object):
+    def get(self, name: str, default=None):
+        for item in self.copy():
+            try:
+                if item.name == name:
+                    return item
+                else: continue
+            except AttributeError:
+                if item == name:
+                    return item
+                else:
+                    continue
+
+        return default
+    
+    
