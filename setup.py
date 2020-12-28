@@ -5,7 +5,7 @@ with open("docs/about.md", "r") as fh:
 
 setuptools.setup(
     name="valorant",
-    version="0.1.6",
+    version="0.1.7",
     author="IreTheKID",
     author_email="author@example.com",
     description="An unofficial synchronous client package for interacting with Riot Games' Valorant API endpoints.",
