@@ -40,3 +40,6 @@ viper = agents.get("Viper") # Returns a ContentItemDTO
 oops = agents.get("Shadow") # Returns None
 ```
 
+## Reloading
+
+Upon initilalizing the `Client`, if `reload=True` the Client will cache a reponse from the **VAL-CONTENT-V1** endpoint. This will not be updated until you call `client.reload()`. If `reload=False` the Client will not cache a response, and you'll have to call it yourself. This is because, in my experience, you'll make requests to the Content endpoint the most often, which can easily lead you to a `429` HTTP error. `client.reload()` exists to mitigate that risk. However, getting users and platform_status will make a call to the API everytime. This is because the data from these requests change the most frequently, and getting up-to-date information is a lot more important in more contexts than the Content endpoint.
