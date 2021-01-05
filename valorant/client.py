@@ -1,11 +1,11 @@
 import requests
 
-from .dto import ActDTO
-from .dto import AccountDTO
-from .dto import ContentItemDTO
-from .dto import PlatformDataDTO
+from .objects import ActDTO
+from .objects import AccountDTO
+from .objects import ContentItemDTO
+from .objects import PlatformDataDTO
 
-from .dto import ContentList
+from .objects import ContentList
 
 from .values import ROUTES
 from .values import LOCALE
