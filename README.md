@@ -36,7 +36,7 @@ print(maps.get("Ascent"))
 
 ### Documentation
 
-[**valorant.py Documentation**](https://valorantpy.repl.co/docs.html)
+[**valorant.py Documentation**](https://github.com/IreTheKID/valorant.py/tree/master/docs)
 
 ### Contributing
 

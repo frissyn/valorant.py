@@ -1,15 +1,18 @@
 import requests
 
-from .dto import ActDTO
-from .dto import AccountDTO
-from .dto import ContentItemDTO
-from .dto import PlatformDataDTO
+from .objects import ActDTO
+from .objects import AccountDTO
+from .objects import ContentItemDTO
+from .objects import PlatformDataDTO
 
-from .dto import ContentList
+from .objects import ContentList
 
+from .values import ROUTES
 from .values import LOCALE
-from .values import _build_url
-from .values import _build_header
+from .values import REIGONS
+from .values import HEADERS
+from .values import BASE_URL
+from .values import ENDPOINTS
 
 
 def update(stale, latest):
@@ -40,8 +43,8 @@ class Client(object):
             self.__setattr__(attr, value)
 
     def reload(self):
-        url = _build_url(code=self.reigon, endpoint="content")
-        heads = _build_header({"X-Riot-Token": self.key})
+        url = self.build_url(code=self.reigon, endpoint="content")
+        heads = self.build_header({"X-Riot-Token": self.key})
         params = {"locale": self.locale}
 
         r = self.fetch(url, params=params, headers=heads)
@@ -49,17 +52,37 @@ class Client(object):
 
         self.set_attributes(r.json())
 
+    def build_header(self, mixin: dict):
+        c = HEADERS.copy()
+
+        for n, v in mixin.items():
+            c[n] = v
+        
+        return c
+
+    def build_url(self, code="na", endpoint="content", p=None):
+        if code not in REIGONS and code not in ROUTES:
+            raise ValueError(f"Invalid Route Code: '{code}'")
+        else:
+            pass
+
+        end = ENDPOINTS[endpoint]
+        url = BASE_URL.format(code=code) + end
+
+        return url
+
+
     def get_user(self, value, via="puuid"):
-        heads = _build_header({"X-Riot-Token": self.key})
+        heads = self.build_header({"X-Riot-Token": self.key})
 
         if via == "puuid":
-            url = _build_url(code=self.route, endpoint="puuid")
+            url = self.build_url(code=self.route, endpoint="puuid")
             url = url.format(puuid=value)
         elif via == "name":
             name = value.split("#")[0]
             tag = value.split("#")[-1]
 
-            url = _build_url(code=self.route, endpoint="gamename")
+            url = self.build_url(code=self.route, endpoint="gamename")
             url = url.format(name=name, tag=tag)
         
         r = self.fetch(url, headers=heads)
@@ -68,8 +91,8 @@ class Client(object):
         return AccountDTO(r.json())
 
     def get_platform_status(self):
-        url = _build_url(code=self.reigon, endpoint="status")
-        heads = _build_header({"X-Riot-Token": self.key})
+        url = self.build_url(code=self.reigon, endpoint="status")
+        heads = self.build_header({"X-Riot-Token": self.key})
         params = {"locale": self.locale}
 
         r = self.fetch(url, headers=heads, params=params)
