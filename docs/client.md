@@ -20,7 +20,7 @@ client = valorant.Client(KEY, locale=None)
 | Parameters  |                 |                                                        |
 |:------------|:----------------|:-------------------------------------------------------|
 | key         | `str` or `None` | Your given RGAPI key. Can be any access-level.         |
-| locale      | `str` or `None` | A standard locale string containing language and region (i.e "en-US"). Defaults to [`locale.get_locale()[0]`]()|
+| locale      | `str` or `None` | A standard locale string containing language and region (i.e "en-US"). Defaults to [`locale.get_locale()[0]`](https://docs.python.org/3/library/locale.html#locale.getlocale)|
 | region      | `str`           | Valid API reigon string. (i.e `na` or `eu`). Defaults to `na`|
 | route       | `str`           | Valid API region route  string. (i.e `americas`). Defaults to `americas`|
 | reload      | `bool`          | Whether to load client content on initialization. Defaults to `True`|
@@ -76,4 +76,4 @@ content = client.fetch(url, headers=h)
 print(content)
 ```
 
-The complete list of valid values can be found in the `.values` module. This includes routes, reigons, endpoints, URLs, etc.
+The complete list of valid values can be found in the [`.values`](https://github.com/IreTheKID/valorant.py/blob/master/valorant/values.py) module. This includes routes, reigons, endpoints, URLs, etc.
