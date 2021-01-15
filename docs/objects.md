@@ -5,10 +5,9 @@
 ## Quickstart
 
 ```python
-import os
 import valorant
 
-KEY = os.environ["KEY"]
+KEY = "RGAPI-Key-Goes-Here"
 client = valorant.Client(KEY, reigon="na")
 
 modes = client.get_game_modes()

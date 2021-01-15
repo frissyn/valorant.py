@@ -21,10 +21,9 @@ valorant.py is an unofficial API wrapper for Riot Games' Valorant API endpoints.
 
 Quickstart Guide:
 ```python
-import os
 import valorant
 
-KEY = os.environ["KEY"]
+KEY = "RGAPI-Key-Goes-Here"
 client = valorant.Client(KEY, locale=None)
 
 maps = client.get_maps()

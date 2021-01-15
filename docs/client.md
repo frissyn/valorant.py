@@ -5,10 +5,9 @@
 ## Quickstart
 
 ```python
-import os
 import valorant
 
-KEY = os.environ["KEY"]
+KEY = "RGAPI-Key-Goes-Here"
 client = valorant.Client(KEY, locale=None)
 ```
 
