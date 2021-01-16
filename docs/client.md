@@ -19,7 +19,7 @@ client = valorant.Client(KEY, locale=None)
 | Parameters  |                 |                                                        |
 |:------------|:----------------|:-------------------------------------------------------|
 | key         | `str` or `None` | Your given RGAPI key. Can be any access-level.         |
-| locale      | `str` or `None` | A standard locale string containing language and region (i.e "en-US"). Defaults to [`locale.get_locale()[0]`](https://docs.python.org/3/library/locale.html#locale.getlocale)|
+| locale      | `str` or `None` | A standard locale string containing language and region (i.e "en-US"). Defaults to [`locale.getdefaultlocale()[0]`](https://docs.python.org/3/library/locale.html#locale.getdefaultlocale)|
 | region      | `str`           | Valid API reigon string. (i.e `na` or `eu`). Defaults to `na`|
 | route       | `str`           | Valid API region route  string. (i.e `americas`). Defaults to `americas`|
 | reload      | `bool`          | Whether to load client content on initialization. Defaults to `True`|
