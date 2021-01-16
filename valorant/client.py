@@ -43,10 +43,6 @@ class Client(object):
             self.__setattr__(attr, value)
 
     def reload(self):
-        """
-        Reload the current cached response for the VAL-CONTENT endpoints.
-        
-        """
         url = self.build_url(code=self.region, endpoint="content")
         heads = self.build_header({"X-Riot-Token": self.key})
         params = {"locale": self.locale}
