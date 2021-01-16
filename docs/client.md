@@ -55,16 +55,15 @@ Start by passing an empty API Key string and setting `reload` to `False`:
 client = valorant.Client("", reload=False)
 ```
 
-From there you can do two things: build a header, or build a URL (likely both). From the `values` module, where you can view all the valid endpoints, reigons, routes, etc. to build your URLs to make a request to. Then using the `client.fetch()` method, which is a copy of the `requests.get()` method, you can make your request. Here's a complete example:
+From there you can do two things: build a header, or build a URL (likely both). From the `values` module, where you can view all the valid endpoints, reigons, routes, etc. to build your URLs to make a request to. Then using the `client.fetch()` method, which is a copy of the `requests.get()` method, you can make your request. The following example will build the request headers and select a random region to build the URL with:
 
 ```python
-import os
 import random
 
 from valorant import Client
 from valorant.values import ENDPOINTS, REIGONS
 
-KEY = os.environ["KEY"]
+KEY = "RGAPI-Key-Goes-Here"
 client = Client("", reload=False)
 
 h = client.build_header({"X-Riot-Token": KEY})
