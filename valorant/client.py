@@ -9,7 +9,7 @@ from .objects import ContentList
 
 from .values import ROUTES
 from .values import LOCALE
-from .values import REIGONS
+from .values import REGIONS
 from .values import HEADERS
 from .values import BASE_URL
 from .values import ENDPOINTS
@@ -23,11 +23,11 @@ def update(stale, latest):
 
 
 class Client(object):
-    def __init__(self, key, locale=LOCALE, reigon="na", route="americas", reload=True):
+    def __init__(self, key, locale=LOCALE, region="na", route="americas", reload=True):
         self.key = key
         self.route = route
         self.locale = locale
-        self.reigon = reigon
+        self.region = region
         self.fetch = requests.get
 
         if reload:
@@ -43,7 +43,11 @@ class Client(object):
             self.__setattr__(attr, value)
 
     def reload(self):
-        url = self.build_url(code=self.reigon, endpoint="content")
+        """
+        Reload the current cached response for the VAL-CONTENT endpoints.
+        
+        """
+        url = self.build_url(code=self.region, endpoint="content")
         heads = self.build_header({"X-Riot-Token": self.key})
         params = {"locale": self.locale}
 
@@ -61,7 +65,7 @@ class Client(object):
         return c
 
     def build_url(self, code="na", endpoint="content", p=None):
-        if code not in REIGONS and code not in ROUTES:
+        if code not in REGIONS and code not in ROUTES:
             raise ValueError(f"Invalid Route Code: '{code}'")
         else:
             pass
@@ -91,7 +95,7 @@ class Client(object):
         return AccountDTO(r.json())
 
     def get_platform_status(self):
-        url = self.build_url(code=self.reigon, endpoint="status")
+        url = self.build_url(code=self.region, endpoint="status")
         heads = self.build_header({"X-Riot-Token": self.key})
         params = {"locale": self.locale}
 

@@ -4,7 +4,7 @@ BASE_URL = "https://{code}.api.riotgames.com/"
 LOCALE = locale.getlocale()[0].replace("_", "-")
 ROUTES = ["americas", "asia", "europe"]
 
-REIGONS = [
+REGIONS = [
     "eu", "eune", "euw", "jp", "kr", "lan", "br",
     "las", "na", "oce", "ru", "tr", "latam", "ap"
 ]
