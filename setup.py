@@ -1,11 +1,13 @@
 import setuptools
 
+from valorant import __version__
+
 with open("docs/about.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="valorant",
-    version="0.1.8",
+    version=__version__,
     author="IreTheKID",
     author_email="author@example.com",
     description="An unofficial synchronous client package for interacting with Riot Games' Valorant API endpoints.",
