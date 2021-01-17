@@ -13,7 +13,7 @@ client = valorant.Client(KEY, locale=None)
 
 ## Initialize
 
-| \_\_init\_\_(*obj*)| Initialize the `Client` object.                                   |
+| \_\_init\_\_(key, \*\*kwargs)| Initialize the `Client` object.                                   |
 |:-------------------|:------------------------------------------------------------------|
 
 | Parameters  |                 |                                                        |
@@ -32,7 +32,7 @@ The valorant `Client` object has a number of **get** functions for retrieving in
 agents = client.get_characters()
 ```
 
-All Valorant content can be retrieved with `get_<data>()` where **data** is the name of the content in *snake_case*. These functions return a [`ContentList`](https://github.com/IreTheKID/valorant.py/blob/master/valorant/dto.py#L50), which is a standard Python list with an added `get` method for getting DTOs by *name*. Returns `None` if no item in the list has the given name.
+All Valorant content can be retrieved with `get_<data>()` where **data** is the name of the content in *snake_case*. These functions return a [`ContentList`](https://github.com/IreTheKID/valorant.py/blob/master/valorant/objects.py#L50), which is a standard Python list with an added `get` method for getting DTOs by *name*. Returns `None` if no item in the list has the given name.
 
 ```python
 viper = agents.get("Viper") # Returns a ContentItemDTO
