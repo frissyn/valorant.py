@@ -1,4 +1,5 @@
 class DTO(object):
+    """Base mixin class for synthesizing JSON responses from the API."""
     def __init__(self, obj):
         self.json = obj
         self.set_attributes(obj)
