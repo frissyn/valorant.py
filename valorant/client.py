@@ -3,6 +3,7 @@ import requests
 from .objects import ActDTO
 from .objects import AccountDTO
 from .objects import ContentItemDTO
+from .objects import LeaderboardDTO
 from .objects import PlatformDataDTO
 
 from .objects import ContentList
@@ -145,6 +146,19 @@ class Client(object):
         equips = [ContentItemDTO(e) for e in self.equips]
 
         return ContentList(equips)
+    
+    def get_leaderboard(self, actId: str, size: int=0, offset: int=0):
+        """Get the top user's in your client's region during the given Act."""
+        url = self.build_url(self.region, endpoint="leaderboard")
+        url = url.format(actId=actId)
+        heads = self.build_header({"X-Riot-Token": self.key})
+        params = {"locale": self.locale}
+
+        r = self.fetch(url, headers=heads, params=params)
+        r.raise_for_status()
+
+        return LeaderboardDTO(r.json())
+
 
     def get_maps(self) -> ContentList:
         """Get a ContentList of Maps from Valorant."""
