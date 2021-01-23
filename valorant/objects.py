@@ -47,17 +47,20 @@ class PlatformDataDTO(DTO):
         return super(PlatformDataDTO, self).__getattribute__(name)
 
 
+class LeaderboardDTO(DTO):
+    def __getattribute__(self, name):
+        return super(LeaderboardDTO, self).__getattribute__(name)
+
+
 class ContentList(list, object):
     def get(self, name: str, default=None):
+        """Safe method for getting items in the ContentList by it's name attribute."""
         for item in self.copy():
             try:
                 if item.name == name:
                     return item
                 else: continue
             except AttributeError:
-                if item == name:
-                    return item
-                else:
-                    continue
+                continue
 
         return default
