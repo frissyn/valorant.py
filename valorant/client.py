@@ -113,7 +113,7 @@ class Client(object):
 
         return PlatformDataDTO(r.json())
 
-    def get_acts(self) -> ActDTO:
+    def get_acts(self) -> ContentList:
         """Get a ContentList of Acts from Valorant."""
         acts = [ActDTO(a) for a in self.acts]
 
@@ -124,6 +124,16 @@ class Client(object):
         characters = [ContentItemDTO(c) for c in self.characters]
 
         return ContentList(characters)
+    
+    def get_current_act(self) -> ActDTO:
+        """Get the current Act (indiscriminate of episode)."""
+        for act in self.get_acts():
+            if act.isActive and "ACT" in act.name:
+                return act
+            else:
+                continue
+
+        return None
 
     def get_charms(self) -> ContentList:
         """Get a ContentList of Gun Buddies from Valorant."""
@@ -147,12 +157,12 @@ class Client(object):
 
         return ContentList(equips)
     
-    def get_leaderboard(self, actId: str, size: int=0, offset: int=0):
+    def get_leaderboard(self, actId: str, size: int=100, offset: int=0):
         """Get the top user's in your client's region during the given Act."""
         url = self.build_url(self.region, endpoint="leaderboard")
         url = url.format(actId=actId)
         heads = self.build_header({"X-Riot-Token": self.key})
-        params = {"locale": self.locale}
+        params = {"locale": self.locale, "size": size, "startIndex": offset}
 
         r = self.fetch(url, headers=heads, params=params)
         r.raise_for_status()
