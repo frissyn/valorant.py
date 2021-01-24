@@ -7,7 +7,23 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Contribute](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/frissyn/valorant.py/issues)
 
-valorant.py is an unofficial API wrapper for Riot Games' Valorant API endpoints. It's modern, easy to use, feature-rich, and intuitive! Implemented with object oriented designs and explicit reloads to prevent `429`s, valorant.py is the best Valorant API wrapper out there!
+`valorant.py` is an unofficial API wrapper for Riot Games' Valorant API endpoints. It's modern, easy to use, feature-rich, and intuitive! Implemented with object oriented designs and explicit reloads to prevent `429`s, valorant.py is the best Valorant API wrapper out there!
+
+**Update Notice:**
+
+Riot recently released a new endpoint along Episode 2: Leaderboards! Now you can get the top users in your region with `valorant.py`. This code snippet will get the top 100 players for the current act:
+
+```python
+import json
+import valorant
+
+client = valorant.Client("RGAPI-Key")
+
+act = client.get_current_act()
+lboard = client.get_leaderboard(act.id, size=100)
+
+print(json.dumps(lboard.players, indent=2))
+```
 
 # Overview
 
