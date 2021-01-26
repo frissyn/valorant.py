@@ -11,7 +11,7 @@ REGIONS = [
 
 ENDPOINTS = {
     "content": "val/content/v1/contents",
-    "leaderboard": "val/ranked/v1/leaderboards/by-act/{actId}",
+    "leaderboard": "val/ranked/v1/leaderboards/by-act/{actID}",
     "status": "val/status/v1/platform-data",
     "puuid": "riot/account/v1/accounts/by-puuid/{puuid}",
     "gamename": "riot/account/v1/accounts/by-riot-id/{name}/{tag}",

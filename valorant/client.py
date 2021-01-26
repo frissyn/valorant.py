@@ -157,10 +157,13 @@ class Client(object):
 
         return ContentList(equips)
     
-    def get_leaderboard(self, actId: str, size: int=100, offset: int=0):
-        """Get the top user's in your client's region during the given Act."""
+    def get_leaderboard(self, size: int=100, offset: int=0, actID: str=""):
+        """Get the top user's in your client's region during a given Act."""
+        actID = self.get_current_act().id if not actID else actID
+
         url = self.build_url(self.region, endpoint="leaderboard")
-        url = url.format(actId=actId)
+        url = url.format(actID=actID)
+
         heads = self.build_header({"X-Riot-Token": self.key})
         params = {"locale": self.locale, "size": size, "startIndex": offset}
 
