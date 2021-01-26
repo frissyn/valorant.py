@@ -17,10 +17,10 @@ Riot recently released a new endpoint along Episode 2: Leaderboards! Now you can
 import json
 import valorant
 
-client = valorant.Client("RGAPI-Key")
+KEY = "RGAPI-Key-Goes-Here"
+client = valorant.Client(kEY)
 
-act = client.get_current_act()
-lboard = client.get_leaderboard(act.id, size=100)
+lboard = client.get_leaderboard(size=100)
 
 print(json.dumps(lboard.players, indent=2))
 ```
