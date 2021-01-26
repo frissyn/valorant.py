@@ -13,7 +13,7 @@ setuptools.setup(
     description="An unofficial synchronous client package for interacting with Riot Games' Valorant API endpoints.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/IreTheKID/valorant.py",
+    url="https://github.com/frissyn/valorant.py",
     packages=["valorant"],
     classifiers=[
         "Programming Language :: Python :: 3",
