@@ -67,4 +67,8 @@ Bug reports, additional endopint coverage, and other fun stuff is always welcome
 
 2. Make your changes
 3. Create a pull request describing what you changed.
-4. Squash your commits if you had to fix something.
+4. Squash your commits with a reference to your pull request.
+
+### Other Notes
+
+As of January 26, 2021, this repository will follow my personal commit prefix guide. Please refer to it when contributing! :) [github.com/frissyn/valorant.py](https://github.com/frissyn/valorant.py)
