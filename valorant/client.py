@@ -96,6 +96,8 @@ class Client(object):
 
             url = self.build_url(code=self.route, endpoint="gamename")
             url = url.format(name=name, tag=tag)
+        else:
+            raise ValueError("Invalid `via` parameter value.")
         
         r = self.fetch(url, headers=heads)
         r.raise_for_status()
