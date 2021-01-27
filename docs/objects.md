@@ -1,6 +1,6 @@
 ## Source
 
-[`valorant/objects.py`](https://github.com/IreTheKID/valorant.py/blob/master/valorant/objects.py)
+[`valorant/objects.py`](https://github.com/frissyn/valorant.py/blob/master/valorant/objects.py)
 
 ## Quickstart
 
@@ -31,8 +31,7 @@ Because these objects do almost nothing more than mimic the DTOs you'd get from 
 
 All DTOs (in `valorant.py`) inherit from the same DTO class; they have different names for the sake of semantics and debugging. There are also other objects that have different purposes, such as `ContentList` which is functionally the same as a Python `list`, but with a safe `get` method for getting DTOs in the list by name. Here's a list of them all:
 
-| `valorant.objects.AccountDTO` | DTO for User Accounts.                        |
-|:--------------------------|:-------------------------------------------------:|
+#### AccountDTO
 
 | Attribute      | Type | Description                                        |
 |:---------------|:-----|:---------------------------------------------------|
@@ -41,8 +40,7 @@ All DTOs (in `valorant.py`) inherit from the same DTO class; they have different
 | tagLine        | str  | This attribute may be `None`.                      |
 
 
-| `valorant.objects.ActDTO`    | DTO for Acts.                                 |
-|:-------------------------|:-------------------------------------------------:|
+#### ActDTO
 
 | Attribute      | Type   | Description                                        |
 |:---------------|:-------|:---------------------------------------------------|
@@ -52,8 +50,7 @@ All DTOs (in `valorant.py`) inherit from the same DTO class; they have different
 | isActive       | `bool` |                                                    |
 
 
-| `valorant.objects.ContentItemDTO` | DTO for Skins, Chromas, Cards, Maps, etc.  |
-|:------------------------------|:----------------------------------------------:|
+#### ContentItemDTO
 
 | Attribute      | Type   | Description                                          |
 |:---------------|:-------|:-----------------------------------------------------|
@@ -64,16 +61,17 @@ All DTOs (in `valorant.py`) inherit from the same DTO class; they have different
 | assetPath      | `str`  | This attribute only appears for maps and game modes. |
 
 
-| `valorant.objects.ContentList` | List subclass for lists of DTOs.                  |
-|:-------------------------------|:-------------------------------------------------:|
+#### LeaderboardDTO
 
-| Function                  | Description                                                                 |
-|:--------------------------|:----------------------------------------------------------------------------|
-| get(name, default=`None`) | Gets a DTO in the list by `name` attribute. Returns `default` if not found. |
+| Attribute      | Type         | Description                                          |
+|:---------------|:-------------|:-----------------------------------------------------|
+| shard          | `str`        | The shard for the given leaderboard.                 |
+| actId          | `str`        | The Act ID for the given leaderboard.                |
+| totalPlayers   | `int`        | Total number of players on the given leaderboard.    |
+| players        | `list[dict]` |                                                      |
 
 
-| `valorant.objects.PlatformDataDTO` | DTO for Current Platform Status            |
-|:-------------------------------|:----------------------------------------------:|
+#### PlatformStatusDTO
 
 | Attribute      | Type                | Description                                |
 |:---------------|:--------------------|:-------------------------------------------|
@@ -82,3 +80,10 @@ All DTOs (in `valorant.py`) inherit from the same DTO class; they have different
 | locales        | `list[str]`         | List of all valid locales.                 |
 | maintenances   | `list[dict]`        | List of maintenances (Fixes, Updates, etc.)|
 | incidents      | `list[dict]`        | List of incidents (Bugs, Issues, etc.)     |
+
+
+#### ContentList
+
+| Method                    | Description                                                                 |
+|:--------------------------|:----------------------------------------------------------------------------|
+| get(name, default=`None`) | Gets a DTO in the list by `name` attribute. Returns `default` if not found. |
