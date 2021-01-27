@@ -68,7 +68,7 @@ All DTOs (in `valorant.py`) inherit from the same DTO class; they have different
 | shard          | `str`        | The shard for the given leaderboard.                 |
 | actId          | `str`        | The Act ID for the given leaderboard.                |
 | totalPlayers   | `int`        | Total number of players on the given leaderboard.    |
-| players        | `list[dict]` |                                                      |
+| players        | `ContentList`| `ContentList` of `PlayerDTO`s                        |
 
 
 #### PlatformStatusDTO
@@ -82,8 +82,20 @@ All DTOs (in `valorant.py`) inherit from the same DTO class; they have different
 | incidents      | `list[dict]`        | List of incidents (Bugs, Issues, etc.)     |
 
 
+#### PlayerDTO
+
+| Attribute       | Type                | Description                                |
+|:----------------|:--------------------|:-------------------------------------------|
+| puuid           | `str`               |                                            |
+| gameName        | `str`               |                                            |
+| tagLine         | `str`               |                                            |
+| leaderboardRank | `int`               |                                            |
+| rankedRating    | `int`               |                                            |
+| numberOfWins    | `int`               |                                            |
+
 #### ContentList
 
-| Method                    | Description                                                                 |
+|Method                     |Description                                                                  |
 |:--------------------------|:----------------------------------------------------------------------------|
-| get(name, default=`None`) | Gets a DTO in the list by `name` attribute. Returns `default` if not found. |
+|`get(name, default=None)`  |Gets a DTO in the list by `name` attribute. Returns `default` if not found.  |
+|`find(value, attr="name")` |Find an item in the ContentList by a given attribute value.                  |
