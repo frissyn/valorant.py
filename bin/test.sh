@@ -25,8 +25,8 @@ function prompt_key() {
     echo -n "Enter Key Type >> "
     read key_type
 
-    export VALORANT_KEY=key
-    export VALORANT_KEY_TYPE=key_type
+    export VALORANT_KEY=$key
+    export VALORANT_KEY_TYPE=$key_type
 
     clear
 }
