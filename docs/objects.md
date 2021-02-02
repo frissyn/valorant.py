@@ -95,9 +95,9 @@ All DTOs (in `valorant.py`) inherit from the same DTO class; they have different
 
 #### ContentList
 
-*ContentList is a subclass of the base `list` class in Python. Besides these listed methods, anything you can do with a list you can do with a ContentList as well.*
+*`ContentList` is a subclass of the base `list` class in Python. Besides these listed methods, anything you can do with a `list` you can do with a `ContentList` as well.*
 
-|Method                     |Description                                                                  |
-|:--------------------------|:----------------------------------------------------------------------------|
-|`get(name, default=None)`  |Gets a DTO in the list by `name` attribute. Returns `default` if not found.  |
-|`find(value, attr="name")` |Find an item in the ContentList by a given attribute value.                  |
+|Method                                   |Description                                                                                |
+|:----------------------------------------|:------------------------------------------------------------------------------------------|
+|`get(name, default=None)`                |Gets a DTO in the list by `name` attribute. Returns `default` if not found.                |
+|`find(value, attr="name", default=None)` |Find an item in the ContentList by a given attribute value. Returns `default` if not found.|
