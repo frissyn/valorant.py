@@ -11,18 +11,19 @@
 
 **Update Notice:**
 
-Riot recently released a new endpoint along Episode 2: Leaderboards! Now you can get the top users in your region with `valorant.py`. This code snippet will get the top 100 players for the current act:
+Riot recently released a new endpoint along Episode 2: Leaderboards! Leaderboards in `valorant.py` support pagination and attribute finding. Take a look at the following snippet:
 
 ```python
-import json
 import valorant
 
 KEY = "RGAPI-Key-Goes-Here"
 client = valorant.Client(kEY)
 
-lboard = client.get_leaderboard(size=100)
+page1 = client.get_leaderboard(size=25, page=0)
+page2 = client.get_leaderboard(size=25, page=1)
 
-print(json.dumps(lboard.players, indent=2))
+print(page1.players.find(3, "leaderboardRank"))
+print(page2.players.find("haley", "gameName"))
 ```
 
 # Overview

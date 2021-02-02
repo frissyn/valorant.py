@@ -15,7 +15,24 @@ function propmt_test() {
     fi
 }
 
+function prompt_key() {
+    echo -n "Paste your API Key >> ";
+    read key
+
+    echo ""
+    echo "0 - Developement Key"
+    echo "1 - Application Key"
+    echo -n "Enter Key Type >> "
+    read key_type
+
+    export VALORANT_KEY=$key
+    export VALORANT_KEY_TYPE=$key_type
+
+    clear
+}
+
 # propmt_test
+prompt_key
 python "test.py"
 
 echo "Done!"

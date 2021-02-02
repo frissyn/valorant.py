@@ -96,6 +96,8 @@ class Client(object):
 
             url = self.build_url(code=self.route, endpoint="gamename")
             url = url.format(name=name, tag=tag)
+        else:
+            raise ValueError("Invalid `via` parameter value.")
         
         r = self.fetch(url, headers=heads)
         r.raise_for_status()
@@ -157,7 +159,7 @@ class Client(object):
 
         return ContentList(equips)
     
-    def get_leaderboard(self, size: int=100, offset: int=0, actID: str=""):
+    def get_leaderboard(self, size: int=100, page: int=0, actID: str=""):
         """Get the top user's in your client's region during a given Act."""
         actID = self.get_current_act().id if not actID else actID
 
@@ -165,7 +167,7 @@ class Client(object):
         url = url.format(actID=actID)
 
         heads = self.build_header({"X-Riot-Token": self.key})
-        params = {"locale": self.locale, "size": size, "startIndex": offset}
+        params = {"locale": self.locale, "size": size, "startIndex": size * page}
 
         r = self.fetch(url, headers=heads, params=params)
         r.raise_for_status()
