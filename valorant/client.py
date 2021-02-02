@@ -163,7 +163,6 @@ class Client(object):
         """Get the top user's in your client's region during a given Act."""
         actID = self.get_current_act().id if not actID else actID
 
-        page += 1
         url = self.build_url(self.region, endpoint="leaderboard")
         url = url.format(actID=actID)
 
