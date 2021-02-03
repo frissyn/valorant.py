@@ -32,9 +32,9 @@ print(page2.players.find("haley", "gameName"))
 
 |Manager          |Command                           |
 |:----------------|:---------------------------------|
-|**pip**          |`pip install valorant.py`          |
-|**poetry**       |`python -m poetry add valorant.py` |
-|**easy_install** |`easy_install valorant.py`         |
+|**pip**          |`pip install valorant`            |
+|**poetry**       |`python -m poetry add valorant`   |
+|**easy_install** |`easy_install valorant`           |
 
 
 ### Usage
