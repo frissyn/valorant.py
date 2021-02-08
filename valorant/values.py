@@ -18,7 +18,7 @@ ENDPOINTS = {
         "leaderboard": "val/ranked/v1/leaderboards/by-act/{actID}",
         "status": "val/status/v1/platform-data",
         "puuid": "riot/account/v1/accounts/by-puuid/{puuid}",
-        "gamename": "riot/account/v1/accounts/by-riot-id/{name}/{tag}",
+        "game-name": "riot/account/v1/accounts/by-riot-id/{name}/{tag}",
         "match": "val/match/v1/matches/{matchID}",
         "match-history": "val/match/v1/matchlists/by-puuid/{puuid}",
         "match-queue": "val/match/v1/recent-matches/by-queue/{queue}"

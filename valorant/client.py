@@ -80,22 +80,26 @@ class Client(object):
 
             return url
 
-    def get_user(self, value, via="puuid") -> AccountDTO:
-        """Get a Riot user by the given `via` method. (`puuid` OR `name`)"""
+    def get_user_by_puuid(self, puuid: str) -> AccountDTO:
+        """Get a Riot account by the given puuid."""
 
         heads = self.build_header({"X-Riot-Token": self.key})
 
-        if via == "puuid":
-            url = self.build_url(code=self.route, endpoint="puuid")
-            url = url.format(puuid=value)
-        elif via == "name":
-            name = value.split("#")[0]
-            tag = value.split("#")[-1]
+        url = self.build_url(code=self.route, endpoint="puuid")
+        url = url.format(puuid=puuid)
+        
+        r = self.fetch(url, headers=heads)
+        r.raise_for_status()
 
-            url = self.build_url(code=self.route, endpoint="gamename")
-            url = url.format(name=name, tag=tag)
-        else:
-            raise ValueError("Invalid `via` parameter value.")
+        return AccountDTO(r.json())
+    
+    def get_user_by_name(self, name: str, delim: str="#") -> AccountDTO:
+        """Get a Riot account by a given name split by a delimiter."""
+        heads = self.build_header({"X-Riot-Token": self.key})
+        values = name.split(delim)
+
+        url = self.build_url(code=self.route, endpoint="game-name")
+        url = url.format(name=values[0], tag=values[1])
         
         r = self.fetch(url, headers=heads)
         r.raise_for_status()
