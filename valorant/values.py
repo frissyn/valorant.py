@@ -1,7 +1,10 @@
 import locale
 
-BASE_URL = "https://{code}.api.riotgames.com/"
+CLIENT_API = "https://pd.{code}.a.pvp.net/"
+WEB_API = "https://{code}.api.riotgames.com/"
+
 LOCALE = locale.getdefaultlocale()[0].replace("_", "-")
+
 ROUTES = ["americas", "asia", "europe"]
 
 REGIONS = [

@@ -12,9 +12,9 @@ from .values import ROUTES
 from .values import LOCALE
 from .values import REGIONS
 from .values import HEADERS
-from .values import BASE_URL
+from .values import WEB_API
 from .values import ENDPOINTS
-
+from .values import CLIENT_API
 
 def update(stale: dict, latest: dict) -> dict:
     for key, items in latest.items():
@@ -69,18 +69,17 @@ class Client(object):
         
         return c
 
-    def build_url(self, code="na", endpoint="content") -> str:
-        """Create a URL with the given code and endpoint."""
+    def build_url(self, code="na", endpoint="content", web=True) -> str:
+        """Create a request URL with the given code and endpoint."""
 
         if code not in REGIONS and code not in ROUTES:
             raise ValueError(f"Invalid Route Code: '{code}'")
         else:
-            pass
+            url = WEB_API if web else CLIENT_API
+            end = ENDPOINTS[endpoint]
+            url = url.format(code=code) + end
 
-        end = ENDPOINTS[endpoint]
-        url = BASE_URL.format(code=code) + end
-
-        return url
+            return url
 
     def get_user(self, value, via="puuid") -> AccountDTO:
         """Get a Riot user by the given `via` method. (`puuid` OR `name`)"""
