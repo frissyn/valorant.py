@@ -75,7 +75,7 @@ class Client(object):
             raise ValueError(f"Invalid Route Code: '{code}'")
         else:
             url = WEB_API if base == "web" else CLIENT_API
-            end = ENDPOINTS[endpoint]
+            end = ENDPOINTS[base][endpoint]
             url = url.format(code=code) + end
 
             return url
