@@ -59,23 +59,22 @@ class Client(object):
 
         return
 
-    def build_header(self, mixin: dict) -> dict:
+    def build_header(self, mixin: dict, base: str="web") -> dict:
         """Create a header dictionary from the default request headers."""
 
-        c = HEADERS.copy()
+        c = HEADERS[base].copy()
 
-        for n, v in mixin.items():
-            c[n] = v
+        for n, v in mixin.items(): c[n] = v
         
         return c
 
-    def build_url(self, code="na", endpoint="content", web=True) -> str:
+    def build_url(self, code: str="na", endpoint: str="content", base: str="web") -> str:
         """Create a request URL with the given code and endpoint."""
 
         if code not in REGIONS and code not in ROUTES:
             raise ValueError(f"Invalid Route Code: '{code}'")
         else:
-            url = WEB_API if web else CLIENT_API
+            url = WEB_API if base == "web" else CLIENT_API
             end = ENDPOINTS[endpoint]
             url = url.format(code=code) + end
 
