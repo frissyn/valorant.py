@@ -13,16 +13,28 @@ REGIONS = [
 ]
 
 ENDPOINTS = {
-    "content": "val/content/v1/contents",
-    "leaderboard": "val/ranked/v1/leaderboards/by-act/{actID}",
-    "status": "val/status/v1/platform-data",
-    "puuid": "riot/account/v1/accounts/by-puuid/{puuid}",
-    "gamename": "riot/account/v1/accounts/by-riot-id/{name}/{tag}",
-    "match": "val/match/v1/matches/{matchID}",
-    "match-history": "val/match/v1/matchlists/by-puuid/{puuid}",
-    "match-queue": "val/match/v1/recent-matches/by-queue/{queue}"
+    "web": {
+        "content": "val/content/v1/contents",
+        "leaderboard": "val/ranked/v1/leaderboards/by-act/{actID}",
+        "status": "val/status/v1/platform-data",
+        "puuid": "riot/account/v1/accounts/by-puuid/{puuid}",
+        "gamename": "riot/account/v1/accounts/by-riot-id/{name}/{tag}",
+        "match": "val/match/v1/matches/{matchID}",
+        "match-history": "val/match/v1/matchlists/by-puuid/{puuid}",
+        "match-queue": "val/match/v1/recent-matches/by-queue/{queue}"
+    },
+    "client": {
+        "mmr": "mmr/v1/players/{playerID}/competitiveupdates",
+    }
 }
 
 HEADERS = {
-    "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8"
+    "web": {
+        "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8"
+    },
+    "client": {
+        "Authorization": "Bearer {token}",
+        "Content-Type": "application/json",
+        "X-Riot-Entitlements-JWT": "riot_entitlement"
+    }
 }
