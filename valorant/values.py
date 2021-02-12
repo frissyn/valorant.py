@@ -1,5 +1,6 @@
 import locale
 
+SAFES = "~()*!.'"
 CLIENT_API = "https://pd.{code}.a.pvp.net/"
 WEB_API = "https://{code}.api.riotgames.com/"
 

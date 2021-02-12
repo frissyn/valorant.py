@@ -1,4 +1,5 @@
 import requests
+import urllib.parse
 
 from .objects import ActDTO
 from .objects import AccountDTO
@@ -8,6 +9,7 @@ from .objects import PlatformDataDTO
 
 from .objects import ContentList
 
+from .values import SAFES
 from .values import ROUTES
 from .values import LOCALE
 from .values import REGIONS
@@ -97,6 +99,7 @@ class Client(object):
         """Get a Riot account by a given name split by a delimiter."""
         heads = self.build_header({"X-Riot-Token": self.key})
         values = name.split(delim)
+        values = [urllib.parse.quote(v, safe=SAFES) for v in values]
 
         url = self.build_url(code=self.route, endpoint="game-name")
         url = url.format(name=values[0], tag=values[1])
