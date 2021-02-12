@@ -39,8 +39,6 @@ viper = agents.get("Viper") # Returns a ContentItemDTO
 oops = agents.get("Shadow") # Returns None
 ```
 
-`client.get_user(value, via="puuid")` returns a user via a given method. Valid `via` values are `puuid` and `name`. If `via` equals `puuid`, the client will get the Account DTO by puuid. If `via` equals `name`, the client will get the Account DTO by gameName and tagLine split by a delimiter (e.g `IreTheKID#0000`).
-
 ## Reloading
 
 Upon initilalizing the `Client`, if `reload=True` the Client will cache a reponse from the **VAL-CONTENT-V1** endpoint. This will not be updated until you call `client.reload()`. If `reload=False` the Client will not cache a response, and you'll have to call it yourself. This is because, in my experience, you'll make requests to the Content endpoint the most often, which can easily lead you to a `429` HTTP error. `client.reload()` exists to mitigate that risk. However, getting users and platform_status will make a call to the API everytime. This is because the data from these requests change the most frequently, and getting up-to-date information is a lot more important in more contexts than the Content endpoint.
@@ -52,7 +50,7 @@ As of version `0.1.8`, you can build custom requests to the API instead of being
 Start by passing an empty API Key string and setting `reload` to `False`:
 
 ```python
-client = valorant.Client("", reload=False)
+client = valorant.Client(None, reload=False)
 ```
 
 From there you can do two things: build a header, or build a URL (likely both). From the `values` module, where you can view all the valid endpoints, reigons, routes, etc. to build your URLs to make a request to. Then using the `client.fetch()` method, which is a copy of the `requests.get()` method, you can make your request. The following example will build the request headers and select a random region to build the URL with:
@@ -64,7 +62,7 @@ from valorant import Client
 from valorant.values import ENDPOINTS, REIGONS
 
 KEY = "RGAPI-Key-Goes-Here"
-client = Client("", reload=False)
+client = Client(None, reload=False)
 
 h = client.build_header({"X-Riot-Token": KEY})
 url = client.build_url(code=random.choice(REIGONS), endpoint="content")
@@ -75,3 +73,16 @@ print(content)
 ```
 
 The complete list of valid values can be found in the [`.values`](https://github.com/IreTheKID/valorant.py/blob/master/valorant/values.py) module. This includes routes, reigons, endpoints, URLs, etc.
+
+
+**NOTE:** as of `v0.3.0`, there are two different base API URLs:
+
+1. "web": `https://{code}.api.riotgames.com/`
+2. "client": `https://pd.{code}.a.pvp.net/`
+
+You can choose between thse URLs with the optional `base` keyword argument in both of the build functions:
+
+```python
+h = client.build_header({"Authorization": f"Bearer {KEY}"})
+url = client.build_url(code="na", endpoint="mmr", base="client")
+```
