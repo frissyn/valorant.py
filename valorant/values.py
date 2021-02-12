@@ -9,8 +9,20 @@ LOCALE = locale.getdefaultlocale()[0].replace("_", "-")
 ROUTES = ["americas", "asia", "europe"]
 
 REGIONS = [
-    "eu", "eune", "euw", "jp", "kr", "lan", "br",
-    "las", "na", "oce", "ru", "tr", "latam", "ap"
+    "eu",
+    "eune",
+    "euw",
+    "jp",
+    "kr",
+    "lan",
+    "br",
+    "las",
+    "na",
+    "oce",
+    "ru",
+    "tr",
+    "latam",
+    "ap",
 ]
 
 ENDPOINTS = {
@@ -22,20 +34,18 @@ ENDPOINTS = {
         "game-name": "riot/account/v1/accounts/by-riot-id/{name}/{tag}",
         "match": "val/match/v1/matches/{matchID}",
         "match-history": "val/match/v1/matchlists/by-puuid/{puuid}",
-        "match-queue": "val/match/v1/recent-matches/by-queue/{queue}"
+        "match-queue": "val/match/v1/recent-matches/by-queue/{queue}",
     },
     "client": {
         "mmr": "mmr/v1/players/{playerID}/competitiveupdates",
-    }
+    },
 }
 
 HEADERS = {
-    "web": {
-        "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8"
-    },
+    "web": {"Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8"},
     "client": {
         "Authorization": "Bearer {token}",
         "Content-Type": "application/json",
-        "X-Riot-Entitlements-JWT": "riot_entitlement"
-    }
+        "X-Riot-Entitlements-JWT": "riot_entitlement",
+    },
 }

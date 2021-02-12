@@ -18,6 +18,7 @@ from .values import WEB_API
 from .values import ENDPOINTS
 from .values import CLIENT_API
 
+
 def update(stale: dict, latest: dict) -> dict:
     for key, items in latest.items():
         stale[key] = latest[key]
@@ -44,7 +45,7 @@ class Client(object):
     def set_attributes(self, attrs) -> None:
         for attr, value in attrs.items():
             self.__setattr__(attr, value)
-        
+
         return
 
     def reload(self) -> None:
@@ -61,16 +62,17 @@ class Client(object):
 
         return
 
-    def build_header(self, mixin: dict, base: str="web") -> dict:
+    def build_header(self, mixin: dict, base: str = "web") -> dict:
         """Create a header dictionary from the default request headers."""
 
         c = HEADERS[base].copy()
 
-        for n, v in mixin.items(): c[n] = v
-        
+        for n, v in mixin.items():
+            c[n] = v
+
         return c
 
-    def build_url(self, code: str="na", endpoint: str="content", base: str="web") -> str:
+    def build_url(self, code: str = "na", endpoint: str = "content", base: str = "web") -> str:
         """Create a request URL with the given code and endpoint."""
 
         if code not in REGIONS and code not in ROUTES:
@@ -89,13 +91,13 @@ class Client(object):
 
         url = self.build_url(code=self.route, endpoint="puuid")
         url = url.format(puuid=puuid)
-        
+
         r = self.fetch(url, headers=heads)
         r.raise_for_status()
 
         return AccountDTO(r.json())
-    
-    def get_user_by_name(self, name: str, delim: str="#") -> AccountDTO:
+
+    def get_user_by_name(self, name: str, delim: str = "#") -> AccountDTO:
         """Get a Riot account by a given name split by a delimiter."""
         heads = self.build_header({"X-Riot-Token": self.key})
         values = name.split(delim)
@@ -103,7 +105,7 @@ class Client(object):
 
         url = self.build_url(code=self.route, endpoint="game-name")
         url = url.format(name=values[0], tag=values[1])
-        
+
         r = self.fetch(url, headers=heads)
         r.raise_for_status()
 
@@ -131,7 +133,7 @@ class Client(object):
         characters = [ContentItemDTO(c) for c in self.characters]
 
         return ContentList(characters)
-    
+
     def get_current_act(self) -> ActDTO:
         """Get the current Act (indiscriminate of episode)."""
         for act in self.get_acts():
@@ -163,8 +165,8 @@ class Client(object):
         equips = [ContentItemDTO(e) for e in self.equips]
 
         return ContentList(equips)
-    
-    def get_leaderboard(self, size: int=100, page: int=0, actID: str=""):
+
+    def get_leaderboard(self, size: int = 100, page: int = 0, actID: str = ""):
         """Get the top user's in your client's region during a given Act."""
         actID = self.get_current_act().id if not actID else actID
 
@@ -178,7 +180,6 @@ class Client(object):
         r.raise_for_status()
 
         return LeaderboardDTO(r.json())
-
 
     def get_maps(self) -> ContentList:
         """Get a ContentList of Maps from Valorant."""

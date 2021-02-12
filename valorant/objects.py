@@ -1,5 +1,6 @@
 class DTO(object):
     """Base mixin class for synthesizing JSON responses from the API."""
+
     def __init__(self, obj):
         self.json = obj
         self.set_attributes(obj)
@@ -72,7 +73,8 @@ class ContentList(list, object):
             try:
                 if item.name == name:
                     return item
-                else: continue
+                else:
+                    continue
             except AttributeError:
                 continue
 
@@ -84,8 +86,9 @@ class ContentList(list, object):
             try:
                 if getattr(item, attr) == value:
                     return item
-                else: continue
+                else:
+                    continue
             except AttributeError:
                 continue
-        
+
         return default
