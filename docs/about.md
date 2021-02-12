@@ -7,7 +7,24 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Contribute](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/frissyn/valorant.py/issues)
 
-valorant.py is an unofficial API wrapper for Riot Games' Valorant API endpoints. It's modern, easy to use, feature-rich, and intuitive! Implemented with object oriented designs and explicit reloads to prevent `429`s, valorant.py is the best Valorant API wrapper out there!
+`valorant.py` is an unofficial API wrapper for Riot Games' Valorant API endpoints. It's modern, easy to use, feature-rich, and intuitive! Implemented with object oriented designs and explicit reloads to prevent `429`s, valorant.py is the best Valorant API wrapper out there!
+
+**Update Notice:**
+
+Riot recently released a new endpoint along Episode 2: Leaderboards! Leaderboards in `valorant.py` support pagination and attribute finding. Take a look at the following snippet:
+
+```python
+import valorant
+
+KEY = "RGAPI-Key-Goes-Here"
+client = valorant.Client(kEY)
+
+page1 = client.get_leaderboard(size=25, page=0)
+page2 = client.get_leaderboard(size=25, page=1)
+
+print(page1.players.find(3, "leaderboardRank"))
+print(page2.players.find("haley", "gameName"))
+```
 
 # Overview
 
@@ -15,9 +32,9 @@ valorant.py is an unofficial API wrapper for Riot Games' Valorant API endpoints.
 
 |Manager          |Command                           |
 |:----------------|:---------------------------------|
-|**pip**          |`pip install valorant.py`          |
-|**poetry**       |`python -m poetry add valorant.py` |
-|**easy_install** |`easy_install valorant.py`         |
+|**pip**          |`pip install valorant`            |
+|**poetry**       |`python -m poetry add valorant`   |
+|**easy_install** |`easy_install valorant`           |
 
 
 ### Usage
@@ -51,4 +68,5 @@ Bug reports, additional endopint coverage, and other fun stuff is always welcome
 
 2. Make your changes
 3. Create a pull request describing what you changed.
-4. Squash your commits if you had to fix something.
+4. Squash your commits with a reference to your pull request.
+
