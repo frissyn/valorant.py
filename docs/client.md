@@ -32,12 +32,25 @@ The valorant `Client` object has a number of **get** functions for retrieving in
 agents = client.get_characters()
 ```
 
-All Valorant content can be retrieved with `get_<data>()` where **data** is the name of the content in *snake_case*. These functions return a [`ContentList`](https://github.com/IreTheKID/valorant.py/blob/master/valorant/objects.py#L50), which is a standard Python list with an added `get` method for getting DTOs by *name*. Returns `None` if no item in the list has the given name.
+All Valorant content can be retrieved with `get_<data>()` where **data** is the name of the content in *snake_case*. These functions return a [`ContentList`](https://github.com/frissyn/valorant.py/blob/master/docs/objects.md#contentlist), which is a standard Python list with an added `get` and `find` function for getting DTOs in the list by attribute values.
+
+`get()` returns a DTO in the list by it's name attribute. Returns `None` if not found:
 
 ```python
 viper = agents.get("Viper") # Returns a ContentItemDTO
 oops = agents.get("Shadow") # Returns None
 ```
+
+
+`find()` returns a DTO by matching a given attribute and value. Returns `None` if not found:
+
+```python
+lboard = client.get_leaderboard()
+
+somePlayer = lboard.find(3, "leaderboardRank")        # Returns a PlayerDTO
+someOtherPlayer = lboard.find(101, "leaderboardRank") # Returns None
+```
+
 
 ## Reloading
 
@@ -83,6 +96,6 @@ The complete list of valid values can be found in the [`.values`](https://github
 You can choose between thse URLs with the optional `base` keyword argument in both of the build functions:
 
 ```python
-h = client.build_header({"Authorization": f"Bearer {KEY}"})
+h = client.build_header({"Authorization": f"Bearer {KEY}"}, base="client")
 url = client.build_url(code="na", endpoint="mmr", base="client")
 ```
