@@ -11,9 +11,10 @@
 
 ### ACCOUNT-V1
 
-|Method                            |Description                                        |
-|:---------------------------------|:--------------------------------------------------|
-|`get_account(value, via="puuid")` |Get an `AccountDTO` requested via the given `via`. |
+|Method                             |Description                                              |
+|:----------------------------------|:--------------------------------------------------------|
+|`get_user_by_puuid(puuid)`         |Get an `AccountDTO` by a given user PUUID.               |
+|`get_user_by_name(name, delim="#")`|Get an `AccountDTO` by a given name split by a delimeter.|  
 
 ### VAL-CONTENT-V1
 
@@ -40,7 +41,7 @@
 
 |Method                                          |Description                                                          |
 |:-----------------------------------------------|:--------------------------------------------------------------------|
-|`get_leaderboard(size=100, offset=0, actID="")` |Get a `LeaderboardDTO` with a list of players from the given values. ActID defaults to the current act ID. |
+|`get_leaderboard(size=100, page=0, actID="")` |Get a `LeaderboardDTO` with a list of players from the given values. The `page` attribute auto-calcs the index offest. ActID defaults to the current act ID. |
 
 ### VAL-STATUS-V1
 

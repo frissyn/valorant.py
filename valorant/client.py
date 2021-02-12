@@ -1,4 +1,5 @@
 import requests
+import urllib.parse
 
 from .objects import ActDTO
 from .objects import AccountDTO
@@ -8,13 +9,14 @@ from .objects import PlatformDataDTO
 
 from .objects import ContentList
 
+from .values import SAFES
 from .values import ROUTES
 from .values import LOCALE
 from .values import REGIONS
 from .values import HEADERS
-from .values import BASE_URL
+from .values import WEB_API
 from .values import ENDPOINTS
-
+from .values import CLIENT_API
 
 def update(stale: dict, latest: dict) -> dict:
     for key, items in latest.items():
@@ -59,45 +61,48 @@ class Client(object):
 
         return
 
-    def build_header(self, mixin: dict) -> dict:
+    def build_header(self, mixin: dict, base: str="web") -> dict:
         """Create a header dictionary from the default request headers."""
 
-        c = HEADERS.copy()
+        c = HEADERS[base].copy()
 
-        for n, v in mixin.items():
-            c[n] = v
+        for n, v in mixin.items(): c[n] = v
         
         return c
 
-    def build_url(self, code="na", endpoint="content") -> str:
-        """Create a URL with the given code and endpoint."""
+    def build_url(self, code: str="na", endpoint: str="content", base: str="web") -> str:
+        """Create a request URL with the given code and endpoint."""
 
         if code not in REGIONS and code not in ROUTES:
             raise ValueError(f"Invalid Route Code: '{code}'")
         else:
-            pass
+            url = WEB_API if base == "web" else CLIENT_API
+            end = ENDPOINTS[base][endpoint]
+            url = url.format(code=code) + end
 
-        end = ENDPOINTS[endpoint]
-        url = BASE_URL.format(code=code) + end
+            return url
 
-        return url
-
-    def get_user(self, value, via="puuid") -> AccountDTO:
-        """Get a Riot user by the given `via` method. (`puuid` OR `name`)"""
+    def get_user_by_puuid(self, puuid: str) -> AccountDTO:
+        """Get a Riot account by the given puuid."""
 
         heads = self.build_header({"X-Riot-Token": self.key})
 
-        if via == "puuid":
-            url = self.build_url(code=self.route, endpoint="puuid")
-            url = url.format(puuid=value)
-        elif via == "name":
-            name = value.split("#")[0]
-            tag = value.split("#")[-1]
+        url = self.build_url(code=self.route, endpoint="puuid")
+        url = url.format(puuid=puuid)
+        
+        r = self.fetch(url, headers=heads)
+        r.raise_for_status()
 
-            url = self.build_url(code=self.route, endpoint="gamename")
-            url = url.format(name=name, tag=tag)
-        else:
-            raise ValueError("Invalid `via` parameter value.")
+        return AccountDTO(r.json())
+    
+    def get_user_by_name(self, name: str, delim: str="#") -> AccountDTO:
+        """Get a Riot account by a given name split by a delimiter."""
+        heads = self.build_header({"X-Riot-Token": self.key})
+        values = name.split(delim)
+        values = [urllib.parse.quote(v, safe=SAFES) for v in values]
+
+        url = self.build_url(code=self.route, endpoint="game-name")
+        url = url.format(name=values[0], tag=values[1])
         
         r = self.fetch(url, headers=heads)
         r.raise_for_status()
