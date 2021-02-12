@@ -73,3 +73,5 @@ Bug reports, additional endopint coverage, and other fun stuff is always welcome
 ### Other Notes
 
 As of January 26, 2021, this repository will follow my personal commit prefix guide. Please refer to it when contributing! :) [github.com/frissyn/commit-prefixes](https://github.com/frissyn/commit-prefixes)
+
+**What am I working on now?**: Making an asynchronous `Client`!
