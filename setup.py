@@ -8,7 +8,7 @@ with open("docs/about.md", "r") as fh:
 setuptools.setup(
     name="valorant",
     version=__version__,
-    author="IreTheKID",
+    author="frissyn",
     author_email="author@example.com",
     description="An unofficial synchronous client package for interacting with Riot Games' Valorant API endpoints.",
     long_description=long_description,
