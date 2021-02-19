@@ -4,9 +4,29 @@ SAFES = "~()*!.'"
 CLIENT_API = "https://pd.{code}.a.pvp.net/"
 WEB_API = "https://{code}.api.riotgames.com/"
 
-LOCALE = locale.getdefaultlocale()[0].replace("_", "-")
+LOCALE = locale.getdefaultlocale()[0].replace('_', '-')
 
 ROUTES = ["americas", "asia", "europe"]
+
+LOCALES = [
+    "ar-AE",
+    "de-DE",
+    "en-US",
+    "es-ES",
+    "es-MX",
+    "fr-FR",
+    "id-ID",
+    "it-IT",
+    "ja-JP",
+    "ko-KR",
+    "pl-PL",
+    "pt-BR",
+    "ru-RU",
+    "tr-TR",
+    "th-TH",
+    "vi-VN",
+    "zh-TW",
+]
 
 REGIONS = [
     "eu",

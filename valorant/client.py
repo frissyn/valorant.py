@@ -12,6 +12,7 @@ from .objects import ContentList
 from .values import SAFES
 from .values import ROUTES
 from .values import LOCALE
+from .values import LOCALES
 from .values import REGIONS
 from .values import HEADERS
 from .values import WEB_API
@@ -30,9 +31,16 @@ class Client(object):
     def __init__(self, key, locale=LOCALE, region="na", route="americas", reload=True):
         self.key = key
         self.route = route
-        self.locale = locale
         self.region = region
         self.fetch = requests.get
+
+        if locale not in LOCALES:
+            raise ValueError(
+                f"The given locale '{locale}' is invalid. See "
+                + "`valorant.values.LOCALES` for a list of valid locales."
+            )
+        else:
+            self.locale = locale
 
         if reload:
             self.reload()
