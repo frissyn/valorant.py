@@ -12,6 +12,7 @@
 ## Updates
 
 Most recent version: `0.4.0`
+
 Changes:
 + Added `AsyncClient`
 + Added `asyncio.run` to namespace
