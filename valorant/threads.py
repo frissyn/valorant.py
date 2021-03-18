@@ -1,3 +1,5 @@
+import asyncio
+
 from .client import Client
 
 from .objects import ActDTO
@@ -7,6 +9,9 @@ from .objects import LeaderboardDTO
 from .objects import PlatformDataDTO
 
 from .objects import ContentList
+
+
+run = asyncio.run
 
 class AsyncClient(Client):
     def __getattribute__(self, name):

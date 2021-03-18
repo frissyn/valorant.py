@@ -1,4 +1,5 @@
 from .client import Client
+from .threads import run
 from .threads import AsyncClient
 
 __all__ = ["Client", "AsyncClient"]
