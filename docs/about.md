@@ -9,64 +9,69 @@
 
 `valorant.py` is an unofficial API wrapper for Riot Games' Valorant API endpoints. It's modern, easy to use, feature-rich, and intuitive! Implemented with object oriented designs and explicit reloads to prevent `429`s, valorant.py is the best Valorant API wrapper out there!
 
-**Update Notice:**
+## Updates
 
-Riot recently released a new endpoint along Episode 2: Leaderboards! Leaderboards in `valorant.py` support pagination and attribute finding. Take a look at the following snippet:
+Most recent version: `0.4.0`
+Changes:
++ Added `AsyncClient`
++ Added `asyncio.run` to namespace
++ Updated some docstrings and type-hinting
 
-```python
+## Installation
+
+|Manager|Command|
+|:-:|:--|
+|PIP|`pip install valorant`|
+|Poetry|`python -m poetry add valorant`|
+|Easy Install|`easy_install valorant`|
+
+## Usage
+
+Quickstart:
+
+```py
 import valorant
 
-KEY = "RGAPI-Key-Goes-Here"
-client = valorant.Client(kEY)
+KEY = "RGAPI-Key-Here"
+client = valorant.Client(KEY)
 
-page1 = client.get_leaderboard(size=25, page=0)
-page2 = client.get_leaderboard(size=25, page=1)
-
-print(page1.players.find(3, "leaderboardRank"))
-print(page2.players.find("haley", "gameName"))
-```
-
-# Overview
-
-### Installation
-
-|Manager          |Command                           |
-|:----------------|:---------------------------------|
-|**pip**          |`pip install valorant`            |
-|**poetry**       |`python -m poetry add valorant`   |
-|**easy_install** |`easy_install valorant`           |
-
-
-### Usage
-
-Quickstart Guide:
-```python
-import valorant
-
-KEY = "RGAPI-Key-Goes-Here"
-client = valorant.Client(KEY, locale=None)
-
-maps = client.get_maps()
 agents = client.get_characters()
 
-print(agents.get("Viper"))
-print(maps.get("Ascent"))
+for agent in agents:
+    print(agent.name)
 ```
 
-### Documentation
+Asynchronous Client:
 
-[**valorant.py Documentation**](https://github.com/frissyn/valorant.py/tree/master/docs)
+```py
+import valorant
 
-### Contributing
+KEY = "RGAPI-Key-Here"
+client = valorant.AsyncClient(KEY)
 
-Bug reports, additional endopint coverage, and other fun stuff is always welcome in [issues](https://github.com/frissyn/valorant.py/issues)!
+async def _main():
+    agents = await client.get_characters()
 
-1. Clone the repository with `git`:
+    for agent in agents:
+        print(agent.name)
 
-   - `git clone https://github.com/frissyn/valorant.py.git`
-   - `cd valorant`
+valorant.run(_main())
+```
 
-2. Make your changes
-3. Create a pull request describing what you changed.
-4. Squash your commits with a reference to your pull request.
+## Documentation
 
+You can find all of `valorant.py`'s documentation [`here`](https://github.com/frissyn/valorant.py/tree/master/docs). I plan on generating package docs with Sphinx eventually...
+
+## Contributing
+
+1. Fork the repository: [`Fork`](https://github.com/frissyn/valorant.py/fork)
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request! 🎉
+
+You can also re-create these steps with GitHub Desktop, Visual Studio Code, or whatever version control UI you prefer.
+
+## Final Note
+
+**Thanks for taking the time to check out `valorant.py`! 🎉**
