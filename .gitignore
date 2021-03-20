@@ -11,8 +11,3 @@ main.py
 .env
 env/
 venv/
-
-# POETRY FILES
-# ------------
-poetry.lock     linguist-generated
-pyproject.toml  linguist-generated
