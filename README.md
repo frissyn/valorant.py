@@ -71,9 +71,7 @@ You can find all of `valorant.py`'s documentation [`here`](https://github.com/fr
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request! 🎉
 
-You can also re-create these steps with GitHub Desktop, Visual Studio Code, or whatever `git` version control UI you prefer.
-
-You don't have to, but I use prefixes for all my commits (i.e `✨: add asyncio run to package namespace`). I have a personal style guide that I use, which you can find [`here`](https://github.com/frissyn/commit-prefixes).
+You can also re-create these steps with GitHub Desktop, Visual Studio Code, or whatever `git` version control UI you prefer. You don't have to, but I use prefixes for all my commits (i.e `✨: add asyncio run to package namespace`). I have a personal style guide that I use, which you can find [`here`](https://github.com/frissyn/commit-prefixes).
 
 
 ## Final Note
