@@ -3,18 +3,61 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to valorant's documentation!
+valorant.py
 ====================================
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+
+``valorant.py`` is an unofficial API wrapper for Riot Games' Valorant
+API endpoints. It's modern, easy to use, feature-rich, and intuitive!
+Implemented with object oriented designs and explicit reloads to prevent
+``429``\ s, valorant.py is the best Valorant API wrapper out there!
 
 
 
-Indices and tables
-==================
+Quickstart Examples:
+--------------------
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+Client:
+
+.. code:: py
+
+   import valorant
+
+   KEY = "RGAPI-Key-Here"
+   client = valorant.Client(KEY)
+
+   agents = client.get_characters()
+
+   for agent in agents:
+       print(agent.name)
+
+Asynchronous Client:
+
+.. code:: py
+
+   import valorant
+
+   KEY = "RGAPI-Key-Here"
+   client = valorant.AsyncClient(KEY)
+
+   async def _main():
+       agents = await client.get_characters()
+
+       for agent in agents:
+           print(agent.name)
+
+   valorant.run(_main())
+
+Local Client:
+
+*This is intended for use with the game locally. Eases the use of doing
+things like getting live match data, chat sessions, friend requests,
+etc. Doesn't need an access key.*
+
+.. code:: python
+
+   import valorant
+
+   client = valorant.LocalClient()
+
+   print(client.get_session())
