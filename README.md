@@ -11,12 +11,11 @@
 
 ## Updates
 
-Most recent version: `0.4.0`
+Most recent version: `0.4.1`
 
 Changes:
-+ Added `AsyncClient`
-+ Added `asyncio.run` to namespace
-+ Updated some docstrings and type-hinting
++ Added `LocalClient`
++ Updated `__all__` namespace
 
 ## Installation
 
@@ -57,6 +56,18 @@ async def _main():
         print(agent.name)
 
 valorant.run(_main())
+```
+
+Local Client:
+
+*This is intended for use with the game locally. Eases the use of doing things like getting live match data, chat sessions, friend requests, etc. Doesn't need an access key.*
+
+```python
+import valorant
+
+client = valorant.LocalClient()
+
+print(client.get_session())
 ```
 
 ## Documentation
