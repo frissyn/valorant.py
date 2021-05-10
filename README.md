@@ -15,6 +15,7 @@ Most recent version: `0.4.1`
 
 Changes:
 + Added `LocalClient`
++ Added public documentation
 + Updated `__all__` namespace
 
 ## Installation
@@ -60,7 +61,7 @@ valorant.run(_main())
 
 Local Client:
 
-*This is intended for use with the game locally. Eases the use of doing things like getting live match data, chat sessions, friend requests, etc. Doesn't need an access key.*
+*This is intended for use with the game locally. Eases the use of doing things like getting live match data, chat sessions, friend requests, etc. Doesn't need an access key. The current Local Client is a work-in-progress and is unstable.*
 
 ```python
 import valorant
@@ -72,13 +73,15 @@ print(client.get_session())
 
 ## Documentation
 
-You can find all of `valorant.py`'s documentation [`here`](https://github.com/frissyn/valorant.py/tree/master/docs). I plan on generating package docs with Sphinx eventually...
+The public API documentation for `valorant.py` is hosted [`here`](https://valorantpy.readthedocs.io/en/latest/).
+
+If you're making edits to the documentation, you can generate the HTML and start a local server by running `bash bin/docs.sh` in the repository directory. This requires [`Ruby`](https://www.ruby-lang.org/en/documentation/installation/) 2.5 or higher (Sorry if you have to install Ruby just to edit the docs =P).
 
 ## Contributing
 
 1. Fork the repository: [`Fork`](https://github.com/frissyn/valorant.py/fork)
 2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
+3. Commit your changes (`git commit -a -m 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request! 🎉
 
