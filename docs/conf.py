@@ -12,6 +12,8 @@
 #
 import os
 import sys
+import requests
+
 sys.path.insert(0, os.path.abspath('..'))
 
 
@@ -30,7 +32,11 @@ release = "0.4.1"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["sphinx.ext.autodoc", "sphinx.ext.napoleon"]
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.linkcode"
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -52,3 +58,21 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+
+# This is a function linkcode_resolve(domain, info), which should return the
+# URL to source code corresponding to the object in given domain with given 
+# information. The function should return None if no link is to be added.
+
+def linkcode_resolve(domain, info):
+    if domain != "py": return None
+    if not info["module"]: return None
+    
+    name = info['fullname'].split('.')[0]
+    base = "https://github.com/frissyn/valorant.py/blob/master"
+
+    return base + {
+        "Client": "/valorant/client.py",
+        "AsyncClient": "/valorant/threads.py",
+        "LocalClient": "/valorant/local.py"
+    }[name]

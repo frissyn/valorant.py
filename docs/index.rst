@@ -6,6 +6,14 @@
 valorant.py
 ====================================
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Contents:
+
+   valorant
+   requests
+   endpoints
+
 
 ``valorant.py`` is an unofficial API wrapper for Riot Games' Valorant
 API endpoints. It's modern, easy to use, feature-rich, and intuitive!
