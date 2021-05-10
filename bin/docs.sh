@@ -1,7 +1,10 @@
+#!/usr/bin/env bash
+
 echo -n "Installing... "
-npm install serve > /dev/null 2>&1
+pip install sphinx > /dev/null 2>&1
 echo "Done!"
 
 cd "./docs"
-make clean html
-serve "./_build/html/"
+make html
+cd "./_build/html/"
+ruby -run -ehttpd . -p 8080
