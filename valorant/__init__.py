@@ -10,4 +10,4 @@ from .threads import AsyncClient
 
 __all__ = ["Client", "AsyncClient", "LocalClient"]
 __author__ = "frissyn"
-__version__ = "0.4.1"
+__version__ = "0.4.2"
