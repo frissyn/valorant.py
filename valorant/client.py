@@ -80,7 +80,9 @@ class Client(object):
 
         return c
 
-    def build_url(self, code: str = "na", endpoint: str = "content", base: str = "web") -> str:
+    def build_url(
+        self, code: str = "na", endpoint: str = "content", base: str = "web"
+    ) -> str:
         """Create a request URL with the given code and endpoint."""
 
         if code not in REGIONS and code not in ROUTES:
