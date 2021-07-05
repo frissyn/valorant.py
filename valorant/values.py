@@ -4,13 +4,14 @@ SAFES = "~()*!.'"
 CLIENT_API = "https://pd.{code}.a.pvp.net/"
 WEB_API = "https://{code}.api.riotgames.com/"
 
-LOCALE = locale.getdefaultlocale()[0].replace('_', '-')
+LOCALE = locale.getdefaultlocale()[0].replace("_", "-")
 
 ROUTES = ["americas", "asia", "europe"]
 
 LOCALES = [
     "ar-AE",
     "de-DE",
+    "en-GB",
     "en-US",
     "es-ES",
     "es-MX",
@@ -22,10 +23,11 @@ LOCALES = [
     "pl-PL",
     "pt-BR",
     "ru-RU",
-    "tr-TR",
     "th-TH",
+    "tr-TR",
     "vi-VN",
-    "zh-TW",
+    "zh-CN",
+    "zh-TW"
 ]
 
 REGIONS = [
@@ -42,7 +44,7 @@ REGIONS = [
     "ru",
     "tr",
     "latam",
-    "ap",
+    "ap"
 ]
 
 ENDPOINTS = {
@@ -58,7 +60,7 @@ ENDPOINTS = {
     },
     "client": {
         "mmr": "mmr/v1/players/{playerID}/competitiveupdates",
-    },
+    }
 }
 
 HEADERS = {
@@ -67,5 +69,5 @@ HEADERS = {
         "Authorization": "Bearer {token}",
         "Content-Type": "application/json",
         "X-Riot-Entitlements-JWT": "riot_entitlement",
-    },
+    }
 }
