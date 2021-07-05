@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function propmt_clear() {
     echo -n "Clear the screen? >> "
