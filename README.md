@@ -11,12 +11,9 @@
 
 ## Updates
 
-Most recent version: `0.4.1`
+Most recent version: `0.4.3`
 
-Changes:
-+ Added `LocalClient`
-+ Added public documentation
-+ Updated `__all__` namespace
+Changes: just some bug hotfixes
 
 ## Installation
 
