@@ -22,11 +22,13 @@ class WebCaller(object):
         self.eps = ENDPOINTS["web"]
         self.sess = requests.Session()
         self.sess.params.update({"locale": locale})
-        self.sess.headers.update({
-            "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
-            "User-Agent": "Mozilla/5.0",
-            "X-Riot-Token": token
-        })
+        self.sess.headers.update(
+            {
+                "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
+                "User-Agent": "Mozilla/5.0",
+                "X-Riot-Token": token,
+            }
+        )
 
         if value_check(locale, region, route):
             self.locale = locale
@@ -54,11 +56,13 @@ class ClientCaller(object):
         self.token = token
 
         self.sess = requests.Session()
-        self.sess.headers.update({
-            "Authorization": f"Bearer {token}",
-            "Content-Type": "application/json",
-            "X-Riot-Entitlements-JWT": "riot_entitlement"
-        })
+        self.sess.headers.update(
+            {
+                "Authorization": f"Bearer {token}",
+                "Content-Type": "application/json",
+                "X-Riot-Entitlements-JWT": "riot_entitlement",
+            }
+        )
 
     def call(self, m: str, ep: str, **kw):
         pass
