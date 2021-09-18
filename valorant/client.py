@@ -1,5 +1,6 @@
-import requests
 import urllib.parse
+
+from .caller import WebCaller
 
 from .objects import ActDTO
 from .objects import AccountDTO
@@ -10,14 +11,7 @@ from .objects import PlatformDataDTO
 from .objects import ContentList
 
 from .values import SAFES
-from .values import ROUTES
 from .values import LOCALE
-from .values import LOCALES
-from .values import REGIONS
-from .values import HEADERS
-from .values import WEB_API
-from .values import ENDPOINTS
-from .values import CLIENT_API
 
 
 def update(stale: dict, latest: dict) -> dict:
@@ -31,16 +25,9 @@ class Client(object):
     def __init__(self, key, locale=LOCALE, region="na", route="americas", reload=True):
         self.key = key
         self.route = route
+        self.locale = locale
         self.region = region
-        self.fetch = requests.get
-
-        if locale not in LOCALES:
-            raise ValueError(
-                f"The given locale '{locale}' is invalid. See "
-                + "`valorant.values.LOCALES` for a list of valid locales."
-            )
-        else:
-            self.locale = locale
+        self.handle = WebCaller(key, locale, region, route)
 
         if reload:
             self.reload()
@@ -58,79 +45,30 @@ class Client(object):
 
     def reload(self) -> None:
         """Reload the current cached response for the VAL-CONTENT endpoints."""
-
-        url = self.build_url(code=self.region, endpoint="content")
-        heads = self.build_header({"X-Riot-Token": self.key})
-        params = {"locale": self.locale}
-
-        r = self.fetch(url, params=params, headers=heads)
-        r.raise_for_status()
-
-        self.set_attributes(r.json())
+        r = self.handle.call("GET", "content")
+        self.set_attributes(r)
 
         return
 
-    def build_header(self, mixin: dict, base: str = "web") -> dict:
-        """Create a header dictionary from the default request headers."""
-
-        c = HEADERS[base].copy()
-
-        for n, v in mixin.items():
-            c[n] = v
-
-        return c
-
-    def build_url(
-        self, code: str = "na", endpoint: str = "content", base: str = "web"
-    ) -> str:
-        """Create a request URL with the given code and endpoint."""
-
-        if code not in REGIONS and code not in ROUTES:
-            raise ValueError(f"Invalid Route Code: '{code}'")
-        else:
-            url = WEB_API if base == "web" else CLIENT_API
-            end = ENDPOINTS[base][endpoint]
-            url = url.format(code=code) + end
-
-            return url
-
     def get_user_by_puuid(self, puuid: str) -> AccountDTO:
-        """Get a Riot account by the given puuid."""
+        """Get a Riot account by the given PUUID."""
+        r = self.handle.call("GET", "puuid", puuid=puuid)
 
-        heads = self.build_header({"X-Riot-Token": self.key})
+        return AccountDTO(r)
 
-        url = self.build_url(code=self.route, endpoint="puuid")
-        url = url.format(puuid=puuid)
+    def get_user_by_name(self, name: str) -> AccountDTO:
+        """Get a Riot account by a given name and tag."""
+        vals = name.split("#")
+        vals = [urllib.parse.quote(v, safe=SAFES) for v in vals]
+        r = self.handle.call("GET", "game-name", route=True, name=vals[0], tag=vals[1])
 
-        r = self.fetch(url, headers=heads)
-        r.raise_for_status()
-
-        return AccountDTO(r.json())
-
-    def get_user_by_name(self, name: str, delim: str = "#") -> AccountDTO:
-        """Get a Riot account by a given name split by a delimiter."""
-        heads = self.build_header({"X-Riot-Token": self.key})
-        values = name.split(delim)
-        values = [urllib.parse.quote(v, safe=SAFES) for v in values]
-
-        url = self.build_url(code=self.route, endpoint="game-name")
-        url = url.format(name=values[0], tag=values[1])
-
-        r = self.fetch(url, headers=heads)
-        r.raise_for_status()
-
-        return AccountDTO(r.json())
+        return AccountDTO(r)
 
     def get_platform_status(self) -> PlatformDataDTO:
         """Get the current platform status for Valorant."""
-        url = self.build_url(code=self.region, endpoint="status")
-        heads = self.build_header({"X-Riot-Token": self.key})
-        params = {"locale": self.locale}
+        r = self.handle.call("GET", "status")
 
-        r = self.fetch(url, headers=heads, params=params)
-        r.raise_for_status()
-
-        return PlatformDataDTO(r.json())
+        return PlatformDataDTO(r)
 
     def get_acts(self) -> ContentList:
         """Get a ContentList of Acts from Valorant."""
@@ -179,17 +117,11 @@ class Client(object):
     def get_leaderboard(self, size: int = 100, page: int = 0, actID: str = ""):
         """Get the top user's in your client's region during a given Act."""
         actID = self.get_current_act().id if not actID else actID
+        params = {"size": size, "startIndex": size * page}
 
-        url = self.build_url(self.region, endpoint="leaderboard")
-        url = url.format(actID=actID)
+        r = self.handle.call("GET", "leaderboard", params=params, actID=actID)
 
-        heads = self.build_header({"X-Riot-Token": self.key})
-        params = {"locale": self.locale, "size": size, "startIndex": size * page}
-
-        r = self.fetch(url, headers=heads, params=params)
-        r.raise_for_status()
-
-        return LeaderboardDTO(r.json())
+        return LeaderboardDTO(r)
 
     def get_maps(self) -> ContentList:
         """Get a ContentList of Maps from Valorant."""

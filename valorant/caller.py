@@ -12,16 +12,16 @@ def value_check(*args):
     for arg in args:
         if arg not in KEYS:
             raise ValueError
-            return False
         else:
             return True
 
 
 class WebCaller(object):
     def __init__(self, token: str, locale: str, region: str, route: str):
-        self.base = "https://{code}.api.riotgames.com/"
+        self.base = "https://{root}.api.riotgames.com/"
         self.eps = ENDPOINTS["web"]
         self.sess = requests.Session()
+        self.sess.params.update({"locale": locale})
         self.sess.headers.update({
             "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
             "User-Agent": "Mozilla/5.0",
@@ -33,13 +33,16 @@ class WebCaller(object):
             self.region = region
             self.route = route
 
-    def call(self, m: str, ep: str, **kw):
+    def call(self, m: str, ep: str, params=None, route=False, **kw):
         if ep not in list(self.eps.keys()):
             raise ValueError
         else:
             pass
 
-        r = self.sess.request(m, f"{self.base}{self.eps[ep]}", **kw)
+        prefix = self.base.format(root=self.route if route else self.region)
+        url = prefix + self.eps[ep].format(**kw)
+
+        r = self.sess.request(m, url, params=params)
         r.raise_for_status()
 
         return r.json()
