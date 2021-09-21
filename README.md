@@ -9,11 +9,18 @@
 
 `valorant.py` is an unofficial API wrapper for Riot Games' Valorant API endpoints. It's modern, easy to use, feature-rich, and intuitive! Implemented with object oriented designs and explicit reloads to prevent `429`s, valorant.py is the best Valorant API wrapper out there!
 
-## Updates
+## Bulletin Board
 
-Most recent version: `0.4.3`
+**Most recent version:** `0.5.0` (🎉)
 
-Changes: just some bug hotfixes
+**Changes:**
+
++ Internal redesign of HTTP requests
++ Updates to error handling for Client and AsyncClient
++ A few bug fixes (👍)
++ *References:* [#24](https://github.com/frissyn/valorant.py/issues/24), [#20](https://github.com/frissyn/valorant.py/issues/20), [#23](https://github.com/frissyn/valorant.py/issues/23)
+
+**Coming Soon:** Endpoint coverage for matches!
 
 ## Installation
 
