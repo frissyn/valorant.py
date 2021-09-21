@@ -1,9 +1,3 @@
-import urllib3
-
-urllib3.disable_warnings()
-
-del urllib3
-
 from .client import Client
 from .local import LocalClient
 from .threads import AsyncClient
