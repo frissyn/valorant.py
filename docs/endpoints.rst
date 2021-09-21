@@ -1,12 +1,13 @@
 Endpoints
 =========
 
-``valorant.py``, as of ``v0.4.1``, covers 4 endpoints:
+``valorant.py``, as of ``v0.5.0``, covers 4 endpoints:
 
 -  **ACCOUNT-V1**
 -  **VAL-CONTENT-V1**
 -  **VAL-RANKED-V1**
 -  **VAL-STATUS-V1**
+-  **VAL-MATCH-V1** (Unimplemented)
 
 ACCOUNT-V1
 ----------
