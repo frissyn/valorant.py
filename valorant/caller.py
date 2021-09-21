@@ -63,6 +63,3 @@ class ClientCaller(object):
                 "X-Riot-Entitlements-JWT": "riot_entitlement",
             }
         )
-
-    def call(self, m: str, ep: str, **kw):
-        pass
