@@ -27,7 +27,7 @@ LOCALES = [
     "tr-TR",
     "vi-VN",
     "zh-CN",
-    "zh-TW"
+    "zh-TW",
 ]
 
 REGIONS = [
@@ -44,7 +44,7 @@ REGIONS = [
     "ru",
     "tr",
     "latam",
-    "ap"
+    "ap",
 ]
 
 ENDPOINTS = {
@@ -60,7 +60,7 @@ ENDPOINTS = {
     },
     "client": {
         "mmr": "mmr/v1/players/{playerID}/competitiveupdates",
-    }
+    },
 }
 
 HEADERS = {
@@ -69,5 +69,5 @@ HEADERS = {
         "Authorization": "Bearer {token}",
         "Content-Type": "application/json",
         "X-Riot-Entitlements-JWT": "riot_entitlement",
-    }
+    },
 }
