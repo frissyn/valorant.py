@@ -3,6 +3,8 @@ import requests
 
 from .client import Client
 
+from .caller import WebCaller
+
 from .objects import ActDTO
 from .objects import AccountDTO
 
@@ -31,16 +33,9 @@ class AsyncClient(Client):
     def __init__(self, key, locale=LOCALE, region="na", route="americas", reload=True):
         self.key = key
         self.route = route
+        self.locale = locale
         self.region = region
-        self.fetch = requests.get
-
-        if locale not in LOCALES:
-            raise ValueError(
-                f"The given locale '{locale}' is invalid. See "
-                + "`valorant.values.LOCALES` for a list of valid locales."
-            )
-        else:
-            self.locale = locale
+        self.handle = WebCaller(key, locale, region, route)
 
         if reload:
             run(self.reload())
