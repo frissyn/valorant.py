@@ -11,14 +11,14 @@
 
 ## Bulletin Board
 
-**Most recent version:** `0.5.0` (🎉)
+**Most recent version:** `0.5.1` (🎉)
 
 **Changes:**
 
 + Internal redesign of HTTP requests
 + Updates to error handling for Client and AsyncClient
-+ A few bug fixes (👍)
-+ *References:* [#24](https://github.com/frissyn/valorant.py/issues/24), [#20](https://github.com/frissyn/valorant.py/issues/20), [#23](https://github.com/frissyn/valorant.py/issues/23)
++ A few *more* bug fixes (👍)
++ *References:* [#24](https://github.com/frissyn/valorant.py/issues/24), [#20](https://github.com/frissyn/valorant.py/issues/20), ~~[#23](https://github.com/frissyn/valorant.py/issues/23)~~, [#26](https://github.com/frissyn/valorant.py/issues/26)
 
 **Coming Soon:** Endpoint coverage for matches!
 
