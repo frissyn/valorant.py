@@ -1,5 +1,4 @@
 import asyncio
-import requests
 
 from .client import Client
 
@@ -7,30 +6,17 @@ from .caller import WebCaller
 
 from .objects import ActDTO
 from .objects import AccountDTO
-
-# from .objects import ContentItemDTO
-# from .objects import LeaderboardDTO
 from .objects import PlatformDataDTO
 
 from .objects import ContentList
 
-# from .values import SAFES
-# from .values import ROUTES
-from .values import LOCALE
-from .values import LOCALES
-
-# from .values import REGIONS
-# from .values import HEADERS
-# from .values import WEB_API
-# from .values import ENDPOINTS
-# from .values import CLIENT_API
-
+from .lexicon import lex
 
 run = asyncio.run
 
 
 class AsyncClient(Client):
-    def __init__(self, key, locale=LOCALE, region="na", route="americas", reload=True):
+    def __init__(self, key, locale=lex["LOCALE"], region="na", route="americas", reload=True):
         self.key = key
         self.route = route
         self.locale = locale

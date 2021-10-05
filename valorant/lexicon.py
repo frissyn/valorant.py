@@ -91,4 +91,4 @@ class Lexicon(dict):
     }
 
 
-lexicon = Lexicon()
+lex = Lexicon()
