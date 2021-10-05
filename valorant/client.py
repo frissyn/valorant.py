@@ -12,6 +12,7 @@ from .objects import ContentList
 
 from .values import SAFES
 from .values import LOCALE
+from .values import CONTENT_NAMES
 
 
 def update(stale: dict, latest: dict) -> dict:
@@ -49,6 +50,15 @@ class Client(object):
         self.set_attributes(r)
 
         return
+    
+    def asset_by_id(self, i: str):
+        """Get any Valorant content asset by it's UUID."""
+        for name in CONTENT_NAMES:
+            for asset in getattr(self, name):
+                if i == asset["id"]:
+                    return asset
+
+        return None
 
     def get_user_by_puuid(self, puuid: str) -> AccountDTO:
         """Get a Riot account by the given PUUID."""

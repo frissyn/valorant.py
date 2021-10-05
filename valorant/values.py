@@ -47,6 +47,22 @@ REGIONS = [
     "ap",
 ]
 
+CONTENT_NAMES = [
+    "characters",
+    "maps",
+    "chromas",
+    "skins",
+    "skinLevels",
+    "equips",
+    "gameModes",
+    "sprays",
+    "charms",
+    "charmLevels",
+    "playerCards",
+    "playerTitles",
+    "acts"
+]
+
 ENDPOINTS = {
     "web": {
         "content": "val/content/v1/contents",
@@ -60,7 +76,7 @@ ENDPOINTS = {
     },
     "client": {
         "mmr": "mmr/v1/players/{playerID}/competitiveupdates",
-    },
+    }
 }
 
 HEADERS = {
@@ -69,5 +85,5 @@ HEADERS = {
         "Authorization": "Bearer {token}",
         "Content-Type": "application/json",
         "X-Riot-Entitlements-JWT": "riot_entitlement",
-    },
+    }
 }
