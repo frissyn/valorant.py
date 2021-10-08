@@ -1,10 +1,10 @@
 import requests
 
-from .lexicon import lex
+from .lexicon import Lex
 
 
 def value_check(*args):
-    KEYS = lex["ROUTES"] + lex["LOCALES"] + lex["REGIONS"]
+    KEYS = Lex.ROUTES + Lex.LOCALES + Lex.REGIONS
 
     for arg in args:
         if arg not in KEYS:
@@ -16,7 +16,7 @@ def value_check(*args):
 class WebCaller(object):
     def __init__(self, token: str, locale: str, region: str, route: str):
         self.base = "https://{root}.api.riotgames.com/"
-        self.eps = lex["ENDPOINTS"]["web"]
+        self.eps = Lex.ENDPOINTS["web"]
         self.sess = requests.Session()
         self.sess.params.update({"locale": locale})
         self.sess.headers.update(

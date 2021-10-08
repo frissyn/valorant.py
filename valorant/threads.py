@@ -10,13 +10,13 @@ from .objects import PlatformDataDTO
 
 from .objects import ContentList
 
-from .lexicon import lex
+from .lexicon import Lex
 
 run = asyncio.run
 
 
 class AsyncClient(Client):
-    def __init__(self, key, locale=lex["LOCALE"], region="na", route="americas", reload=True):
+    def __init__(self, key, locale=Lex.LOCALE, region="na", route="americas", reload=True):
         self.key = key
         self.route = route
         self.locale = locale

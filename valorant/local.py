@@ -6,12 +6,12 @@ import requests
 
 from requests.sessions import Session
 
-from .values import REGIONS
+from .lexicon import Lex
 
 
 class LocalClient(object):
     def __init__(self, reigon="na"):
-        self.reigon = reigon if reigon in REGIONS else "na"
+        self.reigon = reigon if reigon in Lex.REGIONS else "na"
         self.lockfile = "".join(
             [os.getenv("LOCALAPPDATA"), r"\Riot Games\Riot Client\Config\lockfile"]
         )

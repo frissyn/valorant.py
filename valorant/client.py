@@ -10,7 +10,7 @@ from .objects import PlatformDataDTO
 
 from .objects import ContentList
 
-from .values import lex
+from .lexicon import Lex
 
 def update(stale: dict, latest: dict) -> dict:
     for key, items in latest.items():
@@ -20,7 +20,7 @@ def update(stale: dict, latest: dict) -> dict:
 
 
 class Client(object):
-    def __init__(self, key, locale=lex["LOCALE"], region="na", route="americas", reload=True):
+    def __init__(self, key, locale=Lex.LOCALE, region="na", route="americas", reload=True):
         self.key = key
         self.route = route
         self.locale = locale
@@ -50,7 +50,7 @@ class Client(object):
     
     def asset_by_id(self, i: str):
         """Get any Valorant content asset by it's UUID."""
-        for name in lex["CONTENT_NAMES"]:
+        for name in Lex.CONTENT_NAMES:
             for asset in getattr(self, name):
                 if i == asset["id"]:
                     return asset
@@ -66,7 +66,7 @@ class Client(object):
     def get_user_by_name(self, name: str) -> AccountDTO:
         """Get a Riot account by a given name and tag."""
         vals = name.split("#")
-        vals = [urllib.parse.quote(v, safe=lex["SAFES"]) for v in vals]
+        vals = [urllib.parse.quote(v, safe=Lex.SAFES) for v in vals]
         r = self.handle.call("GET", "game-name", route=True, name=vals[0], tag=vals[1])
 
         return AccountDTO(r)

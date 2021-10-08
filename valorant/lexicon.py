@@ -1,9 +1,6 @@
 import locale
 
-class Lexicon(dict):
-    def __getitem__(self, key):
-        return getattr(self, key)
-
+class Lex:
     SAFES = "~()*!.'"
     CLIENT_API = "https://pd.{code}.a.pvp.net/"
     WEB_API = "https://{code}.api.riotgames.com/"
@@ -89,6 +86,3 @@ class Lexicon(dict):
             "X-Riot-Entitlements-JWT": "riot_entitlement",
         }
     }
-
-
-lex = Lexicon()
