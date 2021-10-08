@@ -1,16 +1,16 @@
 import asyncio
 
+from .lexicon import Lex
+
 from .client import Client
 
 from .caller import WebCaller
 
+from .account import Account
+
 from .objects import ActDTO
-from .objects import AccountDTO
-from .objects import PlatformDataDTO
-
 from .objects import ContentList
-
-from .lexicon import Lex
+from .objects import PlatformDataDTO
 
 run = asyncio.run
 
@@ -35,11 +35,11 @@ class AsyncClient(Client):
         """Reload the current cached response for the VAL-CONTENT endpoints."""
         return super().reload()
 
-    async def get_user_by_puuid(self, puuid: str) -> AccountDTO:
+    async def get_user_by_puuid(self, puuid: str) -> Account:
         """Get a Riot account by the given puuid."""
         return super().get_user_by_puuid()
 
-    async def get_user_by_name(self, name: str, delim: str = "#") -> AccountDTO:
+    async def get_user_by_name(self, name: str, delim: str = "#") -> Account:
         """Get a Riot account by a given name split by a delimiter."""
         return super().get_user_by_name()
 

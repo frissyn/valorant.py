@@ -1,16 +1,17 @@
 import urllib.parse
 
+from .lexicon import Lex
+
 from .caller import WebCaller
 
+from .account import Account
+
 from .objects import ActDTO
-from .objects import AccountDTO
+from .objects import ContentList
 from .objects import ContentItemDTO
 from .objects import LeaderboardDTO
 from .objects import PlatformDataDTO
 
-from .objects import ContentList
-
-from .lexicon import Lex
 
 def update(stale: dict, latest: dict) -> dict:
     for key, items in latest.items():
@@ -57,19 +58,19 @@ class Client(object):
 
         return None
 
-    def get_user_by_puuid(self, puuid: str) -> AccountDTO:
+    def get_user_by_puuid(self, puuid: str) -> Account:
         """Get a Riot account by the given PUUID."""
         r = self.handle.call("GET", "puuid", puuid=puuid)
 
-        return AccountDTO(r)
+        return Account(r, self.handle)
 
-    def get_user_by_name(self, name: str) -> AccountDTO:
+    def get_user_by_name(self, name: str) -> Account:
         """Get a Riot account by a given name and tag."""
         vals = name.split("#")
         vals = [urllib.parse.quote(v, safe=Lex.SAFES) for v in vals]
         r = self.handle.call("GET", "game-name", route=True, name=vals[0], tag=vals[1])
 
-        return AccountDTO(r)
+        return Account(r, self.handle)
 
     def get_platform_status(self) -> PlatformDataDTO:
         """Get the current platform status for Valorant."""
