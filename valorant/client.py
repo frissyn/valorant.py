@@ -4,9 +4,8 @@ from .lexicon import Lex
 
 from .caller import WebCaller
 
-from .account import Account
-
 from .objects import ActDTO
+from .objects import AccountDTO
 from .objects import ContentList
 from .objects import ContentItemDTO
 from .objects import LeaderboardDTO
@@ -58,19 +57,19 @@ class Client(object):
 
         return None
 
-    def get_user_by_puuid(self, puuid: str) -> Account:
-        """Get a Riot account by the given PUUID."""
+    def get_user_by_puuid(self, puuid: str) -> AccountDTO:
+        """Get a Riot AccountDTO by the given PUUID."""
         r = self.handle.call("GET", "puuid", puuid=puuid)
 
-        return Account(r, self.handle)
+        return AccountDTO(r, self.handle)
 
-    def get_user_by_name(self, name: str) -> Account:
-        """Get a Riot account by a given name and tag."""
+    def get_user_by_name(self, name: str) -> AccountDTO:
+        """Get a Riot AccountDTO by a given name and tag."""
         vals = name.split("#")
         vals = [urllib.parse.quote(v, safe=Lex.SAFES) for v in vals]
         r = self.handle.call("GET", "game-name", route=True, name=vals[0], tag=vals[1])
 
-        return Account(r, self.handle)
+        return AccountDTO(r, self.handle)
 
     def get_platform_status(self) -> PlatformDataDTO:
         """Get the current platform status for Valorant."""

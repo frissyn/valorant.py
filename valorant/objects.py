@@ -24,6 +24,18 @@ class DTO(object):
                 self.__setattr__(attr, value)
 
 
+class AccountDTO(DTO):
+    def __init__(self, obj, handle):
+        self.json = obj
+        self.handle = handle
+        self.set_attributes(obj)
+
+    def matchlist(self):
+        l = self.handle.call("GET", "matchlists", puuid=self.puuid)
+
+        return MatchlistDTO(l, self.handle)
+
+
 class ActDTO(DTO):
     def __getattribute__(self, name):
         return super(ActDTO, self).__getattribute__(name)
