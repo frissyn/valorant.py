@@ -36,11 +36,11 @@ class AsyncClient(Client):
 
     async def get_user_by_puuid(self, puuid: str) -> AccountDTO:
         """Get a Riot account by the given puuid."""
-        return super().get_user_by_puuid()
+        return super().get_user_by_puuid(puuid)
 
-    async def get_user_by_name(self, name: str, delim: str = "#") -> AccountDTO:
+    async def get_user_by_name(self, name: str) -> AccountDTO:
         """Get a Riot account by a given name split by a delimiter."""
-        return super().get_user_by_name()
+        return super().get_user_by_name(name)
 
     async def get_platform_status(self) -> PlatformDataDTO:
         """Get the current platform status for Valorant."""
@@ -74,7 +74,7 @@ class AsyncClient(Client):
 
     async def get_leaderboard(self, size: int = 100, page: int = 0, actID: str = ""):
         """Get the top user's in your client's region during a given Act."""
-        return super().get_leaderboard()
+        return super().get_leaderboard(size, page, actID)
 
     async def get_maps(self) -> ContentList:
         """Get a ContentList of Maps from Valorant."""
