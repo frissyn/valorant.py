@@ -13,5 +13,5 @@ class Account(DTO):
 
     def matchlist(self):
         l = self.handle.call("GET", "matchlists", puuid=self.puuid)
-
-        return MatchlistDTO(l)
+        
+        return MatchlistDTO(l, self.handle)

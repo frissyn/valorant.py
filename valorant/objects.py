@@ -18,7 +18,7 @@ class DTO(object):
             elif sub and isinstance(value, list):
                 for i, item in enumerate(value):
                     value[i] = DTO(item)
-                
+
                 self.__setattr__(attr, value)
             else:
                 self.__setattr__(attr, value)
@@ -60,10 +60,32 @@ class LeaderboardDTO(DTO):
         return super(LeaderboardDTO, self).__getattribute__(name)
 
 
-class MatchlistDTO(DTO):
+class MatchDTO(DTO):
     def __init__(self, obj):
         self.json = obj
         self.set_attributes(obj, sub=True)
+
+
+class MatchlistEntryDTO(DTO):
+    def __init__(self, obj, handle):
+        self.json = obj
+        self.handle = handle
+        self.set_attributes(obj)
+
+    def get(self):
+        match = self.handle.call("GET", "match", matchID=self.id)
+
+        return MatchDTO(match)
+
+
+class MatchlistDTO(DTO, list):
+    def __init__(self, obj, handle):
+        self.json = obj
+        self.set_attributes(obj)
+
+        for i, e in enumerate(self.history):
+            self.history[i] = MatchlistEntryDTO(e, handle)
+            self.history[i].id = e["matchId"]
 
     def __getattribute__(self, name):
         return super(MatchlistDTO, self).__getattribute__(name)
