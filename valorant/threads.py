@@ -6,9 +6,8 @@ from .client import Client
 
 from .caller import WebCaller
 
-from .account import Account
-
 from .objects import ActDTO
+from .objects import AccountDTO
 from .objects import ContentList
 from .objects import PlatformDataDTO
 
@@ -35,11 +34,11 @@ class AsyncClient(Client):
         """Reload the current cached response for the VAL-CONTENT endpoints."""
         return super().reload()
 
-    async def get_user_by_puuid(self, puuid: str) -> Account:
+    async def get_user_by_puuid(self, puuid: str) -> AccountDTO:
         """Get a Riot account by the given puuid."""
         return super().get_user_by_puuid()
 
-    async def get_user_by_name(self, name: str, delim: str = "#") -> Account:
+    async def get_user_by_name(self, name: str, delim: str = "#") -> AccountDTO:
         """Get a Riot account by a given name split by a delimiter."""
         return super().get_user_by_name()
 
