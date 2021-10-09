@@ -90,7 +90,7 @@ class MatchlistEntryDTO(DTO):
         return MatchDTO(match)
 
 
-class MatchlistDTO(DTO, list):
+class MatchlistDTO(DTO):
     def __init__(self, obj, handle):
         self.json = obj
         self.set_attributes(obj)
