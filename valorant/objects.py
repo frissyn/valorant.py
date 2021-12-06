@@ -1,15 +1,30 @@
+import json
+
+class DTOEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, DTO):
+            return o._json
+
+        return json.JSONEncoder.default(self, o)
+
 class DTO(object):
     """Base mixin class for synthesizing JSON responses from the API."""
 
     def __init__(self, obj):
-        self.json = obj
+        self._json = obj
         self.set_attributes(obj)
 
     def __str__(self):
-        return str(self.json)
+        return self.dumps()
 
     def __repr__(self):
-        return str(self.json)
+        return self.dumps()
+    
+    def json(self):
+        return self._json
+    
+    def dumps(self, **kw):
+        return json.dumps(self._json, cls=DTOEncoder, **kw)
 
     def set_attributes(self, attrs, sub=False):
         for attr, value in attrs.items():
@@ -26,7 +41,7 @@ class DTO(object):
 
 class AccountDTO(DTO):
     def __init__(self, obj, handle):
-        self.json = obj
+        self._json = obj
         self.handle = handle
         self.set_attributes(obj)
 
@@ -48,7 +63,7 @@ class ContentItemDTO(DTO):
 
 class PlatformDataDTO(DTO):
     def __init__(self, obj):
-        self.json = obj
+        self._json = obj
         self.set_attributes(obj, sub=True)
 
     def __getattribute__(self, name):
@@ -62,7 +77,7 @@ class PlayerDTO(DTO):
 
 class LeaderboardDTO(DTO):
     def __init__(self, obj):
-        self.json = obj
+        self._json = obj
         self.set_attributes(obj)
 
         plys = [PlayerDTO(p) for p in obj["players"]]
@@ -74,13 +89,13 @@ class LeaderboardDTO(DTO):
 
 class MatchDTO(DTO):
     def __init__(self, obj):
-        self.json = obj
+        self._json = obj
         self.set_attributes(obj, sub=True)
 
 
 class MatchlistEntryDTO(DTO):
     def __init__(self, obj, handle):
-        self.json = obj
+        self._json = obj
         self.handle = handle
         self.set_attributes(obj)
 
@@ -92,7 +107,7 @@ class MatchlistEntryDTO(DTO):
 
 class MatchlistDTO(DTO):
     def __init__(self, obj, handle):
-        self.json = obj
+        self._json = obj
         self.set_attributes(obj)
 
         for i, e in enumerate(self.history):
