@@ -1,5 +1,7 @@
 import json
 
+from datetime import datetime
+
 class DTOEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, DTO):
@@ -9,7 +11,6 @@ class DTOEncoder(json.JSONEncoder):
 
 class DTO(object):
     """Base mixin class for synthesizing JSON responses from the API."""
-
     def __init__(self, obj):
         self._json = obj
         self.set_attributes(obj)
@@ -75,13 +76,26 @@ class PlayerDTO(DTO):
         return super(PlayerDTO, self).__getattribute__(name)
 
 
+class PlayerStatsDTO(DTO):
+    def __init__(self, obj):
+        super().__init__(obj)
+
+        try: self.kd = self.kills / self.deaths
+        except ZeroDivisionError: self.kd = self.kills
+
+        try: self.kda = (self.kills + self.assists) / self.deaths
+        except ZeroDivisionError: self.kda = self.kills + self.assists
+
+        self.averageScore = self.score / self.roundsPlayed
+
+    def __getattribute__(self, name):
+        return super(PlayerStatsDTO, self).__getattribute__(name)
+
+
 class LeaderboardDTO(DTO):
     def __init__(self, obj):
-        self._json = obj
-        self.set_attributes(obj)
-
-        plys = [PlayerDTO(p) for p in obj["players"]]
-        self.players = ContentList(plys)
+        super().__init__(obj)
+        self.players = ContentList([PlayerDTO(p) for p in obj["players"]])
 
     def __getattribute__(self, name):
         return super(LeaderboardDTO, self).__getattribute__(name)
@@ -92,16 +106,24 @@ class MatchDTO(DTO):
         self._json = obj
         self.id = obj["matchInfo"]["matchId"]
         self.set_attributes(obj, sub=True)
+
+        for p in self.players:
+            try:
+                p.__setattr__("stats", PlayerStatsDTO(p.stats))
+            except AttributeError:
+                pass
     
     def get_team(self, name):
         return next((t for t in self.teams if t.teamId == name), None)
     
-    def get_player(self, id):
+    def get_timestamp(self):
+        return datetime.fromtimestamp(self.matchInfo.gameStartMillis/1000.0)
+    
+    def get_player(self, **kw):
         return next((p for p in self.players if p.puuid == id), None)
     
     def get_player_by_name(self, name):
         for p in self.players:
-            print(f"{p.gameName}#{p.tagLine}")
             if f"{p.gameName}#{p.tagLine}" == name:
                 return p
         
@@ -114,16 +136,15 @@ class MatchDTO(DTO):
         return next((t for t in self.teams if t.won == True), None)
 
 
-
 class MatchlistEntryDTO(DTO):
     def __init__(self, obj, handle):
         self._json = obj
-        self.handle = handle
+        self._handle = handle
         self.id = obj["matchId"]
         self.set_attributes(obj)
 
     def get(self):
-        match = self.handle.call("GET", "match", matchID=self.id)
+        match = self._handle.call("GET", "match", matchID=self.id)
 
         return MatchDTO(match)
 
