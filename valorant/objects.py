@@ -90,13 +90,36 @@ class LeaderboardDTO(DTO):
 class MatchDTO(DTO):
     def __init__(self, obj):
         self._json = obj
+        self.id = obj["matchInfo"]["matchId"]
         self.set_attributes(obj, sub=True)
+    
+    def get_team(self, name):
+        return next((t for t in self.teams if t.teamId == name), None)
+    
+    def get_player(self, id):
+        return next((p for p in self.players if p.puuid == id), None)
+    
+    def get_player_by_name(self, name):
+        for p in self.players:
+            print(f"{p.gameName}#{p.tagLine}")
+            if f"{p.gameName}#{p.tagLine}" == name:
+                return p
+        
+        return None
+
+    def get_round(self, num):
+        return next((r for r in self.roundResults if r.roundNum == num), None)
+    
+    def get_winner(self):
+        return next((t for t in self.teams if t.won == True), None)
+
 
 
 class MatchlistEntryDTO(DTO):
     def __init__(self, obj, handle):
         self._json = obj
         self.handle = handle
+        self.id = obj["matchId"]
         self.set_attributes(obj)
 
     def get(self):
