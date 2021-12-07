@@ -10,16 +10,25 @@ class DTOEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, o)
 
 class DTO(object):
-    """Base mixin class for synthesizing JSON responses from the API."""
+    """Represents a base object from the API."""
+    
     def __init__(self, obj):
         self._json = obj
         self.set_attributes(obj)
 
     def __str__(self):
-        return self.dumps()
+        return f"<class '{self.__class__.__name__}'>"
 
     def __repr__(self):
-        return self.dumps()
+        s = f"<class {self.__class__.__name__} "
+
+        for a in dir(self):
+            v = getattr(self, a)
+            
+            if not a.startswith("_") and not callable(v):
+                s += f"@{a}={v} "
+        
+        return f"{s}>"
     
     def json(self):
         return self._json
