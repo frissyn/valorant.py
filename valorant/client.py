@@ -48,13 +48,26 @@ class Client(object):
 
         return
     
-    def asset_by_id(self, i: str):
+    def asset(self, **kw):
         """Get any Valorant content asset by it's UUID."""
+        if len(kw) > 1: raise ValueError
+
+        key = str(list(kw.keys())[0])
+        value = kw[key]
+
+        if key == "assetName":
+            genexpr = lambda m: value.endswith(m[key])
+        else:
+            genexpr = lambda m: m[key] == value
+        
         for name in Lex.CONTENT_NAMES:
             for asset in getattr(self, name):
-                if i == asset["id"]:
-                    return asset
-
+                try:
+                    if genexpr(asset):
+                        return ContentItemDTO(asset)
+                except KeyError:
+                    pass
+    
         return None
 
     def get_user_by_puuid(self, puuid: str) -> AccountDTO:
@@ -129,19 +142,6 @@ class Client(object):
         r = self.handle.call("GET", "leaderboard", params=params, actID=actID)
 
         return LeaderboardDTO(r)
-    
-    def get_map(self, **kw):
-        if len(kw) > 1: raise ValueError
-
-        key = str(list(kw.keys())[0])
-        value = kw[key]
-
-        if key == "assetName":
-            genexpr = lambda m: value.endswith(getattr(m, key))
-        else:
-            genexpr = lambda m: getattr(m, key) == value
-        
-        return next((m for m in self.get_maps() if genexpr(m)), None)
 
     def get_maps(self) -> ContentList:
         """Get a ContentList of Maps from Valorant."""
