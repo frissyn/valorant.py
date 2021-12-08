@@ -36,7 +36,9 @@ class Client(object):
             self.content = None
     
     def _content_if_cache(self):
-        return getattr(self, "content", self.get_content())
+        content = getattr(self, "content", None)
+
+        return content if content else self.get_content()
 
     def __getattribute__(self, name):
         return super(Client, self).__getattribute__(name)
