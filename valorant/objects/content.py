@@ -23,7 +23,7 @@ class ContentItemDTO(DTO):
     def __init__(self, obj):
         super().__init__(obj)
 
-        if obj["get"]("localizedNames"):
+        if obj.get("localizedNames"):
             self.localizedNames = obj["localizedNames"]
         else:
             self.localizedNames = None
@@ -52,36 +52,43 @@ class ContentDTO(DTO):
     def __init__(self, obj):
         super().__init__(obj)
 
-        self.acts = ContentList(obj["acts"])
-        self.characters = ContentList(obj["characters"])
-        self.maps = ContentList(obj["maps"])
-        self.chromas = ContentList(obj["chromas"])
-        self.skins = ContentList(obj["skins"])
-        self.skinLevels = ContentList(obj["skinLevels"])
-        self.equips = ContentList(obj["equips"])
-        self.gameModes = ContentList(obj["gameModes"])
-        self.sprays = ContentList(obj["sprays"])
-        self.sprayLevels = ContentList(obj["sprayLevels"])
-        self.charms = ContentList(obj["charms"])
-        self.charmLevels = ContentList(obj["charmLevels"])
-        self.playerCards = ContentList(obj["playerCards"])
-        self.playerTitles = ContentList(obj["playerTitles"])
-
+        self.acts = ContentList([ContentItemDTO(i) for i in obj["acts"]])
+        self.characters = ContentList([ContentItemDTO(i) for i in obj["characters"]])
+        self.maps = ContentList([ContentItemDTO(i) for i in obj["maps"]])
+        self.chromas = ContentList([ContentItemDTO(i) for i in obj["chromas"]])
+        self.skins = ContentList([ContentItemDTO(i) for i in obj["skins"]])
+        self.skinLevels = ContentList([ContentItemDTO(i) for i in obj["skinLevels"]])
+        self.equips = ContentList([ContentItemDTO(i) for i in obj["equips"]])
+        self.gameModes = ContentList([ContentItemDTO(i) for i in obj["gameModes"]])
+        self.sprays = ContentList([ContentItemDTO(i) for i in obj["sprays"]])
+        self.sprayLevels = ContentList([ContentItemDTO(i) for i in obj["sprayLevels"]])
+        self.charms = ContentList([ContentItemDTO(i) for i in obj["charms"]])
+        self.charmLevels = ContentList([ContentItemDTO(i) for i in obj["charmLevels"]])
+        self.playerCards = ContentList([ContentItemDTO(i) for i in obj["playerCards"]])
+        self.playerTitles = ContentList([ContentItemDTO(i) for i in obj["playerTitles"]])
 
     def __getattribute__(self, name):
         return super(ContentDTO, self).__getattribute__(name)
 
 
-class ContentList(list, object):
-    def find(self, value: str, attr: str, default=None):
-        """Find an item in the ContentList by it's given attribute value."""
-        for item in self.copy():
-            try:
-                if getattr(item, attr) == value:
-                    return item
-                else:
-                    continue
-            except AttributeError:
-                continue
+class ContentList(list):
+    def find(self, **attributes: t.Mapping) -> t.Optional[DTO]:
+        checks = 0
 
-        return default
+        for item in self:
+            for attr, value in attributes.items():
+                if attr == "assetName":
+                    genexpr = lambda m: value.endswith(getattr(item, attr))
+                else:
+                    genexpr = lambda m: getattr(item, attr) == value
+
+                try: 
+                    if genexpr(item): 
+                        checks += 1
+                except AttributeError: 
+                    pass
+                
+            if checks == len(attributes):
+                return item
+            else:
+                checks = 0

@@ -5,6 +5,7 @@ from .lexicon import Lex
 
 from .caller import WebCaller
 
+from .objects import DTO
 from .objects import ActDTO
 from .objects import AccountDTO
 from .objects import ContentDTO
@@ -48,26 +49,28 @@ class Client(object):
         
         return content
     
-    def asset(self, **kw: t.Mapping):
-        if len(kw) > 1: raise ValueError
+    def asset(self, **attributes: t.Mapping) -> t.Optional[DTO]:
+        checks = 0
 
-        key = str(list(kw.keys())[0])
-        value = kw[key]
-
-        if key == "assetName":
-            genexpr = lambda m: value.endswith(m[key])
-        else:
-            genexpr = lambda m: m[key] == value
-        
         for name in Lex.CONTENT_NAMES:
-            for asset in getattr(self.content, name):
-                try:
-                    if genexpr(asset):
-                        return ContentItemDTO(asset)
-                except KeyError:
-                    pass
-    
-        return None
+            for item in getattr(self._content_if_cache(), name):
+                for attr, value in attributes.items():
+                    if attr == "assetName":
+                        genexpr = lambda m: value.endswith(getattr(item, attr))
+                    else:
+                        genexpr = lambda m: getattr(item, attr) == value
+
+                    try: 
+                        if genexpr(item): 
+                            checks += 1
+                    except AttributeError: 
+                        pass
+                    
+                if checks == len(attributes):
+                    return item
+                else:
+                    checks = 0
+
 
     def get_user_by_puuid(self, puuid: t.Text) -> AccountDTO:
         """Get a Riot AccountDTO by the given PUUID."""
