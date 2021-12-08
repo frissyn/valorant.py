@@ -18,9 +18,6 @@ class DTO(object):
         self.set_attributes(obj)
 
     def __str__(self) -> t.Text:
-        return f"<class '{self.__class__.__name__}'>"
-
-    def __repr__(self) -> t.Text:
         s = f"<class {self.__class__.__name__} "
 
         for a in dir(self):
@@ -29,7 +26,10 @@ class DTO(object):
             if not a.startswith("_") and not callable(v):
                 s += f"@{a}={v} "
 
-        return f"{s}>"
+        return f"{s[:-1]}>"
+
+    def __repr__(self) -> t.Text:
+        return self.dumps()
 
     def json(self) -> t.Mapping:
         return self._json

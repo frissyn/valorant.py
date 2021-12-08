@@ -52,7 +52,7 @@ class ContentDTO(DTO):
     def __init__(self, obj):
         super().__init__(obj)
 
-        self.acts = ContentList([ContentItemDTO(i) for i in obj["acts"]])
+        self.acts = ContentList([ActDTO(i) for i in obj["acts"]])
         self.characters = ContentList([ContentItemDTO(i) for i in obj["characters"]])
         self.maps = ContentList([ContentItemDTO(i) for i in obj["maps"]])
         self.chromas = ContentList([ContentItemDTO(i) for i in obj["chromas"]])
