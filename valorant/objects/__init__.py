@@ -3,6 +3,7 @@ from .dto import DTO
 from .account import AccountDTO
 
 from .content import ActDTO
+from .content import ContentDTO
 from .content import ContentItemDTO
 from .content import ContentList
 

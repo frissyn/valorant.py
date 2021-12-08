@@ -21,7 +21,7 @@ class Client(object):
         locale: t.Optional[t.Text] = Lex.LOCALE, 
         region: t.Text = "na",
         route: t.Text ="americas",
-        load: bool = True
+        load_content: bool = True
     ):
         self.key = key
         self.route = route
@@ -29,8 +29,10 @@ class Client(object):
         self.region = region
         self.handle = WebCaller(key, locale, region, route)
 
-        if load:
+        if load_content:
             self.get_content(cache=True)
+        else:
+            self.content = None
     
     def _content_if_cache(self):
         return getattr(self, "content", self.get_content())
