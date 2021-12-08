@@ -27,6 +27,7 @@ __all__ = [
     "DTO",
     "AccountDTO",
     "ActDTO",
+    "ContentDTO",
     "ContentItemDTO",
     "ContentList",
     "MatchDTO",

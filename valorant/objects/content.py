@@ -1,50 +1,94 @@
-import json
 import typing as t
 
-
-class DTOEncoder(json.JSONEncoder):
-    def default(self, o):
-        if isinstance(o, DTO):
-            return o._json
-
-        return json.JSONEncoder.default(self, o)
+from .dto import DTO
 
 
-class DTO(object):
-    _json: t.Mapping[str, t.Any]
+class ActDTO(DTO):
+    name: str
+    localizedNames: t.Mapping[str, str]
+    id: str
+    isActive: bool
 
-    def __init__(self, obj: t.Mapping):
-        self._json = obj
-        self.set_attributes(obj)
+    def __getattribute__(self, name):
+        return super(ActDTO, self).__getattribute__(name)
 
-    def __str__(self) -> t.Text:
-        s = f"<class '{self.__class__.__name__}' "
 
-        for a in dir(self):
-            v = getattr(self, a)
+class ContentItemDTO(DTO):
+    name: str
+    localizedNames: t.Optional[t.Mapping[str, str]]
+    id: str
+    assetName: str
+    assetPath: str
 
-            if not a.startswith("_") and not callable(v):
-                s += f"@{a}={v} "
+    def __init__(self, obj):
+        super().__init__(obj)
 
-        return f"{s[:-1]}>"
+        if obj.get("localizedNames"):
+            self.localizedNames = obj["localizedNames"]
+        else:
+            self.localizedNames = None
 
-    def __repr__(self) -> t.Text:
-        return self.dumps()
+    def __getattribute__(self, name):
+        return super(ContentItemDTO, self).__getattribute__(name)
 
-    def json(self) -> t.Mapping:
-        return self._json
 
-    def dumps(self, **kw: t.Mapping) -> t.Text:
-        return json.dumps(self._json, cls=DTOEncoder, **kw)
+class ContentDTO(DTO):
+    version: str
+    acts: t.Iterable[ActDTO]
+    characters: t.Iterable[ContentItemDTO]
+    maps: t.Iterable[ContentItemDTO]
+    chromas: t.Iterable[ContentItemDTO]
+    skins: t.Iterable[ContentItemDTO]
+    skinLevels: t.Iterable[ContentItemDTO]
+    equips: t.Iterable[ContentItemDTO]
+    gameModes: t.Iterable[ContentItemDTO]
+    sprays: t.Iterable[ContentItemDTO]
+    sprayLevels: t.Iterable[ContentItemDTO]
+    charms: t.Iterable[ContentItemDTO]
+    charmLevels: t.Iterable[ContentItemDTO]
+    playerCards: t.Iterable[ContentItemDTO]
+    playerTitles: t.Iterable[ContentItemDTO]
 
-    def set_attributes(self, attrs: t.Mapping, sub: bool = False) -> t.Optional:
-        for attr, value in attrs.items():
-            if sub and isinstance(value, dict):
-                self.__setattr__(attr, DTO(value))
-            elif sub and isinstance(value, list):
-                for i, item in enumerate(value):
-                    value[i] = DTO(item)
+    def __init__(self, obj):
+        super().__init__(obj)
 
-                self.__setattr__(attr, value)
+        self.acts = ContentList([ContentItemDTO(i) for i in obj["acts"]])
+        self.characters = ContentList([ContentItemDTO(i) for i in obj["characters"]])
+        self.maps = ContentList([ContentItemDTO(i) for i in obj["maps"]])
+        self.chromas = ContentList([ContentItemDTO(i) for i in obj["chromas"]])
+        self.skins = ContentList([ContentItemDTO(i) for i in obj["skins"]])
+        self.skinLevels = ContentList([ContentItemDTO(i) for i in obj["skinLevels"]])
+        self.equips = ContentList([ContentItemDTO(i) for i in obj["equips"]])
+        self.gameModes = ContentList([ContentItemDTO(i) for i in obj["gameModes"]])
+        self.sprays = ContentList([ContentItemDTO(i) for i in obj["sprays"]])
+        self.sprayLevels = ContentList([ContentItemDTO(i) for i in obj["sprayLevels"]])
+        self.charms = ContentList([ContentItemDTO(i) for i in obj["charms"]])
+        self.charmLevels = ContentList([ContentItemDTO(i) for i in obj["charmLevels"]])
+        self.playerCards = ContentList([ContentItemDTO(i) for i in obj["playerCards"]])
+        self.playerTitles = ContentList([ContentItemDTO(i) for i in obj["playerTitles"]])
+
+    def __getattribute__(self, name):
+        return super(ContentDTO, self).__getattribute__(name)
+
+
+class ContentList(list):
+    def find(self, **attributes: t.Mapping) -> t.Optional[DTO]:
+        checks = 0
+
+        for item in self:
+            for attr, value in attributes.items():
+                if attr == "assetName":
+                    genexpr = lambda m: value.endswith(getattr(item, attr))
+                else:
+                    genexpr = lambda m: getattr(item, attr) == value
+
+                try: 
+                    if genexpr(item): 
+                        checks += 1
+                except AttributeError: 
+                    pass
+
+            if checks == len(attributes):
+                return item
             else:
-                self.__setattr__(attr, value)
+                checks = 0 
