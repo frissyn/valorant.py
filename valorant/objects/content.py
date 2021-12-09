@@ -9,9 +9,6 @@ class ActDTO(DTO):
     id: str
     isActive: bool
 
-    def __getattribute__(self, name):
-        return super(ActDTO, self).__getattribute__(name)
-
 
 class ContentItemDTO(DTO):
     name: str
@@ -28,26 +25,23 @@ class ContentItemDTO(DTO):
         else:
             self.localizedNames = None
 
-    def __getattribute__(self, name):
-        return super(ContentItemDTO, self).__getattribute__(name)
-
 
 class ContentDTO(DTO):
     version: str
-    acts: t.Iterable[ActDTO]
-    characters: t.Iterable[ContentItemDTO]
-    maps: t.Iterable[ContentItemDTO]
-    chromas: t.Iterable[ContentItemDTO]
-    skins: t.Iterable[ContentItemDTO]
-    skinLevels: t.Iterable[ContentItemDTO]
-    equips: t.Iterable[ContentItemDTO]
-    gameModes: t.Iterable[ContentItemDTO]
-    sprays: t.Iterable[ContentItemDTO]
-    sprayLevels: t.Iterable[ContentItemDTO]
-    charms: t.Iterable[ContentItemDTO]
-    charmLevels: t.Iterable[ContentItemDTO]
-    playerCards: t.Iterable[ContentItemDTO]
-    playerTitles: t.Iterable[ContentItemDTO]
+    acts: t.List[ActDTO]
+    characters: t.List[ContentItemDTO]
+    maps: t.List[ContentItemDTO]
+    chromas: t.List[ContentItemDTO]
+    skins: t.List[ContentItemDTO]
+    skinLevels: t.List[ContentItemDTO]
+    equips: t.List[ContentItemDTO]
+    gameModes: t.List[ContentItemDTO]
+    sprays: t.List[ContentItemDTO]
+    sprayLevels: t.List[ContentItemDTO]
+    charms: t.List[ContentItemDTO]
+    charmLevels: t.List[ContentItemDTO]
+    playerCards: t.List[ContentItemDTO]
+    playerTitles: t.List[ContentItemDTO]
 
     def __init__(self, obj):
         super().__init__(obj)
@@ -65,10 +59,9 @@ class ContentDTO(DTO):
         self.charms = ContentList([ContentItemDTO(i) for i in obj["charms"]])
         self.charmLevels = ContentList([ContentItemDTO(i) for i in obj["charmLevels"]])
         self.playerCards = ContentList([ContentItemDTO(i) for i in obj["playerCards"]])
-        self.playerTitles = ContentList([ContentItemDTO(i) for i in obj["playerTitles"]])
-
-    def __getattribute__(self, name):
-        return super(ContentDTO, self).__getattribute__(name)
+        self.playerTitles = ContentList(
+            [ContentItemDTO(i) for i in obj["playerTitles"]]
+        )
 
 
 class ContentList(list):
@@ -82,13 +75,13 @@ class ContentList(list):
                 else:
                     genexpr = lambda m: getattr(item, attr) == value
 
-                try: 
-                    if genexpr(item): 
+                try:
+                    if genexpr(item):
                         checks += 1
-                except AttributeError: 
+                except AttributeError:
                     pass
 
             if checks == len(attributes):
                 return item
             else:
-                checks = 0 
+                checks = 0

@@ -7,16 +7,13 @@ class PlatformContentDTO(DTO):
     locale: str
     content: str
 
-    def __getattribute__(self, name):
-        return super(PlatformContentDTO, self).__getattribute__(name)
-
 
 class UpdateDTO(DTO):
     id: str
     author: str
     publish: bool
-    publish_locations: t.Iterable[str]
-    translations: t.Iterable[PlatformContentDTO]
+    publish_locations: t.List[str]
+    translations: t.List[PlatformContentDTO]
     created_at: str
     updated_at: str
 
@@ -25,20 +22,17 @@ class UpdateDTO(DTO):
 
         self.translations = [PlatformContentDTO(t) for t in obj["translations"]]
 
-    def __getattribute__(self, name):
-        return super(UpdateDTO, self).__getattribute__(name)
-
 
 class StatusDTO(DTO):
     id: str
     maintenance_status: str
     incident_severity: str
-    titles: t.Iterable[PlatformContentDTO]
-    updates: t.Iterable[UpdateDTO]
+    titles: t.List[PlatformContentDTO]
+    updates: t.List[UpdateDTO]
     created_at: str
     archive_at: str
     updated_at: str
-    platforms: t.Iterable[str]
+    platforms: t.List[str]
 
     def __init__(self, obj):
         super().__init__(obj)
@@ -46,20 +40,17 @@ class StatusDTO(DTO):
         self.titles = [PlatformContentDTO(t) for t in obj["titles"]]
         self.updates = [UpdateDTO(u) for u in obj["updates"]]
 
-    def __getattribute__(self, name):
-        return super(StatusDTO, self).__getattribute__(name)
-
 
 class PlatformDataDTO(DTO):
     name: str
     localizedNames: t.Mapping[str, str]
     id: str
     locales: str
-    maintenances: t.Iterable[StatusDTO]
-    incidents: t.Iterable[StatusDTO]
+    maintenances: t.List[StatusDTO]
+    incidents: t.List[StatusDTO]
 
     def __init__(self, obj):
         super().__init__(obj)
 
-    def __getattribute__(self, name):
-        return super(PlatformDataDTO, self).__getattribute__(name)
+        self.maintenances = [StatusDTO(m) for m in obj["maintenances"]]
+        self.incidents = [StatusDTO(i) for i in obj["incidents"]]

@@ -10,12 +10,63 @@ from .player import PlayerLocationsDTO
 from datetime import datetime
 
 
+class AbilityDTO(DTO):
+    grenadeEffects: str
+    ability1Effects: str
+    ability2Effects: str
+    ultimateEffects: str
+
+
 class CoachDTO(DTO):
     puuid: str
     teamId: str
 
-    def __getattribute__(self, name):
-        return super(CoachDTO, self).__getattribute__(name)
+
+class DamageDTO(DTO):
+    receiver: str
+    damage: int
+    legshots: int
+    bodyshots: int
+    headshots: int
+
+
+class FinishingDamageDTO(DTO):
+    damageType: str
+    damageItem: str
+    isSecondaryFireMode: bool
+
+
+class EconomyDTO(DTO):
+    loadoutValue: int
+    weapon: str
+    armor: str
+    remaining: int
+    spent: int
+
+
+class KillDTO(DTO):
+    timeSinceGameStartMillis: int
+    timeSinceRoundStartMillis: int
+    killer: str
+    victim: str
+    victimLocation: LocationDTO
+    assistants: t.List[str]
+    playerLocations: t.List[PlayerLocationsDTO]
+    finishingDamage: FinishingDamageDTO
+
+    def get_time_since_game_start(self) -> datetime:
+        return datetime.fromtimestamp(self.timeSinceGameStartMillis / 1000.0)
+
+    def get_time_since_round_start(self) -> datetime:
+        return datetime.fromtimestamp(self.timeSinceRoundStartMillis / 1000.0)
+
+
+class TeamDTO(DTO):
+    teamId: str
+    won: bool
+    roundsPlayed: int
+    roundsWon: int
+    numPoints: int
 
 
 class MatchInfoDTO(DTO):
@@ -30,9 +81,6 @@ class MatchInfoDTO(DTO):
     gameMode: str
     isRanked: bool
     seasonId: str
-
-    def __getattribute__(self, name):
-        return super(MatchInfoDTO, self).__getattribute__(name)
 
 
 class MatchlistEntryDTO(DTO):
@@ -54,34 +102,30 @@ class MatchlistEntryDTO(DTO):
     def get_timestamp(self) -> datetime:
         return datetime.fromtimestamp(self.gameStartMillis / 1000.0)
 
-    def __getattribute__(self, name):
-        return super(MatchlistEntryDTO, self).__getattribute__(name)
-
 
 class MatchlistDTO(DTO):
     puuid: str
-    history: t.Iterable[MatchlistEntryDTO]
+    history: t.List[MatchlistEntryDTO]
 
     def __init__(self, obj, handle):
-        self._json = obj
-        self.set_attributes(obj)
+        super().__init__(obj)
 
-        for i, e in enumerate(self.history):
-            self.history[i] = MatchlistEntryDTO(e, handle)
-
-    def __getattribute__(self, name):
-        return super(MatchlistDTO, self).__getattribute__(name)
+        self.history = [MatchlistEntryDTO(e, handle) for e in obj["history"]]
 
 
-class TeamDTO(DTO):
-    teamId: str
-    won: bool
-    roundsPlayed: int
-    roundsWon: int
-    numPoints: int
+class PlayerRoundStatsDTO(DTO):
+    puuid: str
+    kills: t.List[t.Any]
+    damage: t.List[DamageDTO]
+    score: int
+    economy: EconomyDTO
+    ability: AbilityDTO
 
-    def __getattribute__(self, name):
-        return super(TeamDTO, self).__getattribute__(name)
+    def __init__(self, obj):
+        super().__init__(obj)
+
+        self.economy = EconomyDTO(obj["economy"])
+        self.ability = AbilityDTO(obj["ability"])
 
 
 class RoundResultDTO(DTO):
@@ -92,13 +136,13 @@ class RoundResultDTO(DTO):
     bombPlanter: str
     bombDefuser: str
     plantRoundTime: int
-    plantPlayerLocations: t.Optional[t.Iterable[PlayerLocationsDTO]]
+    plantPlayerLocations: t.Optional[t.List[PlayerLocationsDTO]]
     plantLocation: LocationDTO
     plantSite: t.Optional[str]
     defuseRoundTime: int
-    defusePlayerLocations: t.Optional[t.Iterable[PlayerLocationsDTO]]
+    defusePlayerLocations: t.Optional[t.List[PlayerLocationsDTO]]
     defuseLocation: LocationDTO
-    playerStats: t.Iterable[PlayerStatsDTO]
+    playerStats: t.List[PlayerStatsDTO]
     roundResultCode: str
 
     def __init__(self, obj):
@@ -127,19 +171,16 @@ class RoundResultDTO(DTO):
             ]
         else:
             self.defusePlayerLocations = None
-        
-        self.playerStats = [PlayerStatsDTO(s) for s in obj["playerStats"]]
 
-    def __getattribute__(self, name):
-        return super(RoundResultDTO, self).__getattribute__(name)
+        self.playerStats = [PlayerRoundStatsDTO(s) for s in obj["playerStats"]]
 
 
 class MatchDTO(DTO):
     matchInfo: MatchInfoDTO
-    players: t.Iterable[PlayerDTO]
-    coaches: t.Iterable[CoachDTO]
-    teams: t.Iterable[TeamDTO]
-    roundResults: t.Iterable[RoundResultDTO]
+    players: t.List[PlayerDTO]
+    coaches: t.List[CoachDTO]
+    teams: t.List[TeamDTO]
+    roundResults: t.List[RoundResultDTO]
 
     def __init__(self, obj):
         self._json = obj

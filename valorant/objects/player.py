@@ -14,31 +14,22 @@ class AbilityCastsDTO(DTO):
         super().__init__(obj)
 
         self.totalCasts = (
-            self.grenadeCasts +
-            self.ability1Casts +
-            self.ability2Casts +
-            self.ultimateCasts
+            self.grenadeCasts
+            + self.ability1Casts
+            + self.ability2Casts
+            + self.ultimateCasts
         )
-
-    def __getattribute__(self, name):
-        return super(AbilityCastsDTO, self).__getattribute__(name)
 
 
 class LocationDTO(DTO):
     x: int
     y: int
 
-    def __getattribute__(self, name):
-        return super(LocationDTO, self).__getattribute__(name)
-
 
 class PlayerLocationsDTO(DTO):
     puuid: str
     viewRadians: float
     location: LocationDTO
-
-    def __getattribute__(self, name):
-        return super(PlayerLocationsDTO, self).__getattribute__(name)
 
 
 class PlayerStatsDTO(DTO):
@@ -80,9 +71,6 @@ class PlayerStatsDTO(DTO):
         except KeyError:
             self.averageScore = None
 
-    def __getattribute__(self, name):
-        return super(PlayerStatsDTO, self).__getattribute__(name)
-
 
 class PlayerDTO(DTO):
     puuid: str
@@ -103,6 +91,3 @@ class PlayerDTO(DTO):
             self.stats = PlayerStatsDTO(obj["stats"])
         else:
             self.stats = None
-
-    def __getattribute__(self, name):
-        return super(PlayerDTO, self).__getattribute__(name)
