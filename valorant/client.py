@@ -19,10 +19,10 @@ class Client(object):
     def __init__(
         self,
         key: t.Text,
-        locale: t.Optional[t.Text] = Lex.LOCALE, 
+        locale: t.Optional[t.Text] = Lex.LOCALE,
         region: t.Text = "na",
-        route: t.Text ="americas",
-        load_content: bool = True
+        route: t.Text = "americas",
+        load_content: bool = True,
     ):
         self.key = key
         self.route = route
@@ -34,7 +34,7 @@ class Client(object):
             self.get_content(cache=True)
         else:
             self.content = None
-    
+
     def _content_if_cache(self):
         content = getattr(self, "content", None)
 
@@ -48,9 +48,9 @@ class Client(object):
 
         if cache:
             self.content = content
-        
+
         return content
-    
+
     def asset(self, **attributes: t.Mapping) -> t.Optional[DTO]:
         checks = 0
 
@@ -62,17 +62,16 @@ class Client(object):
                     else:
                         genexpr = lambda m: getattr(item, attr) == value
 
-                    try: 
-                        if genexpr(item): 
+                    try:
+                        if genexpr(item):
                             checks += 1
-                    except AttributeError: 
+                    except AttributeError:
                         pass
-                    
+
                 if checks == len(attributes):
                     return item
                 else:
                     checks = 0
-
 
     def get_user(self, puuid: t.Text) -> AccountDTO:
         r = self.handle.call("GET", "puuid", puuid=puuid)
@@ -116,8 +115,7 @@ class Client(object):
     def get_equips(self) -> ContentList:
         return self._content_if_cache().equips
 
-    def get_leaderboard(self, size: int = 100, page: int = 0, actID: str = ""):
-        """Get the top user's in your client's region during a given Act."""
+    def get_leaderboard(self, size: int = 100, page: int = 0, actID: t.Text = ""):
         actID = self.get_current_act().id if not actID else actID
         params = {"size": size, "startIndex": size * page}
 
