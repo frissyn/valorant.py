@@ -1,9 +1,10 @@
 import requests
+import typing as t
 
 from .lexicon import Lex
 
 
-def value_check(*args):
+def value_check(*args: t.Iterable[t.Text]) -> bool:
     KEYS = Lex.ROUTES + Lex.LOCALES + Lex.REGIONS
 
     for arg in args:
@@ -11,10 +12,12 @@ def value_check(*args):
             raise ValueError
         else:
             return True
+    
+    return False
 
 
 class WebCaller(object):
-    def __init__(self, token: str, locale: str, region: str, route: str):
+    def __init__(self, token: t.Text, locale: t.Text, region: t.Text, route: t.Text):
         self.base = "https://{root}.api.riotgames.com/"
         self.eps = Lex.ENDPOINTS["web"]
         self.sess = requests.Session()
@@ -32,7 +35,14 @@ class WebCaller(object):
             self.region = region
             self.route = route
 
-    def call(self, m: str, ep: str, params=None, route=False, **kw):
+    def call(
+        self,
+        m: t.Text,
+        ep: t.Text,
+        params: t.Optional[t.Mapping] = None,
+        route: t.Optional[t.Text] = False,
+        **kw,
+    ) -> t.Mapping[str, t.Any]:
         if ep not in list(self.eps.keys()):
             raise ValueError
         else:
@@ -48,7 +58,7 @@ class WebCaller(object):
 
 
 class ClientCaller(object):
-    def __init__(self, token: str):
+    def __init__(self, token: t.Text):
         self.base = "https://pd.{code}.a.pvp.net/"
         self.token = token
 
