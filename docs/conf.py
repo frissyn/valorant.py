@@ -12,7 +12,6 @@
 #
 import os
 import sys
-import requests
 
 sys.path.insert(0, os.path.abspath('..'))
 
@@ -24,7 +23,7 @@ copyright = '2021, frissyn'
 author = 'frissyn'
 
 # The full version, including alpha/beta/rc tags
-release = "0.4.1"
+release = "1.0.0"
 
 
 # -- General configuration ---------------------------------------------------
@@ -33,9 +32,10 @@ release = "0.4.1"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "sphinx.ext.autodoc",
-    "sphinx.ext.napoleon",
-    "sphinx.ext.linkcode"
+    'sphinx.ext.autodoc',
+    'sphinx.ext.extlinks',
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.napoleon',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -52,7 +52,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'karma_sphinx_theme'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -63,6 +63,13 @@ html_static_path = ['_static']
 # This is a function linkcode_resolve(domain, info), which should return the
 # URL to source code corresponding to the object in given domain with given 
 # information. The function should return None if no link is to be added.
+
+intersphinx_mapping = {
+    'py': ('https://docs.python.org/3', None),
+    'aio': ('https://docs.aiohttp.org/en/stable/', None),
+    'req': ('https://docs.python-requests.org/en/latest/', None)
+}
+
 
 def linkcode_resolve(domain, info):
     if domain != "py": return None
@@ -76,3 +83,8 @@ def linkcode_resolve(domain, info):
         "AsyncClient": "/valorant/threads.py",
         "LocalClient": "/valorant/local.py"
     }[name]
+
+
+def setup(app):
+    if app.config.language == 'ja':
+        app.config.intersphinx_mapping['py'] = ('https://docs.python.org/ja/3', None)
