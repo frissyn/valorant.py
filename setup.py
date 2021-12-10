@@ -1,24 +1,38 @@
+import valorant
 import setuptools
 
-from valorant import __version__
-
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+readme = open("README.md", "r").read()
+url = "https://github.com/frissyn/valorant.py"
 
 setuptools.setup(
     name="valorant",
-    version=__version__,
+    license="MIT",
     author="frissyn",
-    author_email="author@example.com",
-    description="An unofficial synchronous client package for interacting with Riot Games' Valorant API endpoints.",
-    long_description=long_description,
+    description=valorant.__doc__,
+    version=valorant.__version__,
+
+    url=url,
+    project_urls={
+        "Source Code": url,
+        "Pull Requests": url + "/pulls",
+        "Issue Tracker": url + "/issues",
+        "Documentation": "https://valorantpy.readthedocs.io/"
+    },
+
+    long_description=readme,
     long_description_content_type="text/markdown",
-    url="https://github.com/frissyn/valorant.py",
+
+    python_requires=">=3.7.0",
+
+    zip_safe=False,
     packages=["valorant"],
+
     classifiers=[
-        "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
+        "Intended Audience :: Developers",
         "Operating System :: OS Independent",
-    ],
-    python_requires='>=3.6',
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Topic :: Software Development"
+    ]
 )
