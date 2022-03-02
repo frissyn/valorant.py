@@ -31,8 +31,4 @@ function prompt_key() {
     clear
 }
 
-# propmt_test
-prompt_key
-python "test.py"
-
-echo "Done!"
+python -m tests
