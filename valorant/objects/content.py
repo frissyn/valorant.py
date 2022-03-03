@@ -98,4 +98,4 @@ class ContentList(list):
     def find(
         self, value: t.Optional[T] = None, **attrs: t.Mapping[t.Text, T]
     ) -> t.Optional[T]:
-        return self.find(value=value, **attrs)
+        return self.get(value=value, **attrs)
