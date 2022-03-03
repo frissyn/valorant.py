@@ -47,10 +47,7 @@ class PlayerStatsDTO(DTO):
     def __init__(self, obj):
         super().__init__(obj)
 
-        if obj.get("abilityCasts"):
-            self.abilityCasts = AbilityCastsDTO(obj["abilityCasts"])
-        else:
-            self.abilityCasts = None
+        self.abilityCasts = AbilityCastsDTO.optional(obj.get("abilityCasts"))
 
         try:
             self.kd = obj["kills"] / obj["deaths"]
@@ -87,7 +84,4 @@ class PlayerDTO(DTO):
     def __init__(self, obj):
         super().__init__(obj)
 
-        if obj.get("stats"):
-            self.stats = PlayerStatsDTO(obj["stats"])
-        else:
-            self.stats = None
+        self.stats = PlayerDTO.optional(obj.get("stats"))

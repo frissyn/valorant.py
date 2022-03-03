@@ -1,5 +1,6 @@
 import typing as t
 
+from .content import ContentList
 from .dto import DTO
 
 
@@ -21,4 +22,4 @@ class LeaderboardDTO(DTO):
     def __init__(self, obj):
         super().__init__(obj)
 
-        self.players = [LeaderboardPlayerDTO(p) for p in obj["players"]]
+        self.players = ContentList(LeaderboardPlayerDTO(p) for p in obj["players"])
