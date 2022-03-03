@@ -14,7 +14,7 @@ class TestContent(BaseTest):
         assets = {
             "gamemode": self.client.asset(assetName="BombGameMode"),
             "agent": self.client.asset(name="Viper"),
-            "map": self.client.asset(id="7EAECC1B-4337-BBF6-6AB9-04B8F06B3319")
+            "map": self.client.asset(id="7EAECC1B-4337-BBF6-6AB9-04B8F06B3319"),
         }
 
         self.assertEqual(assets["gamemode"].name, "Standard")
