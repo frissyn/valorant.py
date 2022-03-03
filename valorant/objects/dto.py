@@ -13,7 +13,7 @@ class DTOEncoder(json.JSONEncoder):
 class DTO(object):
     _json: t.Mapping[str, t.Any]
 
-    def __init__(self, obj: t.Mapping):
+    def __init__(self, obj: t.Mapping[str, t.Any]):
         self._json = obj
         self.set_attributes(obj)
 
@@ -30,6 +30,13 @@ class DTO(object):
 
     def __repr__(self) -> t.Text:
         return self.dumps()
+
+    @classmethod
+    def optional(cls, obj: t.Optional[t.Mapping]) -> t.Optional:
+        if obj != None:
+            return cls.__init__(obj)
+
+        return None
 
     def json(self) -> t.Mapping:
         return self._json
