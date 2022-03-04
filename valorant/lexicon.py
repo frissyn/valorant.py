@@ -77,7 +77,6 @@ class Lex:
             "puuid": "riot/account/v1/accounts/by-puuid/{puuid}",
             "status": "val/status/v1/platform-data",
         },
-
     }
 
     HEADERS = {

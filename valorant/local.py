@@ -4,14 +4,15 @@ import json
 import base64
 import requests
 
-from requests.sessions import Session
-
 from .lexicon import Lex
 
 
 class LocalClient(object):
     def __init__(self, reigon="na"):
-        self.reigon = reigon if reigon in Lex.REGIONS else "na"
+        if reigon not in Lex.REGIONS:
+            raise ValueError(f"'{reigon}' is not a supported reigon for LocalClient.")
+
+        self.reigon = reigon
         self.lockfile = "".join(
             [os.getenv("LOCALAPPDATA"), r"\Riot Games\Riot Client\Config\lockfile"]
         )
@@ -20,7 +21,6 @@ class LocalClient(object):
             data = f.read().split(":")
 
         self.base_url = f"{data[4]}://127.0.0.1:{data[2]}"
-
         self.s = requests.Session()
         self.s.auth = ("riot", data[3])
 

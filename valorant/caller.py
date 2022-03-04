@@ -4,15 +4,24 @@ import typing as t
 from .lexicon import Lex
 
 
-def value_check(*args: t.Iterable[t.Text]) -> bool:
-    KEYS = Lex.ROUTES + Lex.LOCALES + Lex.REGIONS
+def value_check(*args: t.List[t.Text]) -> bool:
+    KEYS = (
+        Lex.ROUTES
+        + Lex.LOCALES
+        + Lex.REGIONS
+        + [
+            None,
+        ]
+    )
 
     for arg in args:
         if arg not in KEYS:
-            raise ValueError
+            raise ValueError(
+                f"`{arg}` is either an unspported or invalid geographical value."
+            )
         else:
             return True
-    
+
     return False
 
 
