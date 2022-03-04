@@ -22,7 +22,7 @@ setuptools.setup(
     long_description=readme,
     long_description_content_type="text/markdown",
 
-    python_requires=">=3.7.0",
+    python_requires=">=3.8.0",
 
     zip_safe=False,
     packages=["valorant"],
