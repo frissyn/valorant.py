@@ -13,8 +13,8 @@ class UpdateDTO(DTO):
     id: str
     author: str
     publish: bool
-    publish_locations: t.Iterable[str]
-    translations: t.Iterable[PlatformContentDTO]
+    publish_locations: t.List[str]
+    translations: t.List[PlatformContentDTO]
     created_at: str
     updated_at: str
 
@@ -30,12 +30,12 @@ class StatusDTO(DTO):
     id: str
     maintenance_status: str
     incident_severity: str
-    titles: t.Iterable[PlatformContentDTO]
-    updates: t.Iterable[UpdateDTO]
+    titles: t.List[PlatformContentDTO]
+    updates: t.List[UpdateDTO]
     created_at: str
     archive_at: str
     updated_at: str
-    platforms: t.Iterable[str]
+    platforms: t.List[str]
 
     def __init__(self, obj):
         super().__init__(obj)
@@ -49,8 +49,8 @@ class PlatformDataDTO(DTO):
     localizedNames: t.Mapping[str, str]
     id: str
     locales: str
-    maintenances: t.Iterable[StatusDTO]
-    incidents: t.Iterable[StatusDTO]
+    maintenances: t.List[StatusDTO]
+    incidents: t.List[StatusDTO]
 
     def __init__(self, obj):
         super().__init__(obj)

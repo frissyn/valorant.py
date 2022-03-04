@@ -1,6 +1,7 @@
 import typing as t
 
 from .dto import DTO
+from ..lexicon import Lex
 
 
 class AbilityCastsDTO(DTO):
@@ -85,3 +86,8 @@ class PlayerDTO(DTO):
         super().__init__(obj)
 
         self.stats = PlayerDTO.optional(obj.get("stats"))
+
+        if obj.get("competitiveTier"):
+            self.rank = Lex.RANKS[self.competitiveTier]
+        else:
+            self.rank = "Unrated"

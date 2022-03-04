@@ -46,8 +46,8 @@ class KillDTO(DTO):
     killer: str
     victim: str
     victimLocation: LocationDTO
-    assistants: t.Iterable[str]
-    playerLocations: t.Iterable[PlayerLocationsDTO]
+    assistants: t.List[str]
+    playerLocations: t.List[PlayerLocationsDTO]
     finishingDamage: FinishingDamageDTO
 
     def time_since_game_start(self) -> datetime:
@@ -101,7 +101,7 @@ class MatchlistEntryDTO(DTO):
 
 class MatchlistDTO(DTO):
     puuid: str
-    history: t.Iterable[MatchlistEntryDTO]
+    history: t.List[MatchlistEntryDTO]
 
     def __init__(self, obj, handle):
         super().__init__(obj)
@@ -111,8 +111,8 @@ class MatchlistDTO(DTO):
 
 class PlayerRoundStatsDTO(DTO):
     puuid: str
-    kills: t.Iterable[t.Any]
-    damage: t.Iterable[DamageDTO]
+    kills: t.List[t.Any]
+    damage: t.List[DamageDTO]
     score: int
     economy: EconomyDTO
     ability: AbilityDTO
@@ -132,13 +132,13 @@ class RoundResultDTO(DTO):
     bombPlanter: str
     bombDefuser: str
     plantRoundTime: int
-    plantPlayerLocations: t.Optional[t.Iterable[PlayerLocationsDTO]]
+    plantPlayerLocations: t.Optional[t.List[PlayerLocationsDTO]]
     plantLocation: LocationDTO
     plantSite: t.Optional[str]
     defuseRoundTime: int
-    defusePlayerLocations: t.Optional[t.Iterable[PlayerLocationsDTO]]
+    defusePlayerLocations: t.Optional[t.List[PlayerLocationsDTO]]
     defuseLocation: LocationDTO
-    playerStats: t.Iterable[PlayerStatsDTO]
+    playerStats: t.List[PlayerStatsDTO]
     roundResultCode: str
 
     def __init__(self, obj):
@@ -168,10 +168,10 @@ class RoundResultDTO(DTO):
 
 class MatchDTO(DTO):
     matchInfo: MatchInfoDTO
-    players: t.Iterable[PlayerDTO]
-    coaches: t.Iterable[CoachDTO]
-    teams: t.Iterable[TeamDTO]
-    roundResults: t.Iterable[RoundResultDTO]
+    players: t.List[PlayerDTO]
+    coaches: t.List[CoachDTO]
+    teams: t.List[TeamDTO]
+    roundResults: t.List[RoundResultDTO]
 
     def __init__(self, obj):
         self._json = obj

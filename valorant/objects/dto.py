@@ -29,12 +29,12 @@ class DTO(object):
         return f"{s[:-1]}>"
 
     def __repr__(self) -> t.Text:
-        return self.dumps()
+        return self.__str__()
 
     @classmethod
     def optional(cls, obj: t.Optional[t.Mapping]) -> t.Optional:
         if obj != None:
-            return cls.__init__(obj)
+            return cls(obj)
 
         return None
 

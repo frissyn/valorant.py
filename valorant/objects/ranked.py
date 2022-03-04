@@ -17,7 +17,7 @@ class LeaderboardDTO(DTO):
     shard: str
     actId: str
     totalPlayers: int
-    players: t.Iterable[LeaderboardPlayerDTO]
+    players: t.List[LeaderboardPlayerDTO]
 
     def __init__(self, obj):
         super().__init__(obj)
