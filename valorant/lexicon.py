@@ -1,5 +1,6 @@
 import locale
 
+
 class Lex:
     SAFES = "~()*!.'"
     CLIENT_API = "https://pd.{code}.a.pvp.net/"
@@ -26,56 +27,57 @@ class Lex:
         "tr-TR",
         "vi-VN",
         "zh-CN",
-        "zh-TW"
+        "zh-TW",
     ]
 
     REGIONS = [
+        "ap",
+        "br",
         "eu",
         "eune",
         "euw",
         "jp",
         "kr",
         "lan",
-        "br",
         "las",
+        "latam",
         "na",
         "oce",
         "ru",
         "tr",
-        "latam",
-        "ap"
     ]
 
     CONTENT_NAMES = [
+        "acts",
         "characters",
-        "maps",
+        "charmLevels",
+        "charms",
         "chromas",
-        "skins",
-        "skinLevels",
         "equips",
         "gameModes",
-        "sprays",
-        "charms",
-        "charmLevels",
+        "maps",
         "playerCards",
         "playerTitles",
-        "acts"
+        "skinLevels",
+        "skins",
+        "sprays",
     ]
 
     ENDPOINTS = {
-        "web": {
-            "content": "val/content/v1/contents",
-            "leaderboard": "val/ranked/v1/leaderboards/by-act/{actID}",
-            "status": "val/status/v1/platform-data",
-            "puuid": "riot/account/v1/accounts/by-puuid/{puuid}",
-            "game-name": "riot/account/v1/accounts/by-riot-id/{name}/{tag}",
-            "match": "val/match/v1/matches/{matchID}",
-            "matchlists": "val/match/v1/matchlists/by-puuid/{puuid}",
-            "match-queue": "val/match/v1/recent-matches/by-queue/{queue}",
-        },
         "client": {
             "mmr": "mmr/v1/players/{playerID}/competitiveupdates",
-        }
+        },
+        "web": {
+            "content": "val/content/v1/contents",
+            "game-name": "riot/account/v1/accounts/by-riot-id/{name}/{tag}",
+            "leaderboard": "val/ranked/v1/leaderboards/by-act/{actID}",
+            "match": "val/match/v1/matches/{matchID}",
+            "match-queue": "val/match/v1/recent-matches/by-queue/{queue}",
+            "matchlists": "val/match/v1/matchlists/by-puuid/{puuid}",
+            "puuid": "riot/account/v1/accounts/by-puuid/{puuid}",
+            "status": "val/status/v1/platform-data",
+        },
+
     }
 
     HEADERS = {
@@ -84,5 +86,31 @@ class Lex:
             "Authorization": "Bearer {token}",
             "Content-Type": "application/json",
             "X-Riot-Entitlements-JWT": "riot_entitlement",
-        }
+        },
+    }
+
+    RANKS = {
+        0: "Unrated",
+        3: "Iron 1",
+        4: "Iron 2",
+        5: "Iron 3",
+        6: "Bronze 1",
+        7: "Bronze 2",
+        8: "Bronze 3",
+        9: "Silver 1",
+        10: "Silver 2",
+        11: "Silver 3",
+        12: "Gold 1",
+        13: "Gold 2",
+        14: "Gold 3",
+        15: "Platinum 1",
+        16: "Platinum 2",
+        17: "Platinum 3",
+        18: "Diamond 1",
+        19: "Diamond 2",
+        20: "Diamond 3",
+        21: "Immortal 1",
+        22: "Immortal 2",
+        23: "Immortal 3",
+        24: "Radiant",
     }
