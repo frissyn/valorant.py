@@ -6,35 +6,39 @@
 [![License](https://img.shields.io/pypi/l/valorant.svg)](https://pypi.python.org/pypi/valorant)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Contribute](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/frissyn/valorant.py/issues)
+[![Discord Chat](https://img.shields.io/badge/discord-join-7389D8?style=flat&logo=discord)](https://discord.gg/b3qjk4epPr)
 
-`valorant.py` is an unofficial API wrapper for Riot Games' Valorant API endpoints. It's modern, easy to use, feature-rich, and intuitive! Implemented with object oriented designs and explicit reloads to prevent `429`s, valorant.py is the best Valorant API wrapper out there!
+`valorant.py` is an unofficial API wrapper for Riot Games' Valorant API endpoints. It's modern, easy to use, feature-rich, and intuitive!
 
-## Bulletin Board
+## Features
 
-**Most recent version:** `0.5.1` (🎉)
+**Simple:** High-level abstraction of API interactions; easy to use and easy to customize.
 
-**Changes:**
+**Lightweight:** Doesn't rely on any external dependencies, minimal package size.
 
-+ Internal redesign of HTTP requests
-+ Updates to error handling for Client and AsyncClient
-+ A few *more* bug fixes (👍)
-+ *References:* [#24](https://github.com/frissyn/valorant.py/issues/24), [#20](https://github.com/frissyn/valorant.py/issues/20), ~~[#23](https://github.com/frissyn/valorant.py/issues/23)~~, [#26](https://github.com/frissyn/valorant.py/issues/26)
+**Extensive:** Covers all Valorant related endpoints from the Riot Games API. Also includes Account coverage.
 
-**Coming Soon:** Endpoint coverage for matches!
+**Fast:** HTTP requests and object instancing optimized to use minimal resources and complete tasks quickly!
+
+**Intuitive:** Complete auto-completion, docstrings, and type-hinting for all library objects and variables.
 
 ## Installation
 
-|Manager|Command|
-|:-:|:--|
-|PIP|`pip install valorant`|
-|Poetry|`python -m poetry add valorant`|
-|Easy Install|`easy_install valorant`|
+`valorant.py` requires Python 3.8 or higher.
+
+|Manager     |Command                  |
+|:----------:|:------------------------|
+|PIP         |`pip install valorant`   |
+|Poetry      |`poetry add valorant`    |
+|PIPEnv      |`pipenv install valorant`|
 
 ## Usage
 
-Quickstart:
+Take a look at the [`examples/`](https://github.com/frissyn/valorant.py/blob/master/examples) folder for more usage snippets!
 
-```py
+**Quickstart:**
+
+```python
 import valorant
 
 KEY = "RGAPI-Key-Here"
@@ -42,30 +46,10 @@ client = valorant.Client(KEY)
 
 agents = client.get_characters()
 
-for agent in agents:
-    print(agent.name)
+print(agents.get("Viper"))
 ```
 
-Asynchronous Client:
-
-```py
-import valorant
-
-KEY = "RGAPI-Key-Here"
-client = valorant.AsyncClient(KEY)
-
-async def _main():
-    agents = await client.get_characters()
-
-    for agent in agents:
-        print(agent.name)
-
-valorant.run(_main())
-```
-
-Local Client:
-
-*This is intended for use with the game locally. Eases the use of doing things like getting live match data, chat sessions, friend requests, etc. Doesn't need an access key. The current Local Client is a work-in-progress and is unstable.*
+**Local Client:**
 
 ```python
 import valorant
@@ -75,11 +59,13 @@ client = valorant.LocalClient()
 print(client.get_session())
 ```
 
+**NOTE:** *The Local Client interacts with the Client API that Valorant uses while the game is running on your system. This means access to current player, friend requests, shop, etc. The Local Client is currently unstable. `valorant.py` is not liable for any punishment you may recieve should you use its tools to break Valorant ToS. (i.e Auto-Agent Selection)*
+
 ## Documentation
 
-The public API documentation for `valorant.py` is hosted [`here`](https://valorantpy.readthedocs.io/en/latest/).
+The public API documentation for `valorant.py` is hosted on [ReadTheDocs.io](https://valorantpy.readthedocs.io/en/latest/).
 
-If you're making edits to the documentation, you can generate the HTML and start a local server by running `bash bin/docs.sh` in the repository directory. This requires [`Ruby`](https://www.ruby-lang.org/en/documentation/installation/) 2.5 or higher (Sorry if you have to install Ruby just to edit the docs =P).
+If you're making edits to the documentation, you can generate the HTML and start a local server by running `bash bin/docs.sh` in the repository directory. This script uses Ruby to start a static file server, if you don't have Ruby 2.7+ installed, you can use any preferred utility to get a server up and running.
 
 ## Contributing
 
@@ -91,7 +77,6 @@ If you're making edits to the documentation, you can generate the HTML and start
 
 You can also re-create these steps with GitHub Desktop, Visual Studio Code, or whatever `git` version control UI you prefer. You don't have to, but I use prefixes for all my commits (i.e `✨: add asyncio run to package namespace`). I have a personal style guide that I use, which you can find [`here`](https://github.com/frissyn/commit-prefixes).
 
+## Help and Questions
 
-## Final Note
-
-**Thanks for taking the time to check out `valorant.py`! 🎉**
+Have a bug or issue? Need help with the API? Open an [issue](https://github.com/frissyn/valorant.py/issues) or hop in the [#valorant-py](https://discord.gg/b3qjk4epPr) channel of my Community Discord Server.
