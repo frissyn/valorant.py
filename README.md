@@ -65,7 +65,11 @@ print(client.get_session())
 
 The public API documentation for `valorant.py` is hosted on [ReadTheDocs.io](https://valorantpy.readthedocs.io/en/latest/).
 
-If you're making edits to the documentation, you can generate the HTML and start a local server by running `bash bin/docs.sh` in the repository directory. This script uses Ruby to start a static file server, if you don't have Ruby 2.7+ installed, you can use any preferred utility to get a server up and running.
+Use `bash bin/docs` to start the documentation server locally. This uses Ruby's `WEBrick` gem.
+
+## Help and Questions
+
+Have a bug or issue? Need help with the API? Open an [issue](https://github.com/frissyn/valorant.py/issues) or hop in the [#valorant-py](https://discord.gg/b3qjk4epPr) channel of my Community Discord Server.
 
 ## Contributing
 
@@ -76,7 +80,3 @@ If you're making edits to the documentation, you can generate the HTML and start
 5. Create a new Pull Request! 🎉
 
 You can also re-create these steps with GitHub Desktop, Visual Studio Code, or whatever `git` version control UI you prefer. You don't have to, but I use prefixes for all my commits (i.e `✨: add asyncio run to package namespace`). I have a personal style guide that I use, which you can find [`here`](https://github.com/frissyn/commit-prefixes).
-
-## Help and Questions
-
-Have a bug or issue? Need help with the API? Open an [issue](https://github.com/frissyn/valorant.py/issues) or hop in the [#valorant-py](https://discord.gg/b3qjk4epPr) channel of my Community Discord Server.
