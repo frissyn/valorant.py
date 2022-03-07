@@ -75,7 +75,7 @@ def _fmt(key: t.Text) -> t.Text:
 
 def _operate(a, b):
     if isinstance(b, Expression):
-        return b.func(a, b.value)
+        return b.statement(a)
     elif callable(b):
         return b(a)
     else:
