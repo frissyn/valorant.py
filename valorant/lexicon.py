@@ -2,11 +2,27 @@ import locale
 
 
 class Lex:
+    """Reference class for storing constants to be used across the library.
+    Initializing isn't allowed and will throw a ``NotImplementedError``.
+    """
+
+    def __init__(self):
+        raise NotImplementedError("Lexicon is not allowed to be initialized.")
+
     SAFES = "~()*!.'"
+    """String of URL-safe characters in requests to the API."""
+
     CLIENT_API = "https://pd.{code}.a.pvp.net/"
+    """URL for the Valorant client API."""
+
     WEB_API = "https://{code}.api.riotgames.com/"
+    """URL for the Valorant client API."""
+
     LOCALE = locale.getdefaultlocale()[0].replace("_", "-")
+    """Default locale as determine by Python's locale module."""
+
     ROUTES = ["americas", "asia", "europe"]
+    """List of geographical routes supported by the Web API."""
 
     LOCALES = [
         "ar-AE",
@@ -29,6 +45,7 @@ class Lex:
         "zh-CN",
         "zh-TW",
     ]
+    """List of locales supported by the client and web API."""
 
     REGIONS = [
         "ap",
@@ -46,6 +63,7 @@ class Lex:
         "ru",
         "tr",
     ]
+    """List of locales supported by the client and web API."""
 
     CONTENT_NAMES = [
         "acts",
@@ -62,6 +80,7 @@ class Lex:
         "skins",
         "sprays",
     ]
+    """List of content data attribute names."""
 
     ENDPOINTS = {
         "client": {
@@ -78,6 +97,7 @@ class Lex:
             "status": "val/status/v1/platform-data",
         },
     }
+    """Mappings of endpoint names to endpoint paths for the client and web API."""
 
     HEADERS = {
         "web": {"Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8"},
@@ -87,6 +107,7 @@ class Lex:
             "X-Riot-Entitlements-JWT": "riot_entitlement",
         },
     }
+    """Default headers for the client and web API."""
 
     RANKS = {
         0: "Unrated",
@@ -113,3 +134,4 @@ class Lex:
         23: "Immortal 3",
         24: "Radiant",
     }
+    """Mapping of competitiveTier values to rank title."""
