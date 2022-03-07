@@ -4,7 +4,7 @@ import json
 import base64
 import requests
 
-from .lexicon import Lex
+from ..lexicon import Lex
 
 
 class LocalClient(object):
