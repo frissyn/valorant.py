@@ -54,10 +54,7 @@ class ContentDTO(DTO):
         self.acts = ContentList(ActDTO(i) for i in obj["acts"])
 
         for name in Lex.CONTENT_NAMES[1:]:
-            self.__setattr__(
-                name,
-                ContentList(ContentItemDTO(i) for i in object[name])
-            )
+            self.__setattr__(name, ContentList(ContentItemDTO(i) for i in obj[name]))
 
 
 def _fmt(key: t.Text) -> t.Text:
@@ -77,8 +74,8 @@ def _operate(a, b):
 
 
 class ContentList(list):
-    def __init__(self, loop: t.List[t.Any]):
-        super(ContentList, self).__init__(loop)
+    def __init__(self, *args, **kwargs):
+        super(ContentList, self).__init__(*args, **kwargs)
 
     def get(
         self, value: t.Optional[T] = None, **attrs: t.Mapping[t.Text, T]
@@ -88,7 +85,7 @@ class ContentList(list):
         an expression, or a callable that returns a boolean or boolean-like object.
 
         A single argument defaults to checking for ``name``.
-            
+
         Multiple arguments are checked using logical AND, not logical OR. The element
         `must` match all the arguments, not just one.
 
@@ -106,24 +103,27 @@ class ContentList(list):
 
         See the :doc:`pages/guides/queries` page for more in-depth usage.
 
-        :param value: 
+        :param value:
             Alias argument for ``name=value``. Ignores keyword arguments if passed.
-        :type : Optional[Any]
+        :type value: Optional[Any]
 
         :param attrs: Mapping of attribute traits to match for.
         :type attrs: Mapping[Any, Any]
-        
+
         :rtype: Optional[DTO]
         """
-    
+
         if value != None:
             attrs = {"name": value}
 
         funcs = [(attr(_fmt(key)), v) for key, v in attrs.items()]
 
         for el in self:
-            if all(_operate(func(el), value) for func, value in funcs):
-                return el
+            try:
+                if all(_operate(func(el), value) for func, value in funcs):
+                    return el
+            except AttributeError:
+                continue
 
         return None
 
@@ -139,13 +139,13 @@ class ContentList(list):
         """Same functionality as :func:`.get()` but returns a list of every matching element.
         The list will be empty if no matching elements were found in the ContentList.
 
-        :param value: 
+        :param value:
             Alias argument for ``name=value``. Ignores keyword arguments if passed.
-        :type : Optional[Any]
+        :type value: Optional[Any]
 
         :param attrs: Mapping of attribute traits to match for.
         :type attrs: Mapping[Any, Any]
-        
+
         :rtype: List[DTO]
         """
         results = []
@@ -156,8 +156,11 @@ class ContentList(list):
         funcs = [(attr(_fmt(key)), v) for key, v in attrs.items()]
 
         for el in self:
-            if all(_operate(func(el), value) for func, value in funcs):
-                results.append(el)
+            try:
+                if all(_operate(func(el), value) for func, value in funcs):
+                    results.append(el)
+            except AttributeError:
+                continue
 
         return results
 

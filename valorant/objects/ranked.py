@@ -23,3 +23,9 @@ class LeaderboardDTO(DTO):
         super().__init__(obj)
 
         self.players = ContentList(LeaderboardPlayerDTO(p) for p in obj["players"])
+
+        # self.players = ContentList()
+
+        # for p in obj["players"]:
+        #     if obj.get("gameName"):
+        #         self.players.append(LeaderboardPlayerDTO(p))

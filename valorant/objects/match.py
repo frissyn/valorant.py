@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import typing as t
 from datetime import datetime
 
@@ -50,11 +52,15 @@ class KillDTO(DTO):
     playerLocations: t.List[PlayerLocationsDTO]
     finishingDamage: FinishingDamageDTO
 
-    def time_since_game_start(self) -> datetime:
-        return datetime.fromtimestamp(self.timeSinceGameStartMillis / 1000.0)
+    def __init__(self, obj):
+        super().__init__(obj)
 
-    def time_since_round_start(self) -> datetime:
-        return datetime.fromtimestamp(self.timeSinceRoundStartMillis / 1000.0)
+        self.timeSinceGameStart = datetime.fromtimestamp(
+            self.timeSinceGameStartMillis / 1000.0
+        )
+        self.timeSinceRoundStart = datetime.fromtimestamp(
+            self.timeSinceRoundStartMillis / 1000.0
+        )
 
 
 class TeamDTO(DTO):
@@ -79,6 +85,16 @@ class MatchInfoDTO(DTO):
     seasonId: str
 
 
+class MatchlistDTO(DTO):
+    puuid: str
+    history: t.List[MatchlistEntryDTO]
+
+    def __init__(self, obj, handle):
+        super().__init__(obj)
+
+        self.history = ContentList(MatchlistEntryDTO(e, handle) for e in obj["history"])
+
+
 class MatchlistEntryDTO(DTO):
     matchId: str
     gameStartMillis: int
@@ -90,7 +106,7 @@ class MatchlistEntryDTO(DTO):
         self.id = obj["matchId"]
         self.set_attributes(obj)
 
-    def get(self):
+    def get(self) -> MatchDTO:
         match = self._handle.call("GET", "match", matchID=self.id)
 
         return MatchDTO(match)
@@ -99,19 +115,9 @@ class MatchlistEntryDTO(DTO):
         return datetime.fromtimestamp(self.gameStartMillis / 1000.0)
 
 
-class MatchlistDTO(DTO):
-    puuid: str
-    history: t.List[MatchlistEntryDTO]
-
-    def __init__(self, obj, handle):
-        super().__init__(obj)
-
-        self.history = ContentList(MatchlistEntryDTO(e, handle) for e in obj["history"])
-
-
 class PlayerRoundStatsDTO(DTO):
     puuid: str
-    kills: t.List[t.Any]
+    kills: t.List[KillDTO]
     damage: t.List[DamageDTO]
     score: int
     economy: EconomyDTO
@@ -171,6 +177,7 @@ class MatchDTO(DTO):
     players: t.List[PlayerDTO]
     coaches: t.List[CoachDTO]
     teams: t.List[TeamDTO]
+    timestamp: datetime
     roundResults: t.List[RoundResultDTO]
 
     def __init__(self, obj):
@@ -183,5 +190,4 @@ class MatchDTO(DTO):
         self.teams = ContentList(TeamDTO(t) for t in obj["teams"])
         self.roundResults = ContentList(RoundResultDTO(r) for r in obj["roundResults"])
 
-    def timestamp(self) -> datetime:
-        return datetime.fromtimestamp(self.matchInfo.gameStartMillis / 1000.0)
+        self.datetime = datetime.fromtimestamp(self.matchInfo.gameStartMillis / 1000.0)

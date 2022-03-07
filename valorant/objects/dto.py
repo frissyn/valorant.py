@@ -38,11 +38,24 @@ class DTO(object):
 
         return None
 
-    def json(self) -> t.Mapping:
+    def json(self) -> dict:
+        """Return a JSON (dictionary) representation of this DTO.
+
+        :rtype: dict
+        """
         return self._json
 
-    def dumps(self, **kw: t.Mapping) -> t.Text:
-        return json.dumps(self._json, cls=DTOEncoder, **kw)
+    def dumps(self, **kwargs: t.Mapping) -> str:
+        """Converts the JSON representation of this DTO to a string.
+
+        :param kwargs:
+            Extra keyword arguments to build the string. Taks the same arguments
+            as `json.dumps <https://docs.python.org/3/library/json.html#json.dumps>`_.
+        :type kwargs:
+
+        :rtype: str
+        """
+        return json.dumps(self._json, cls=DTOEncoder, **kwargs)
 
     def set_attributes(self, attrs: t.Mapping, sub: bool = False) -> t.Optional:
         for attr, value in attrs.items():
