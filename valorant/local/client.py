@@ -8,6 +8,15 @@ from ..lexicon import Lex
 
 
 class LocalClient(object):
+    """Client for interacting with the local instance of the VALORANT application.
+    The game must be running for this class to function properly. Currently unstable,
+    support is coming soon.
+
+    :param region:
+        The region to instance the client with. If this doesn't match the game's
+        region there could be some unexpected behavior.
+    :type region: str
+    """
     def __init__(self, reigon="na"):
         if reigon not in Lex.REGIONS:
             raise ValueError(f"'{reigon}' is not a supported reigon for LocalClient.")
@@ -28,11 +37,25 @@ class LocalClient(object):
         return self.base_url + path
 
     def get_session(self) -> dict:
+        """Get the current session of the player at the moment this function
+        is  called. Represents data for being in-queue, in-match, idle, etc.
+
+        :rtype: dict
+        """
         data = self.s.get(self._url("/chat/v1/session"), verify=ssl.CERT_NONE)
 
         return json.loads(data.content)
 
     def get_presences(self, user=False) -> dict:
+        """Get presence data for everyone connected to the player's lobby. If the
+        player is in a match, this will return session data for all players in a
+        match. Same goes for queue, party, etc.
+
+        :param user: If ``True``, only returns presence data for the current player.
+        :type user: bool
+        
+        :rtype: dict
+        """
         data = self.s.get(self._url("/chat/v4/presences"), verify=ssl.CERT_NONE)
         data = json.loads(data.content)
 
