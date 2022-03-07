@@ -47,6 +47,12 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
+# -- Type Hinting Stuff =p ---------------------------------------------------
+
+autodoc_typehints_format = 'short'
+
+autodoc_preserve_defaults = True
+
 
 # -- Options for HTML output -------------------------------------------------
 
