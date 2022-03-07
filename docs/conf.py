@@ -33,6 +33,7 @@ release = "1.0.0"
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.autosectionlabel',
     'sphinx.ext.extlinks',
     'sphinx.ext.intersphinx',
     'sphinx.ext.napoleon',
@@ -59,6 +60,15 @@ html_theme = 'karma_sphinx_theme'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+html_sidebars = {
+    "**": []
+}
+
+resource_links = {
+    'discord': 'https://discord.gg/b3qjk4epPr',
+    'issues': 'https://github.com/frissyn/valorant.py/issues',
+}
+
 
 # This is a function linkcode_resolve(domain, info), which should return the
 # URL to source code corresponding to the object in given domain with given 
@@ -66,25 +76,10 @@ html_static_path = ['_static']
 
 intersphinx_mapping = {
     'py': ('https://docs.python.org/3', None),
-    'aio': ('https://docs.aiohttp.org/en/stable/', None),
-    'req': ('https://docs.python-requests.org/en/latest/', None)
 }
-
-
-def linkcode_resolve(domain, info):
-    if domain != "py": return None
-    if not info["module"]: return None
-    
-    name = info['fullname'].split('.')[0]
-    base = "https://github.com/frissyn/valorant.py/blob/master"
-
-    return base + {
-        "Client": "/valorant/client.py",
-        "AsyncClient": "/valorant/threads.py",
-        "LocalClient": "/valorant/local.py"
-    }[name]
 
 
 def setup(app):
     if app.config.language == 'ja':
         app.config.intersphinx_mapping['py'] = ('https://docs.python.org/ja/3', None)
+
