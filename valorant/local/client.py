@@ -17,6 +17,7 @@ class LocalClient(object):
         region there could be some unexpected behavior.
     :type region: str
     """
+
     def __init__(self, reigon="na"):
         if reigon not in Lex.REGIONS:
             raise ValueError(f"'{reigon}' is not a supported reigon for LocalClient.")
@@ -53,7 +54,7 @@ class LocalClient(object):
 
         :param user: If ``True``, only returns presence data for the current player.
         :type user: bool
-        
+
         :rtype: dict
         """
         data = self.s.get(self._url("/chat/v4/presences"), verify=ssl.CERT_NONE)

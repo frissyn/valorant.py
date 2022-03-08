@@ -9,6 +9,7 @@ from .match import (
     CoachDTO,
     DamageDTO,
     FinishingDamageDTO,
+    KillDTO,
     EconomyDTO,
     TeamDTO,
     MatchInfoDTO,
@@ -21,37 +22,46 @@ from .match import (
 
 from .platform import StatusDTO, UpdateDTO, PlatformDataDTO, PlatformContentDTO
 
-
-from .player import PlayerDTO, PlayerStatsDTO
+from .player import (
+    AbilityCastsDTO,
+    LocationDTO,
+    PlayerDTO,
+    PlayerLocationsDTO,
+    PlayerStatsDTO,
+)
 
 from .ranked import LeaderboardPlayerDTO, LeaderboardDTO
 
 
 __all__ = [
     "DTO",
+    "AbilityCastsDTO",
+    "AbilityDTO",
     "AccountDTO",
     "ActDTO",
+    "CoachDTO",
     "ContentDTO",
     "ContentItemDTO",
     "ContentList",
-    "AbilityDTO",
-    "CoachDTO",
     "DamageDTO",
-    "FinishingDamageDTO",
     "EconomyDTO",
-    "TeamDTO",
-    "MatchInfoDTO",
+    "FinishingDamageDTO",
+    "KillDTO",
+    "LeaderboardDTO",
+    "LeaderboardPlayerDTO",
+    "LocationDTO",
     "MatchDTO",
+    "MatchInfoDTO",
     "MatchlistDTO",
     "MatchlistEntryDTO",
+    "PlatformContentDTO",
+    "PlatformDataDTO",
+    "PlayerDTO",
+    "PlayerLocationsDTO",
     "PlayerRoundStatsDTO",
+    "PlayerStatsDTO",
     "RoundResultDTO",
     "StatusDTO",
+    "TeamDTO",
     "UpdateDTO",
-    "PlatformDataDTO",
-    "PlatformContentDTO",
-    "PlayerDTO",
-    "PlayerStatsDTO",
-    "LeaderboardPlayerDTO",
-    "LeaderboardDTO",
 ]

@@ -101,7 +101,7 @@ class ContentList(list):
 
             player = leaderboard.players.get(numberOfWins=lambda x: x >= 10)
 
-        See the :doc:`pages/guides/queries` page for more in-depth usage.
+        See the :doc:`guides/queries` page for more in-depth usage.
 
         :param value:
             Alias argument for ``name=value``. Ignores keyword arguments if passed.

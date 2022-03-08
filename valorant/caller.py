@@ -5,14 +5,7 @@ from .lexicon import Lex
 
 
 def value_check(*args: t.List[t.Text]) -> bool:
-    KEYS = (
-        Lex.ROUTES
-        + Lex.LOCALES
-        + Lex.REGIONS
-        + [
-            None,
-        ]
-    )
+    KEYS = Lex.ROUTES + Lex.LOCALES + Lex.REGIONS
 
     for arg in args:
         if arg not in KEYS:
@@ -39,7 +32,7 @@ class WebCaller(object):
             }
         )
 
-        if value_check(locale, region, route):
+        if value_check(region, route):
             self.locale = locale
             self.region = region
             self.route = route
