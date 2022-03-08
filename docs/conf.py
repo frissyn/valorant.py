@@ -12,19 +12,18 @@
 #
 import os
 import sys
-import requests
 
-sys.path.insert(0, os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath(".."))
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'valorant.py'
-copyright = '2021, frissyn'
-author = 'frissyn'
+project = "valorant.py"
+copyright = "2021, frissyn"
+author = "frissyn"
 
 # The full version, including alpha/beta/rc tags
-release = "0.4.1"
+release = "1.0.0"
 
 
 # -- General configuration ---------------------------------------------------
@@ -34,17 +33,25 @@ release = "0.4.1"
 # ones.
 extensions = [
     "sphinx.ext.autodoc",
+    "sphinx.ext.autosectionlabel",
+    "sphinx.ext.extlinks",
+    "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
-    "sphinx.ext.linkcode"
 ]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+
+# -- Type Hinting Stuff =p ---------------------------------------------------
+
+autodoc_typehints_format = "short"
+
+autodoc_preserve_defaults = True
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -52,27 +59,72 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = "sphinx_material"
 
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_title = "valorant.py"
+
+html_logo = "images/icon.png"
+
+html_static_path = ["_static"]
+
+html_sidebars = {
+    "**": ["logo-text.html", "globaltoc.html", "localtoc.html", "searchbox.html"]
+}
+
+html_theme_options = {
+    # -- Meta settings -------------------
+    "nav_title": "valorant.py",
+    
+    # -- Styling settings ----------------
+    "color_primary": "red",
+    "color_accent": "orange",
+    
+    # -- Repository settings -------------
+    "repo_type": "github",
+    "repo_url": "https://github.com/frissyn/valorant.py/",
+    "repo_name": "valorant.py",
+
+    # -- TOC tree settings ---------------
+    "globaltoc_depth": 2,
+    "globaltoc_collapse": False,
+    "globaltoc_includehidden": True,
+    
+    # --- Misc/HTML settings -------------
+    "heroes": {
+        "index": "Complete Python interface for the Valorant API. Works right out of the box!",
+        "pages/api": "Everything you need to know about the API.",
+        "pages/examples": "Quickstart examples to get you going.",
+        "pages/guides": "In-depth explorations of the library and its features."
+    },
+    "nav_links": [
+        {
+            "href": "https://github.com/frissyn/valorant.py/issues",
+            "title": "Issue Tracker",
+            "internal": False,
+        },
+        {
+            "href": "https://discord.gg/b3qjk4epPr",
+            "title": "Discord Server",
+            "internal": False,
+        },
+    ],
+}
+
+resource_links = {
+    "discord": "https://discord.gg/b3qjk4epPr",
+    "issues": "https://github.com/frissyn/valorant.py/issues",
+}
 
 
 # This is a function linkcode_resolve(domain, info), which should return the
-# URL to source code corresponding to the object in given domain with given 
+# URL to source code corresponding to the object in given domain with given
 # information. The function should return None if no link is to be added.
 
-def linkcode_resolve(domain, info):
-    if domain != "py": return None
-    if not info["module"]: return None
-    
-    name = info['fullname'].split('.')[0]
-    base = "https://github.com/frissyn/valorant.py/blob/master"
+intersphinx_mapping = {
+    "py": ("https://docs.python.org/3", None),
+}
 
-    return base + {
-        "Client": "/valorant/client.py",
-        "AsyncClient": "/valorant/threads.py",
-        "LocalClient": "/valorant/local.py"
-    }[name]
+
+def setup(app):
+    if app.config.language == "ja":
+        app.config.intersphinx_mapping["py"] = ("https://docs.python.org/ja/3", None)
