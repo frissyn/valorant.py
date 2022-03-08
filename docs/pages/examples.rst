@@ -2,7 +2,7 @@
 Library Examples
 ================
 
-The following examples explore different features of the library and how to use them. These snippets should get you started with the basics by showing you how to use each feature in a practical manner.
+The following examples show basic implementations of a few ``valorant.py`` features. These snippets should provide a starting point for more practical abstractions and use cases. 
 
 Quickstart
 ~~~~~~~~~~

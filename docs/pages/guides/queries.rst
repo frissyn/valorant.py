@@ -36,8 +36,8 @@ Or maybe the current act:
 
     act = acts.get(isActive=True)
 
-Expressions
-~~~~~~~~~~~
+Using Expressions
+~~~~~~~~~~~~~~~~~
 
 ``valorant.py`` also provides expression builders to create more complex queries. These utilities are most useful when filtering data from a more data intensive list, like the players on a :class:`LeaderboardDTO`. Let's assume the following leaderboard:
 

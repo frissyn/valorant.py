@@ -44,6 +44,12 @@ AbilityDTO
     :undoc-members:
 
 
+AbilityCastsDTO
+~~~~~~~~~~~~~~~
+.. autoclass:: AbilityCastsDTO
+    :members:
+    :undoc-members:
+
 AccountDTO
 ~~~~~~~~~~
 .. autoclass:: AccountDTO
@@ -107,6 +113,13 @@ FinishingDamageDTO
     :undoc-members:
 
 
+KillDTO
+~~~~~~~
+.. autoclass:: KillDTO
+    :members:
+    :undoc-members:
+
+
 LeaderboardDTO
 ~~~~~~~~~~~~~~
 .. autoclass:: LeaderboardDTO
@@ -117,6 +130,13 @@ LeaderboardDTO
 LeaderboardPlayerDTO
 ~~~~~~~~~~~~~~~~~~~~
 .. autoclass:: LeaderboardPlayerDTO
+    :members:
+    :undoc-members:
+
+
+LocationDTO
+~~~~~~~~~~~
+.. autoclass:: LocationDTO
     :members:
     :undoc-members:
 
@@ -166,6 +186,13 @@ PlatformDataDTO
 PlayerDTO
 ~~~~~~~~~
 .. autoclass:: PlayerDTO
+    :members:
+    :undoc-members:
+
+
+PlayerLocationsDTO
+~~~~~~~~~~~~~~~~~~
+.. autoclass:: PlayerLocationsDTO
     :members:
     :undoc-members:
 

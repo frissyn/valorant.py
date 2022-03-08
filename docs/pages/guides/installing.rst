@@ -14,11 +14,11 @@ Standard Installation
 
 The package is also available from the GitHub repository: ::
 
-    pip install git+https://github.com/frissyn/valorant.py/archive/master.tar.gz
+    pip install git+https://github.com/frissyn/valorant.py
 
 Of course, you can specify version tags as well: ::
 
-    pip install git+https://github.com/frissyn/valorant.py/archive/0.5.1.tar.gz
+    pip install git+https://github.com/frissyn/valorant.py@v0.5.1
 
 
 Bleeding Edge
@@ -26,7 +26,7 @@ Bleeding Edge
 
 If you'd like the bleeding edge version of ``valorant.py``, it's available from the ``dev`` branch of the GitHub repository. This version isn't guaranteed to be stable or documented very well, as this is the branch I work on in real time when adding features, bug fixing, etc. ::
 
-    pip install git+https://github.com/frissyn/valorant.py/archive/dev.tar.gz
+    pip install git+https://github.com/frissyn/valorant.py@dev
 
 Virtual Enviornments
 ~~~~~~~~~~~~~~~~~~~~
