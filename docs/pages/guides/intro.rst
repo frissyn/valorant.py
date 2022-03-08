@@ -24,7 +24,7 @@ Getting an API Key
 Making Requests
 ~~~~~~~~~~~~~~~
 
-Now let's get started using the library. Here's some sample code:
+Now let's get started using the library. Creating a new Python file, ``val_example.py``, let's put in some sample code:
 
 .. code-block:: python
     :linenos:
@@ -51,4 +51,26 @@ That's a lot to cover, so let's run through it step by step.
 
 2. The 5th line creates an instance of the :class:`Client`, which represents our connection to the Valorant API. By setting ``locale`` to ``None`` we can get content data in other languages, which will be handy in a second.
 
-3. 
+3. Next we make a request to the API for data on Gun and Melee Skins. This is a :class:`ContentList` of :class:`ContentItemDTO` objects, each representing a Skin.
+
+4. Now we want to get a skin collection name from the user, and show them all the gun skins in that collection. So the 8th line will get the user's input as ``name``.
+
+5. The 10th line is the most important of all. Here we use the query function :func:`ContentList.get_all` in order to serch the list of skins. We want to match every skin that has the given collection in its name, so we use the expression ``name in x.name``. ``x`` is the skin object, and by passing that expression as a lambda into the attribute, that expression will be matched against every skin in the list.
+
+6. Now that we have our list of skins in the ``results`` variable, let's print it out to the user! Lines 13 and 14 loop through the results and print each skin's name in a nice and neat manner :>
+
+7. And as an added bonus, because we didn't give the client a locale, we can also display each skin's Japanese name as well, using ``skin.localizedNames['ja-JP']``.
+
+Now to run it!
+
+.. code-block:: shell
+
+    $ python val_example.py
+
+Assuming everything goes well, your program should run smoothly and look like this:
+
+.. image:: ../../images/intro-result.jpg
+    :width: 60%
+    :alt: Example Program Result
+
+Congrats, you've written your first program with ``valorant.py``! Check out the other guides for more.
