@@ -25,7 +25,7 @@ setuptools.setup(
     python_requires=">=3.8.0",
 
     zip_safe=False,
-    packages=["valorant"],
+    packages=["valorant", "valorant/local", "valorant/objects"],
 
     classifiers=[
         "License :: OSI Approved :: MIT License",
