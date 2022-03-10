@@ -30,7 +30,7 @@ from .player import (
     PlayerStatsDTO,
 )
 
-from .ranked import LeaderboardPlayerDTO, LeaderboardDTO
+from .ranked import LeaderboardPlayerDTO, LeaderboardDTO, LeaderboardIterator
 
 
 __all__ = [
@@ -49,6 +49,7 @@ __all__ = [
     "KillDTO",
     "LeaderboardDTO",
     "LeaderboardPlayerDTO",
+    "LeaderboardIterator",
     "LocationDTO",
     "MatchDTO",
     "MatchInfoDTO",

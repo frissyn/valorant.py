@@ -13,6 +13,7 @@ from .objects import (
     ContentDTO,
     ContentItemDTO,
     LeaderboardDTO,
+    LeaderboardIterator,
     PlatformDataDTO,
 )
 
@@ -204,9 +205,17 @@ class Client(object):
         return self._content_if_cache().gameModes
 
     def get_leaderboard(
-        self, size: int = 100, page: int = 0, actID: t.Text = ""
-    ) -> LeaderboardDTO:
+        self,
+        size: int = 100,
+        page: int = 0,
+        pages: t.Optional[int] = None,
+        actID: t.Text = "",
+    ) -> t.Union[LeaderboardDTO, LeaderboardIterator]:
         actID = self.get_current_act().id if not actID else actID
+
+        if pages:
+            return LeaderboardIterator(self.handle, pages=pages, size=size, actID=actID)
+
         params = {"size": size, "startIndex": size * page}
 
         r = self.handle.call("GET", "leaderboard", params=params, actID=actID)
