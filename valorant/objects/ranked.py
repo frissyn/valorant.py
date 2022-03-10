@@ -1,4 +1,3 @@
-import json
 import typing as t
 
 from .content import ContentList
@@ -8,12 +7,19 @@ from ..caller import WebCaller
 
 
 class LeaderboardPlayerDTO(DTO):
-    puuid: str
-    gameName: str
-    tagLine: str
+    puuid: t.Optional[str]
+    gameName: t.Optional[str]
+    tagLine: t.Optional[str]
     leaderboardRank: int
     rankedRating: int
     numberOfWins: int
+
+    def __init__(self, obj):
+        super().__init__(obj)
+
+        for name in ["gameName", "tagLine", "puuid"]:
+            if not obj.get(name):
+                self.__setattr__(name, None)
 
 
 class LeaderboardDTO(DTO):
