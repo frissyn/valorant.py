@@ -45,11 +45,6 @@ class WebCaller(object):
         route: t.Optional[t.Text] = False,
         **kw,
     ) -> t.Mapping[str, t.Any]:
-        if ep not in list(self.eps.keys()):
-            raise ValueError
-        else:
-            pass
-
         prefix = self.base.format(root=self.route if route else self.region)
         url = prefix + self.eps[ep].format(**kw)
 

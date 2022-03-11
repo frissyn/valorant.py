@@ -293,9 +293,9 @@ class Client(object):
         """
 
         try:
-            r = self.handle.call("GET", "puuid", puuid=puuid)
+            r = self.handle.call("GET", "puuid", route=True, puuid=puuid)
         except requests.exceptions.HTTPError as e:
-            if e.response.status_code == 400:
+            if e.response.status_code in [400, 404]:
                 return None
             else:
                 e.response.raise_for_status()
@@ -303,7 +303,7 @@ class Client(object):
         return AccountDTO(r, self.handle)
 
     def get_user_by_name(self, name: t.Text) -> t.Optional[AccountDTO]:
-        """Gets a Riot Account by thier game name and tag line. Returns ``None`` if
+        """Gets a Riot Account by their game name and tag line. Returns ``None`` if
         user could not be found.
 
         :param name:
