@@ -1,7 +1,6 @@
 import os
 import ssl
 import json
-import base64
 import requests
 
 from ..lexicon import Lex
@@ -9,8 +8,15 @@ from ..lexicon import Lex
 
 class LocalClient(object):
     """Client for interacting with the local instance of the VALORANT application.
-    The game must be running for this class to function properly. Currently unstable,
-    support is coming soon.
+    This is called the `RCS API`. The game must be running for this class to function
+    properly. Currently unstable, complete support is coming soon.
+
+    .. warning::
+        While interacting with the RCS API is not
+        `explicitly disallowed <https://reddit.com/r/VALORANT/comments/oae5g6/comment/h3hwxtf>`_, 
+        please have some common sense. ``valorant.py`` is not liable for any punishment
+        you may recieve if you break Riot's Terms of Service. (`i.e. creating an Auto 
+        Agent Selector`)
 
     :param region:
         The region to instance the client with. If this doesn't match the game's
