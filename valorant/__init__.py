@@ -19,7 +19,7 @@ class Version(t.NamedTuple):
     release: t.Literal["alpha", "beta", "dev"]
 
 
-version_info = Version(major=1, minor=0, micro=1, release="")
+version_info = Version(major=1, minor=0, micro=2, release="dev")
 
 if not version_info.release:
     tag = ""
