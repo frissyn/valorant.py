@@ -4,24 +4,21 @@ from tests import BaseTest
 
 
 class TestContent(BaseTest):
-    def test_content(self):
-        content = self.client.get_content(cache=True)
+    def setUp(self):
+        super().setUp()
 
-        self.assertIsInstance(content, valorant.ContentDTO)
-        self.assertEqual(content, self.client.content)
+        self.content = self.client.get_content(cache=True)
 
-    def test_asset(self):
-        assets = {
-            "gamemode": self.client.asset(assetName="BombGameMode"),
-            "agent": self.client.asset(name="Viper"),
-            "map": self.client.asset(id="7EAECC1B-4337-BBF6-6AB9-04B8F06B3319"),
-        }
+    def test_asset_1(self):
+        asset = self.client.asset(name="Neon")
 
-        self.assertEqual(assets["gamemode"].name, "Standard")
-        self.assertEqual(assets["agent"].name, "Viper")
-        self.assertEqual(assets["map"].name, "Ascent")
+        self.assertEqual(asset.name, "Neon")
 
-    def test_leaderboard(self):
-        lb = self.client.get_leaderboard(100)
+    def test_asset_2(self):
+        asset = self.client.asset(id="7EAECC1B-4337-BBF6-6AB9-04B8F06B3319")
 
-        self.assertIsInstance(lb, valorant.LeaderboardDTO)
+        self.assertEqual(asset.name, "Ascent")
+
+    def test_content_attributes(self):
+        for name in valorant.Lex.CONTENT_NAMES:
+            self.assertHasAttr(self.content, name)

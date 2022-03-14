@@ -45,11 +45,6 @@ class WebCaller(object):
         route: t.Optional[t.Text] = False,
         **kw,
     ) -> t.Mapping[str, t.Any]:
-        if ep not in list(self.eps.keys()):
-            raise ValueError
-        else:
-            pass
-
         prefix = self.base.format(root=self.route if route else self.region)
         url = prefix + self.eps[ep].format(**kw)
 
@@ -57,18 +52,3 @@ class WebCaller(object):
         r.raise_for_status()
 
         return r.json()
-
-
-class ClientCaller(object):
-    def __init__(self, token: t.Text):
-        self.base = "https://pd.{code}.a.pvp.net/"
-        self.token = token
-
-        self.sess = requests.Session()
-        self.sess.headers.update(
-            {
-                "Authorization": f"Bearer {token}",
-                "Content-Type": "application/json",
-                "X-Riot-Entitlements-JWT": "riot_entitlement",
-            }
-        )
