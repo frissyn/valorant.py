@@ -302,7 +302,7 @@ class Client(object):
         try:
             r = self.handle.call("GET", "puuid", route=True, puuid=puuid)
         except requests.exceptions.HTTPError as e:
-            if e.response.status_code in [400, 404]:
+            if e.response.status_code in (400, 404):
                 return None
             else:
                 e.response.raise_for_status()
@@ -327,7 +327,7 @@ class Client(object):
                 "GET", "game-name", route=True, name=vals[0], tag=vals[1]
             )
         except requests.exceptions.HTTPError as e:
-            if e.response.status_code in [400, 404]:
+            if e.response.status_code in (400, 404):
                 return None
             else:
                 e.response.raise_for_status()
