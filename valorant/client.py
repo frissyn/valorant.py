@@ -290,12 +290,18 @@ class Client(object):
         """
         return self._content_if_cache().sprays
 
-    def get_user(self, puuid: t.Text) -> t.Optional[AccountDTO]:
+    def get_user(
+        self, puuid: t.Text, route: t.Text = "americas"
+    ) -> t.Optional[AccountDTO]:
         """Get a Riot Account by their PUUID. Returns ``None`` if user could not
         be found.
 
         :param puuid: The PUUID of the account to retrieve.
         :type puuid: str
+        :param route:
+            Geographical route to get the account from. See :data:`Lex.ROUTES` for
+            a list of valid routes. Defaults `americas`.
+        :type route: str
         :rtype: Optional[AccountDTO]
         """
 
@@ -309,7 +315,9 @@ class Client(object):
 
         return AccountDTO(r, self.handle)
 
-    def get_user_by_name(self, name: t.Text) -> t.Optional[AccountDTO]:
+    def get_user_by_name(
+        self, name: t.Text, route: t.Text = "americas"
+    ) -> t.Optional[AccountDTO]:
         """Gets a Riot Account by their game name and tag line. Returns ``None`` if
         user could not be found.
 
@@ -317,6 +325,10 @@ class Client(object):
             The account's full game name and tag line, split by a hastag.
             (i.e `frissyn#6969`)
         :type name: str
+        :param route:
+            Geographical route to get the account from. See :data:`Lex.ROUTES` for
+            a list of valid routes. Defaults `americas`.
+        :type route: str
         :rtype: Optional[AccountDTO]
         """
         vals = name.split("#")
