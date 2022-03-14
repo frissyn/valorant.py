@@ -83,9 +83,6 @@ class Lex:
     """List of content data attribute names."""
 
     ENDPOINTS = {
-        "client": {
-            "mmr": "mmr/v1/players/{playerID}/competitiveupdates",
-        },
         "web": {
             "content": "val/content/v1/contents",
             "game-name": "riot/account/v1/accounts/by-riot-id/{name}/{tag}",
@@ -101,11 +98,6 @@ class Lex:
 
     HEADERS = {
         "web": {"Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8"},
-        "client": {
-            "Authorization": "Bearer {token}",
-            "Content-Type": "application/json",
-            "X-Riot-Entitlements-JWT": "riot_entitlement",
-        },
     }
     """Default headers for the client and web API."""
 

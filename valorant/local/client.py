@@ -13,9 +13,9 @@ class LocalClient(object):
 
     .. warning::
         While interacting with the RCS API is not
-        `explicitly disallowed <https://reddit.com/r/VALORANT/comments/oae5g6/comment/h3hwxtf>`_, 
+        `explicitly disallowed <https://reddit.com/r/VALORANT/comments/oae5g6/comment/h3hwxtf>`_,
         please have some common sense. ``valorant.py`` is not liable for any punishment
-        you may recieve if you break Riot's Terms of Service. (`i.e. creating an Auto 
+        you may recieve if you break Riot's Terms of Service. (`i.e. creating an Auto
         Agent Selector`)
 
     :param region:

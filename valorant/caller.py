@@ -52,18 +52,3 @@ class WebCaller(object):
         r.raise_for_status()
 
         return r.json()
-
-
-class ClientCaller(object):
-    def __init__(self, token: t.Text):
-        self.base = "https://pd.{code}.a.pvp.net/"
-        self.token = token
-
-        self.sess = requests.Session()
-        self.sess.headers.update(
-            {
-                "Authorization": f"Bearer {token}",
-                "Content-Type": "application/json",
-                "X-Riot-Entitlements-JWT": "riot_entitlement",
-            }
-        )
