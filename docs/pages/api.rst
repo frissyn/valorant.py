@@ -127,6 +127,13 @@ LeaderboardDTO
     :undoc-members:
 
 
+LeaderboardIterator
+~~~~~~~~~~~~~~~~~~~
+.. autoclass:: LeaderboardIterator
+    :members:
+    :undoc-members:
+
+
 LeaderboardPlayerDTO
 ~~~~~~~~~~~~~~~~~~~~
 .. autoclass:: LeaderboardPlayerDTO

@@ -35,8 +35,13 @@ class LeaderboardDTO(DTO):
 
 
 class LeaderboardIterator:
+    """Simple iterator utility for getting multiple leaderboard pages.
+    Each iteraction returns a :class:`LeaderboardDTO`. See
+    :func:`Client.get_leaderboard` for more info.
+    """
+    
     def __init__(self, caller: WebCaller, pages: int = 1, **params):
-        self.handle = caller
+        self._handle = caller
         self.kwargs = params
         self.index, self.pages = 0, pages
 
@@ -57,6 +62,6 @@ class LeaderboardIterator:
                 },
             }
 
-            data = self.handle.call("GET", "leaderboard", **payload)
+            data = self._handle.call("GET", "leaderboard", **payload)
 
             return LeaderboardDTO(data)

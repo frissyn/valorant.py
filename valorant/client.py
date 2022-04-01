@@ -218,6 +218,50 @@ class Client(object):
         pages: t.Optional[int] = None,
         actID: t.Text = "",
     ) -> t.Union[LeaderboardDTO, LeaderboardIterator]:
+        """Get the ranked leaderboard for an Act in VALORANT.
+
+        :param size:
+            Size of the leaderboard players to include. Can be between ``1`` and ``100``.
+            If this value is greater than ``100``, the remaining items in leaderboard will
+            be ``None``.
+        :type size: int
+        :param page:
+            Page of the leaderboard to retrieve. For example, page 4 of a leaderboard
+            with a size of 50 will skip the first 200 players.
+        :param pages:
+            Number of pages to retrieve from the leaderboard. If specified, the ``page``
+            parameter will be ignored. This will return a :class:`LeaderboardIterator`
+            of the retrieved pages.
+        :type page: Optional[int]
+        :param actID:
+            ID of the Act to get the leaderboard from. This defaults to the currently
+            active Act.
+        :type actID: str
+
+        **Examples:**
+
+        .. code-block:: python
+
+            # Get players from 101-200th rank on the leaderboard.
+            lb = client.get_leaderboard(size=100, page=2)
+
+        .. code-block:: python
+
+            # Loop through multiple leaderboard pages.
+            pages = client.get_leaderboard(size=50, pages=3)
+
+            for page in pages:
+                print(page.totalPlayers)
+
+        .. note::
+
+            The :class:`LeaderboardIterator` will request the next page of the leaderboard
+            after each iteration. Be wary of running into ratelimits when iterating over
+            a large amount of pages.
+
+        :rtype: Union[LeaderboardDTO, LeaderboardIterator]
+        """
+        
         actID = self.get_current_act().id if not actID else actID
 
         if pages:
@@ -238,6 +282,10 @@ class Client(object):
         return self._content_if_cache().maps
 
     def get_platform_status(self) -> PlatformDataDTO:
+        """Get status of VALORANT for the given platform.
+        
+        :rtype: PlatformDataDTO
+        """
         r = self.handle.call("GET", "status")
 
         return PlatformDataDTO(r)
