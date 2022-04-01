@@ -4,10 +4,7 @@ import typing as t
 
 class DTOEncoder(json.JSONEncoder):
     def default(self, o):
-        if isinstance(o, DTO):
-            return o._json
-
-        return json.JSONEncoder.default(self, o)
+        return o._json if isinstance(o, DTO) else json.JSONEncoder.default(self, o)
 
 
 class DTO(object):
@@ -33,10 +30,7 @@ class DTO(object):
 
     @classmethod
     def optional(cls, obj: t.Optional[t.Mapping]) -> t.Optional:
-        if obj != None:
-            return cls(obj)
-
-        return None
+        return cls(obj) if obj != None else None
 
     def json(self) -> dict:
         """Return a JSON (dictionary) representation of this DTO.

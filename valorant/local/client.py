@@ -69,12 +69,6 @@ class LocalClient(object):
         if user:
             puuid = self.get_session()["puuid"]
 
-            for u in data["presences"]:
-                if u["puuid"] == puuid:
-                    return u
-                else:
-                    pass
-
-            return {}
+            return next((u for u in data["presences"] if u["puuid"] == puuid), {})
         else:
             return data

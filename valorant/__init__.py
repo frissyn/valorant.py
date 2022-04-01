@@ -21,9 +21,5 @@ class Version(t.NamedTuple):
 
 version_info = Version(major=1, minor=0, micro=2, release="dev")
 
-if not version_info.release:
-    tag = ""
-else:
-    tag = "-" + version_info.release
-
+tag = f"-{version_info.release}" if version_info.release else ""
 __version__ = ".".join(str(i) for i in version_info[:3]) + tag

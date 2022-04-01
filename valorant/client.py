@@ -73,9 +73,7 @@ class Client(object):
             self.content = None
 
     def _content_if_cache(self) -> ContentDTO:
-        content = getattr(self, "content", None)
-
-        if content:
+        if content := getattr(self, "content", None):
             return content
         else:
             return ContentDTO(self.handle.call("GET", "content"))
@@ -105,9 +103,7 @@ class Client(object):
         content = self._content_if_cache()
 
         for name in Lex.CONTENT_NAMES:
-            el = getattr(content, name).get(**attributes)
-
-            if el:
+            if el := getattr(content, name).get(**attributes):
                 return el
 
         return None
@@ -192,7 +188,7 @@ class Client(object):
         :rtype: Optional[ActDTO]
         """
 
-        return self.get_acts().find(isActive=True)
+        return self.get_acts().get(isActive=True)
 
     def get_equips(self) -> t.List[ContentItemDTO]:
         """Get a :class:`ContentList` of :class:`ContentItemDTO` objects that each
@@ -261,8 +257,8 @@ class Client(object):
 
         :rtype: Union[LeaderboardDTO, LeaderboardIterator]
         """
-        
-        actID = self.get_current_act().id if not actID else actID
+
+        actID = actID or self.get_current_act().id
 
         if pages:
             return LeaderboardIterator(self.handle, pages=pages, size=size, actID=actID)
@@ -283,7 +279,7 @@ class Client(object):
 
     def get_platform_status(self) -> PlatformDataDTO:
         """Get status of VALORANT for the given platform.
-        
+
         :rtype: PlatformDataDTO
         """
         r = self.handle.call("GET", "status")
