@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+pip install black > /dev/null 2>&1
+black valorant tests
