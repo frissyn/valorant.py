@@ -15,6 +15,7 @@ from .objects import (
     LeaderboardDTO,
     LeaderboardIterator,
     PlatformDataDTO,
+    MatchDTO,
 )
 
 
@@ -277,6 +278,11 @@ class Client(object):
         """
         return self._content_if_cache().maps
 
+    def get_match(self, id: t.Text) -> t.Optional[MatchDTO]:
+        r = self.handle.call("GET", "match", matchID=id, escape_if=(400, 404))
+
+        return MatchDTO(r) if r else None
+
     def get_platform_status(self) -> PlatformDataDTO:
         """Get status of VALORANT for the given platform.
 
@@ -349,15 +355,11 @@ class Client(object):
         :rtype: Optional[AccountDTO]
         """
 
-        try:
-            r = self.handle.call("GET", "puuid", route=True, puuid=puuid)
-        except requests.exceptions.HTTPError as e:
-            if e.response.status_code in (400, 404):
-                return None
-            else:
-                e.response.raise_for_status()
+        r = self.handle.call(
+            "GET", "puuid", route=True, puuid=puuid, escape_if=(400, 404)
+        )
 
-        return AccountDTO(r, self.handle)
+        return AccountDTO(r, self.handle) if r else None
 
     def get_user_by_name(
         self, name: t.Text, route: t.Text = "americas"
@@ -378,14 +380,13 @@ class Client(object):
         vals = name.split("#")
         vals = [urllib.parse.quote(v, safe=Lex.SAFES) for v in vals]
 
-        try:
-            r = self.handle.call(
-                "GET", "game-name", route=True, name=vals[0], tag=vals[1]
-            )
-        except requests.exceptions.HTTPError as e:
-            if e.response.status_code in (400, 404):
-                return None
-            else:
-                e.response.raise_for_status()
+        r = self.handle.call(
+            "GET",
+            "game-name",
+            route=True,
+            name=vals[0],
+            tag=vals[1],
+            escape_if=(400, 404),
+        )
 
-        return AccountDTO(r, self.handle)
+        return AccountDTO(r, self.handle) if r else None
