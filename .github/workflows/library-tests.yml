@@ -1,0 +1,22 @@
+name: Library Tests
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+      
+      - env:
+          VALORANT_KEY: ${{ secrets.VALORANT_KEY }}
+
+      - name: Install local package
+        run: |
+          pip install -e . --user
+
+      - name: Run library tests
+        run: |
+          python -m tests
