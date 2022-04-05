@@ -35,8 +35,13 @@ class LeaderboardDTO(DTO):
 
 
 class LeaderboardIterator:
+    """Simple iterator utility for getting multiple leaderboard pages.
+    Each iteraction returns a :class:`LeaderboardDTO`. See
+    :func:`Client.get_leaderboard` for more info.
+    """
+
     def __init__(self, caller: WebCaller, pages: int = 1, **params):
-        self.handle = caller
+        self._handle = caller
         self.kwargs = params
         self.index, self.pages = 0, pages
 
@@ -46,17 +51,16 @@ class LeaderboardIterator:
     def __next__(self) -> LeaderboardDTO:
         if self.index >= self.pages:
             raise StopIteration
-        else:
-            self.index += 1
 
-            payload = {
-                "actID": self.kwargs["actID"],
-                "params": {
-                    "size": self.kwargs["size"],
-                    "startIndex": (self.index - 1) * self.kwargs["size"],
-                },
-            }
+        payload = {
+            "actID": self.kwargs["actID"],
+            "params": {
+                "size": self.kwargs["size"],
+                "startIndex": (self.index) * self.kwargs["size"],
+            },
+        }
 
-            data = self.handle.call("GET", "leaderboard", **payload)
+        self.index += 1
+        data = self._handle.call("GET", "leaderboard", **payload)
 
-            return LeaderboardDTO(data)
+        return LeaderboardDTO(data)

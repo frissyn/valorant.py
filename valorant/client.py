@@ -15,6 +15,7 @@ from .objects import (
     LeaderboardDTO,
     LeaderboardIterator,
     PlatformDataDTO,
+    MatchDTO,
 )
 
 
@@ -73,9 +74,7 @@ class Client(object):
             self.content = None
 
     def _content_if_cache(self) -> ContentDTO:
-        content = getattr(self, "content", None)
-
-        if content:
+        if content := getattr(self, "content", None):
             return content
         else:
             return ContentDTO(self.handle.call("GET", "content"))
@@ -105,9 +104,7 @@ class Client(object):
         content = self._content_if_cache()
 
         for name in Lex.CONTENT_NAMES:
-            el = getattr(content, name).get(**attributes)
-
-            if el:
+            if el := getattr(content, name).get(**attributes):
                 return el
 
         return None
@@ -192,7 +189,7 @@ class Client(object):
         :rtype: Optional[ActDTO]
         """
 
-        return self.get_acts().find(isActive=True)
+        return self.get_acts().get(isActive=True)
 
     def get_equips(self) -> t.List[ContentItemDTO]:
         """Get a :class:`ContentList` of :class:`ContentItemDTO` objects that each
@@ -218,7 +215,51 @@ class Client(object):
         pages: t.Optional[int] = None,
         actID: t.Text = "",
     ) -> t.Union[LeaderboardDTO, LeaderboardIterator]:
-        actID = self.get_current_act().id if not actID else actID
+        """Get the ranked leaderboard for an Act in VALORANT.
+
+        :param size:
+            Size of the leaderboard players to include. Can be between ``1`` and ``100``.
+            If this value is greater than ``100``, the remaining items in leaderboard will
+            be ``None``.
+        :type size: int
+        :param page:
+            Page of the leaderboard to retrieve. For example, page 4 of a leaderboard
+            with a size of 50 will skip the first 200 players.
+        :param pages:
+            Number of pages to retrieve from the leaderboard. If specified, the ``page``
+            parameter will be ignored. This will return a :class:`LeaderboardIterator`
+            of the retrieved pages.
+        :type page: Optional[int]
+        :param actID:
+            ID of the Act to get the leaderboard from. This defaults to the currently
+            active Act.
+        :type actID: str
+
+        **Examples:**
+
+        .. code-block:: python
+
+            # Get players from 101-200th rank on the leaderboard.
+            lb = client.get_leaderboard(size=100, page=2)
+
+        .. code-block:: python
+
+            # Loop through multiple leaderboard pages.
+            pages = client.get_leaderboard(size=50, pages=3)
+
+            for page in pages:
+                print(page.totalPlayers)
+
+        .. note::
+
+            The :class:`LeaderboardIterator` will request the next page of the leaderboard
+            after each iteration. Be wary of running into ratelimits when iterating over
+            a large amount of pages.
+
+        :rtype: Union[LeaderboardDTO, LeaderboardIterator]
+        """
+
+        actID = actID or self.get_current_act().id
 
         if pages:
             return LeaderboardIterator(self.handle, pages=pages, size=size, actID=actID)
@@ -237,7 +278,16 @@ class Client(object):
         """
         return self._content_if_cache().maps
 
+    def get_match(self, id: t.Text) -> t.Optional[MatchDTO]:
+        r = self.handle.call("GET", "match", matchID=id, escape_if=(400, 404))
+
+        return MatchDTO(r) if r else None
+
     def get_platform_status(self) -> PlatformDataDTO:
+        """Get status of VALORANT for the given platform.
+
+        :rtype: PlatformDataDTO
+        """
         r = self.handle.call("GET", "status")
 
         return PlatformDataDTO(r)
@@ -305,15 +355,11 @@ class Client(object):
         :rtype: Optional[AccountDTO]
         """
 
-        try:
-            r = self.handle.call("GET", "puuid", route=True, puuid=puuid)
-        except requests.exceptions.HTTPError as e:
-            if e.response.status_code in (400, 404):
-                return None
-            else:
-                e.response.raise_for_status()
+        r = self.handle.call(
+            "GET", "puuid", route=True, puuid=puuid, escape_if=(400, 404)
+        )
 
-        return AccountDTO(r, self.handle)
+        return AccountDTO(r, self.handle) if r else None
 
     def get_user_by_name(
         self, name: t.Text, route: t.Text = "americas"
@@ -334,14 +380,13 @@ class Client(object):
         vals = name.split("#")
         vals = [urllib.parse.quote(v, safe=Lex.SAFES) for v in vals]
 
-        try:
-            r = self.handle.call(
-                "GET", "game-name", route=True, name=vals[0], tag=vals[1]
-            )
-        except requests.exceptions.HTTPError as e:
-            if e.response.status_code in (400, 404):
-                return None
-            else:
-                e.response.raise_for_status()
+        r = self.handle.call(
+            "GET",
+            "game-name",
+            route=True,
+            name=vals[0],
+            tag=vals[1],
+            escape_if=(400, 404),
+        )
 
-        return AccountDTO(r, self.handle)
+        return AccountDTO(r, self.handle) if r else None

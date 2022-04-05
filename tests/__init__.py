@@ -5,7 +5,7 @@ import unittest
 
 class BaseTest(unittest.TestCase):
     def setUp(self):
-        KEY = os.environ["VALPY-KEY"]
+        KEY = os.environ["VALPY_KEY"]
 
         self.access_key = KEY
         self.client = valorant.Client(KEY, locale=None, load_content=False)
