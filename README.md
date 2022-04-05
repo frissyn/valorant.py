@@ -2,7 +2,7 @@
 
 [![Actions](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Ffrissyn%2Fvalorant.py%2Fbadge%3Fref%3Dmaster&style=flat-square)](https://actions-badge.atrox.dev/frissyn/valorant.py/goto?ref=master)
 [![PyPI](https://img.shields.io/pypi/v/valorant?style=flat-square)](https://pypi.python.org/pypi/valorant)
-[![Downloads](https://pepy.tech/badge/valorant/month)](https://pepy.tech/project/valorant)
+[![Downloads](https://img.shields.io/pypi/dm/valorant?style=flat-square)](https://pepy.tech/project/valorant)
 ![LICENSE](https://img.shields.io/github/license/frissyn/valorant.py?style=flat-square)
 [![Discord](https://img.shields.io/badge/discord-join-7389D8?style=flat-square&logo=discord)](https://discord.gg/b3qjk4epPr)
 
