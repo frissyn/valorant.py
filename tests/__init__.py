@@ -8,7 +8,7 @@ class BaseTest(unittest.TestCase):
         KEY = os.environ["VALPY_KEY"]
 
         self.access_key = KEY
-        self.client = valorant.Client(KEY, locale=None, load_content=False)
+        self.client = valorant.Client(KEY, locale=None, load_content=True)
 
     def tearDown(self):
         self.client.handle.sess.close()
