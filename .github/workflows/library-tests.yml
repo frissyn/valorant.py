@@ -3,17 +3,22 @@ name: Library Tests
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  tests:
+  test:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9', '3.10']
+    env:
+      VALPY_KEY: ${{ secrets.VALPY_KEY }}
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
+      - name: Setup Python v${{ matrix.python-version }}
+        uses: actions/setup-python@v3
         with:
-          python-version: '3.9'
-
-      - env:
-          VALPY_KEY: ${{ secrets.VALPY_KEY }}
-
+          python-version: ${{ matrix.python-version }}
+      - name: Install missing dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install requests
       - name: Run library tests
-      - run: python -m tests
+        run: python -m tests
