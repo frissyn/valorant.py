@@ -20,7 +20,7 @@ class Version(t.NamedTuple):
     release: t.Literal["alpha", "beta", "dev"]
 
 
-version_info = Version(major=1, minor=0, micro=3, release="dev")
+version_info = Version(major=1, minor=0, micro=3, release="")
 
 tag = f"-{version_info.release}" if version_info.release else ""
 __version__ = ".".join(str(i) for i in version_info[:3]) + tag
