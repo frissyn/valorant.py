@@ -1,13 +1,25 @@
 name: Library Tests
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    branches:
+      - 'master'
+      - 'dev'
+    paths:
+      - 'valorant/**'
+  pull_request:
+    branches:
+      - 'master'
+      - 'dev'
+    types: [opened, reopened, synchronize, ready_for_review, review_requested]
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.8', '3.9', '3.10']
+        python-version: ['3.10']
     env:
       VALPY_KEY: ${{ secrets.VALPY_KEY }}
     steps:
