@@ -41,12 +41,12 @@ class WebCaller(object):
         self,
         m: t.Text,
         ep: t.Text,
-        escape_if: t.Tuple[int] = (),
+        escape_if: t.Tuple[int, ...] = (),
         params: t.Optional[t.Mapping] = None,
         route: t.Optional[t.Text] = False,
         **kw,
     ) -> t.Optional[t.Mapping[str, t.Any]]:
-        prefix = self.base.format(root=self.route if route else self.region)
+        prefix = self.base.format(root=route if route else self.region)
         url = prefix + self.eps[ep].format(**kw)
 
         r = self.sess.request(m, url, params=params)
@@ -54,6 +54,4 @@ class WebCaller(object):
         if r.status_code in escape_if:
             return None
 
-        r.raise_for_status()
-
-        return r.json()
+        return r.raise_for_status() or r.json()

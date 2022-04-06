@@ -356,7 +356,7 @@ class Client(object):
         """
 
         r = self.handle.call(
-            "GET", "puuid", route=True, puuid=puuid, escape_if=(400, 404)
+            "GET", "puuid", route=route, puuid=puuid, escape_if=(400, 404)
         )
 
         return AccountDTO(r, self.handle) if r else None
@@ -383,7 +383,7 @@ class Client(object):
         r = self.handle.call(
             "GET",
             "game-name",
-            route=True,
+            route=route,
             name=vals[0],
             tag=vals[1],
             escape_if=(400, 404),
