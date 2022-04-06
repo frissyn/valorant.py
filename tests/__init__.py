@@ -19,4 +19,3 @@ class BaseTest(unittest.TestCase):
 
 
 from .client import *
-git 
