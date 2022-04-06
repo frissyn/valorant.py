@@ -4,7 +4,7 @@ from tests import BaseTest
 
 
 class TestContent(BaseTest):
-    def setUp(self):
+    def setUp(self, *a, **kw):
         super().setUp()
 
         self.content = self.client.get_content(cache=True)

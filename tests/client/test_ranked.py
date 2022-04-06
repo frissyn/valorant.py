@@ -4,8 +4,8 @@ from tests import BaseTest
 
 
 class TestRanked(BaseTest):
-    def setUp(self):
-        super().setUp()
+    def setUp(self, *a, **kw):
+        super().setUp(*a, **kw)
 
         self.lb = self.client.get_leaderboard(10)
         self.iterator = self.client.get_leaderboard(pages=3, size=10)
