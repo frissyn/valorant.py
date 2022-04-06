@@ -14,9 +14,7 @@ class BaseTest(unittest.TestCase):
         self.client.handle.sess.close()
 
     def assertHasAttr(self, obj: object, attr: str):
-        exp = hasattr(obj, attr)
-
-        if not exp:
+        if not hasattr(obj, attr):
             self.fail(f"{obj.__class__} has no attribute '{attr}'.")
 
 
