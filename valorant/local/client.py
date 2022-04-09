@@ -3,6 +3,7 @@ import ssl
 import json
 import requests
 
+from .lockfile import Lockfile
 from ..lexicon import Lex
 
 
@@ -29,19 +30,18 @@ class LocalClient(object):
             raise ValueError(f"'{reigon}' is not a supported reigon for LocalClient.")
 
         self.reigon = reigon
-        self.lockfile = "".join(
-            [os.getenv("LOCALAPPDATA"), r"\Riot Games\Riot Client\Config\lockfile"]
-        )
+        path = fr"{os.getenv('LOCALAPPDATA')}\Riot Games\Riot Client\Config\lockfile"
+        self.lock = Lockfile.new(path)
 
-        with open(self.lockfile, "r") as f:
-            data = f.read().split(":")
-
-        self.base_url = f"{data[4]}://127.0.0.1:{data[2]}"
         self.s = requests.Session()
-        self.s.auth = ("riot", data[3])
+        self.s.auth = ("riot", self.lock.password)
+        self.base_url = f"{self.lock.protocol}://127.0.0.1:{self.lock.port}"
 
-    def _url(self, path: str) -> str:
-        return self.base_url + path
+    def _call(self, meth: str, path: str) -> dict:
+        url = f"{self.base_url}/{path}"
+        data = self.s.request(meth, url, verify=ssl.CERT_NONE)
+
+        return data.json()
 
     def get_session(self) -> dict:
         """Get the current session of the player at the moment this function
@@ -49,9 +49,7 @@ class LocalClient(object):
 
         :rtype: dict
         """
-        data = self.s.get(self._url("/chat/v1/session"), verify=ssl.CERT_NONE)
-
-        return json.loads(data.content)
+        return self._call("GET", "chat/v1/session")
 
     def get_presences(self, user=False) -> dict:
         """Get presence data for everyone connected to the player's lobby. If the
@@ -63,8 +61,7 @@ class LocalClient(object):
 
         :rtype: dict
         """
-        data = self.s.get(self._url("/chat/v4/presences"), verify=ssl.CERT_NONE)
-        data = json.loads(data.content)
+        data = self._call("GET", "chat/v4/presences")
 
         if user:
             puuid = self.get_session()["puuid"]
