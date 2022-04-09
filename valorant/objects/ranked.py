@@ -3,7 +3,7 @@ import typing as t
 from .content import ContentList
 from .dto import DTO
 
-from ..caller import WebCaller
+from ..callers import CallerType
 
 
 class LeaderboardPlayerDTO(DTO):
@@ -40,8 +40,8 @@ class LeaderboardIterator:
     :func:`Client.get_leaderboard` for more info.
     """
 
-    def __init__(self, caller: WebCaller, pages: int = 1, **params):
-        self._handle = caller
+    def __init__(self, caller: CallerType, pages: int = 1, **params):
+        self.handle = caller
         self.kwargs = params
         self.index, self.pages = 0, pages
 
@@ -64,3 +64,9 @@ class LeaderboardIterator:
         data = self._handle.call("GET", "leaderboard", **payload)
 
         return LeaderboardDTO(data)
+
+    def __aiter__(self):
+        pass
+
+    def __anext__(self):
+        pass

@@ -1,10 +1,9 @@
-import requests
 import typing as t
 import urllib.parse
 
 from .lexicon import Lex
 
-from .caller import WebCaller
+from .callers import WebCaller
 
 from .objects import (
     DTO,
@@ -66,21 +65,21 @@ class Client(object):
         self.route = route
         self.locale = locale
         self.region = region
-        self.handle = WebCaller(key, locale, region, route)
+        self.handle = WebCaller(key, locale=locale, region=region, route=route)
 
         if load_content:
             self.get_content(cache=True)
         else:
             self.content = None
 
+    def __getattribute__(self, name):
+        return super(Client, self).__getattribute__(name)
+
     def _content_if_cache(self) -> ContentDTO:
         if content := getattr(self, "content", None):
             return content
         else:
             return ContentDTO(self.handle.call("GET", "content"))
-
-    def __getattribute__(self, name):
-        return super(Client, self).__getattribute__(name)
 
     def asset(
         self, **attributes: t.Mapping[t.Text, t.Any]
@@ -161,7 +160,7 @@ class Client(object):
 
         return chromas
 
-    def get_content(self, cache: bool = True) -> ContentDTO:
+    def get_content(self, cache: bool = False) -> ContentDTO:
         """Get complete content data from VALORANT.
 
         :param cache: If set to ``True``, the Client will cache the response data,
@@ -377,8 +376,7 @@ class Client(object):
         :type route: str
         :rtype: Optional[AccountDTO]
         """
-        vals = name.split("#")
-        vals = [urllib.parse.quote(v, safe=Lex.SAFES) for v in vals]
+        vals = [urllib.parse.quote(v, safe=Lex.SAFES) for v in name.split("#")]
 
         r = self.handle.call(
             "GET",

@@ -3,6 +3,7 @@ from __future__ import annotations
 import typing as t
 from datetime import datetime
 
+from ..callers import CallerType
 from .content import ContentList
 from .dto import DTO
 from .player import PlayerDTO, LocationDTO, PlayerStatsDTO, PlayerLocationsDTO
@@ -99,20 +100,29 @@ class MatchlistEntryDTO(DTO):
     matchId: str
     gameStartMillis: int
     teamId: str
+    timestamp: datetime
 
-    def __init__(self, obj, handle):
-        self._json = obj
+    def __init__(self, obj, handle: CallerType):
+        super().__init__(obj)
+
         self._handle = handle
         self.id = obj["matchId"]
-        self.set_attributes(obj)
+        self.timestamp = datetime.fromtimestamp(self.gameStartMillis / 1000.0)
 
-    def get(self) -> MatchDTO:
+        if handle.async_:
+            self.__setattr__("get", self._async_get)
+        else:
+            self.__setattr__("get", self._sync_get)
+
+    def _sync_get(self) -> MatchDTO:
         match = self._handle.call("GET", "match", matchID=self.id)
 
         return MatchDTO(match)
 
-    def timestamp(self) -> datetime:
-        return datetime.fromtimestamp(self.gameStartMillis / 1000.0)
+    async def _async_get(self) -> MatchDTO:
+        match = await self._handle.call("GET", "match", matchID=self.id)
+
+        return MatchDTO(match)
 
 
 class PlayerRoundStatsDTO(DTO):
