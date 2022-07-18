@@ -103,6 +103,8 @@ class Lex:
 
     RANKS = {
         0: "Unrated",
+        1: "Unused1",
+        2: "Unused2",
         3: "Iron 1",
         4: "Iron 2",
         5: "Iron 3",
@@ -121,9 +123,12 @@ class Lex:
         18: "Diamond 1",
         19: "Diamond 2",
         20: "Diamond 3",
-        21: "Immortal 1",
-        22: "Immortal 2",
-        23: "Immortal 3",
-        24: "Radiant",
+        21: "Ascendant 1",
+        22: "Ascendant 2",
+        23: "Ascendant 3",
+        24: "Immortal 1",
+        25: "Immortal 2",
+        26: "Immortal 3",
+        27: "Radiant",
     }
     """Mapping of competitiveTier values to rank title."""
