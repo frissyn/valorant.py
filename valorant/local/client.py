@@ -24,11 +24,11 @@ class LocalClient(object):
     :type region: str
     """
 
-    def __init__(self, reigon="na"):
-        if reigon not in Lex.REGIONS:
-            raise ValueError(f"'{reigon}' is not a supported reigon for LocalClient.")
+    def __init__(self, region="na"):
+        if region not in Lex.REGIONS:
+            raise ValueError(f"'{region}' is not a supported region for LocalClient.")
 
-        self.reigon = reigon
+        self.region = region
         self.lockfile = "".join(
             [os.getenv("LOCALAPPDATA"), r"\Riot Games\Riot Client\Config\lockfile"]
         )
