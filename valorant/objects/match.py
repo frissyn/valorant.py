@@ -144,7 +144,7 @@ class RoundResultDTO(DTO):
     defuseRoundTime: int
     defusePlayerLocations: t.Optional[t.List[PlayerLocationsDTO]]
     defuseLocation: LocationDTO
-    playerStats: t.List[PlayerStatsDTO]
+    playerStats: t.List[PlayerRoundStatsDTO]
     roundResultCode: str
 
     def __init__(self, obj):
