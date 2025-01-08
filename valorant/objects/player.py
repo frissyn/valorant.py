@@ -81,11 +81,12 @@ class PlayerDTO(DTO):
     competitiveTier: int
     playerCard: str
     playerTitle: str
+    accountLevel: int
 
     def __init__(self, obj):
         super().__init__(obj)
 
-        self.stats = PlayerDTO.optional(obj.get("stats"))
+        self.stats = PlayerStatsDTO.optional(obj.get("stats"))
 
         if obj.get("competitiveTier"):
             self.rank = Lex.RANKS[self.competitiveTier]
