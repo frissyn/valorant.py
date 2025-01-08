@@ -125,7 +125,13 @@ class PlayerRoundStatsDTO(DTO):
 
     def __init__(self, obj):
         super().__init__(obj)
-
+        
+        self.kills = ContentList(
+            KillDTO(k) for k in obj["kills"]
+        )            
+        self.damage = ContentList(
+            DamageDTO(d) for d in obj["damage"]
+        )    
         self.economy = EconomyDTO(obj["economy"])
         self.ability = AbilityDTO(obj["ability"])
 
