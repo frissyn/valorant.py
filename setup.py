@@ -23,6 +23,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
 
     python_requires=">=3.8.0",
+    install_requires=["requests"]
 
     zip_safe=False,
     packages=["valorant", "valorant/local", "valorant/objects"],

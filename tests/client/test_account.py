@@ -11,11 +11,12 @@ class TestAccount(BaseTest):
             "_7wNdRyj4cljexSBoGCESzJglohUbAM4H5kw"
         )
 
-        self.assertEqual(getattr(acc, "gameName", None), "frissyn")
         self.assertIsInstance(acc, valorant.AccountDTO)
+        self.assertEqual(getattr(acc, "gameName", None), "frissyn")
 
     def test_account_by_name(self):
-        acc = self.client.get_user_by_name("frissyn#6969")
+        # Using my static alternate account.
+        acc = self.client.get_user_by_name("friss#sick")
 
-        self.assertEqual(getattr(acc, "gameName", None), "frissyn")
         self.assertIsInstance(acc, valorant.AccountDTO)
+        self.assertEqual(getattr(acc, "gameName", None), "friss")

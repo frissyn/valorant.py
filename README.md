@@ -8,6 +8,8 @@
 
 `valorant.py` is an unofficial API wrapper for Riot Games' Valorant API endpoints. It's modern, easy to use, feature-rich, and intuitive!
 
+**[\*\*]** *Just a little note, the developement of this project will slow down a bit as I enter into college and other life stuff, but rest assured I don't plan on abandoning this. Thanks for understanding!*
+
 ## Features
 
 + **Simple:** High-level abstraction of API interactions; easy to use and easy to customize.
